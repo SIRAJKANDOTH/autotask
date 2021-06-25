@@ -13,6 +13,7 @@ const priceModuleABI = require('yieldster-abi/contracts/IPriceModule.json').abi;
 
 const livaOneMinter = "0x653e276642654c63b9A5Bf2ed0D41f89c4B80034";
 const priceModuleAddress = "0x7DC54c1c19db05f0127CE53cE33304b4835eC41A";
+const relayerAddress = "0xd1235f988cf494e97b92992ece0a4a2cbfec2ddf";
 
 
 exports.sentInstruction = async function (relayer, minterAddress, instruction) {
@@ -40,7 +41,35 @@ exports.getMaxAPYProtocol = async (vaultAddress, strategyAddress) => {
     }
 }
 
-exports.setActiveProtocol = (relayer, vaultAddress, protocolAddress) => {
+exports.estimateGas = async (from, to, data) => {
+    let txnObject = {
+        from,
+        to,
+        data
+    };
+    let estGas = await web3.eth.estimateGas(txnObject);
+    console.log("estGs:", estGas)
+    return estGas;
+}
+
+exports.getGasUsedInUSD = async (gasUsed) => {
+    try {
+        //for Mainnet
+        // const priceModule = require('yieldster-abi/contracts/PriceModule.json').abi;
+        // let oneEtherInWEI = await priceModule.methods.getLatestPrice('0x5f4eC3Df9cbd43714FE2740f5E3616155c5b8419').call();
+        // let oneEtherInUSD = oneEtherInWEI[0] / (10 ** 8)
+
+        let oneEtherInUSD = 276665659474 / (10 ** 8)
+        let currentGasPriceInWEI = await web3.eth.getGasPrice();
+        let gasUsedInUSD = (currentGasPriceInWEI * gasUsed * oneEtherInUSD) / (10 ** 18)
+        return gasUsedInUSD;
+    } catch (error) {
+        throw error;
+    }
+
+}
+
+exports.setActiveProtocol = async (relayer, vaultAddress, protocolAddress) => {
     try {
         let instruction = web3.eth.abi.encodeFunctionCall({
             name: 'setActiveProtocol',
@@ -66,6 +95,9 @@ exports.setActiveProtocol = (relayer, vaultAddress, protocolAddress) => {
         minterInstruction = minterInstruction.substring(2)
 
         console.log(`Sending protocol set instruction:- setActiveProtocol(address) with hash ${minterInstruction}, to safe :- ${vaultAddress}`);
+        let gasUsed = await exports.estimateGas(relayerAddress, livaOneMinter, minterInstruction);
+        let gasCost = await exports.getGasUsedInUSD(gasUsed);
+        console.log("GasCost: ", gasCost)
         return 'success'
         // let activeProtocolHash = await exports.sentInstruction(relayer, livaOneMinter, minterInstruction);
         // return activeProtocolHash
@@ -74,7 +106,7 @@ exports.setActiveProtocol = (relayer, vaultAddress, protocolAddress) => {
     }
 }
 
-exports.changeProtocol = (relayer, vaultAddress, protocolAddress) => {
+exports.changeProtocol = async (relayer, vaultAddress, protocolAddress) => {
     try {
         let instruction = web3.eth.abi.encodeFunctionCall({
             name: "changeProtocol",
@@ -100,6 +132,9 @@ exports.changeProtocol = (relayer, vaultAddress, protocolAddress) => {
         minterInstruction = minterInstruction.substring(2)
 
         console.log(`Sending protocol set instruction:- changeProtocol(address) with hash ${minterInstruction}, to safe :- ${vaultAddress}`);
+        let gasUsed = await exports.estimateGas(relayerAddress, livaOneMinter, minterInstruction);
+        let gasCost = await exports.getGasUsedInUSD(gasUsed);
+        console.log("GasCost: ", gasCost)
         // let changeProtocolHash = await exports.sentInstruction(relayer, livaOneMinter, minterInstruction);
         // return changeProtocolHash
     } catch (error) {
@@ -107,7 +142,7 @@ exports.changeProtocol = (relayer, vaultAddress, protocolAddress) => {
     }
 }
 
-exports.callingEARN = (relayer, safeAddress, vaultAssetList, totalAssetPriceList) => {
+exports.callingEARN = async (relayer, safeAddress, vaultAssetList, totalAssetPriceList) => {
     try {
         let earnInstruction = web3.eth.abi.encodeFunctionCall({
             name: "earn",
@@ -127,10 +162,15 @@ exports.callingEARN = (relayer, safeAddress, vaultAssetList, totalAssetPriceList
         }, [safeAddress, vaultAssetList, totalAssetPriceList]);
         earnInstruction = earnInstruction.substring(2)
 
+
+        console.log("EarnInstruction: ", earnInstruction)
+        let gasUsed = await exports.estimateGas(relayerAddress, livaOneMinter, earnInstruction);
+        let gasCost = await exports.getGasUsedInUSD(gasUsed);
+        console.log("GasCost: ", gasCost)
+
         // let earnInstructionHash = await exports.sentInstruction(relayer, livaOneMinter, earnInstruction)
         // console.log("earnInstructionHash:", earnInstructionHash)
         // return earnInstructionHash
-        console.log("EarnInstruction: ", earnInstruction)
         return 'success'
     } catch (error) {
         return `Error occured while calling EARN, ${error.message}`

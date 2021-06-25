@@ -1,4 +1,5 @@
 const axios = require('axios')
+
 const Web3 = require("web3");
 const provider = new Web3.providers.WebsocketProvider("wss://rinkeby.infura.io/ws/v3/df57c5da4e444a4c94b362aeec143e9e")
 let web3 = new Web3(provider);
@@ -7,25 +8,22 @@ const APSAddress = "0x400272944fCf2A43591C5cE2a60d239AacbFED5F";
 const PRICE_MODULE = "0x7DC54c1c19db05f0127CE53cE33304b4835eC41A";
 
 const ERC20Detailed = require("yieldster-abi/contracts/ERC20Detailed.json").abi;
-const yieldsterVault = require('yieldster-abi/contracts/YieldsterVault.json');
-const APContract = require('yieldster-abi/contracts/APContract.json');
-const IStrategy = require('yieldster-abi/contracts/IStrategy.json');
-const ERC20 = require('yieldster-abi/contracts/ERC20.json');
+const safeContractABI = require('yieldster-abi/contracts/YieldsterVault.json').abi;
+const apsContractABI = require('yieldster-abi/contracts/APContract.json').abi;
+const strategyContractABI = require('yieldster-abi/contracts/IStrategy.json').abi;
+const erc20ABI = require('yieldster-abi/contracts/ERC20.json').abi;
+
+const BASE_URL = "http://localhost:8050";
 
 
 exports.handler = async function () {
     try {
-        const erc20ABI = ERC20.abi;
-        const apsContractABI = APContract.abi;
-        const strategyContractABI = IStrategy.abi;
-        const safeContractABI = yieldsterVault.abi;
-
         let assetHisoryDataObject = {};
 
         let aps = new web3.eth.Contract(apsContractABI, APSAddress);
 
-        const assets = await axios.get(`http://52.203.100.234:8050/asset`)
-        const strategyList = await axios.get(`http://52.203.100.234:8050/strategy`)
+        const assets = await axios.get(`${BASE_URL}/asset`)
+        const strategyList = await axios.get(`${BASE_URL}/strategy`)
 
         if (assets.data && strategyList.data.data) {
             const yieldsterAssets = (assets.data).filter(x => {
@@ -120,7 +118,7 @@ exports.handler = async function () {
             } else {
                 assetHisoryDataObject.assetData = currentAssetPrices
             }
-            const vaults = await axios.get(`http://52.203.100.234:8050/vault`)
+            const vaults = await axios.get(`${BASE_URL}/vault`)
             if ((vaults.data.data).length > 0) {
                 let safeDetails = await Promise.all((vaults.data.data).map(async (vault) => {
                     try {
@@ -165,9 +163,15 @@ exports.handler = async function () {
                 assetHisoryDataObject.vaults = safeDetails;
             }
             assetHisoryDataObject.blockNumber = await web3.eth.getBlockNumber();
-            console.log(assetHisoryDataObject)
+
+            let returnedData = await axios.post(`${BASE_URL}/defender/vault-history`, assetHisoryDataObject);
+            if (returnedData.data.status) {
+                return returnedData.data.data
+            } else {
+                return "error occured while adding record"
+            }
         }
     } catch (error) {
-        console.log(`An error has occurred.${error}`)
+        return `An error has occurred.${error}`
     }
 }
