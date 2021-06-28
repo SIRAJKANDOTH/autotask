@@ -15,6 +15,7 @@ const livaOneMinter = "0x653e276642654c63b9A5Bf2ed0D41f89c4B80034";
 const priceModuleAddress = "0x7DC54c1c19db05f0127CE53cE33304b4835eC41A";
 const relayerAddress = "0xd1235f988cf494e97b92992ece0a4a2cbfec2ddf";
 
+const BASE_URL = "http://localhost:8050"
 
 exports.sentInstruction = async function (relayer, minterAddress, instruction) {
     const txRes = await relayer.sendTransaction({
@@ -183,7 +184,7 @@ exports.handler = async function (credentials) {
 
     let priceModule = new web3.eth.Contract(priceModuleABI, priceModuleAddress);
 
-    const vaults = await axios.get(`http://localhost:8050/vault`)
+    const vaults = await axios.get(`${BASE_URL}/vault`)
 
     if ((vaults.data.status) && ((vaults.data.data).length > 0)) {
 
@@ -202,6 +203,16 @@ exports.handler = async function (credentials) {
                         let protocolAddressData = await exports.getMaxAPYProtocol(vault.vaultAddress, vaultActiveStrategy)
                         if (protocolAddressData.protocolAddress != 0) {
                             let activeProtocolHash = await exports.setActiveProtocol(relayer, vault.vaultAddress, protocolAddressData.protocolAddress)
+                            let saveActiveProtocol = await axios.patch(`${BASE_URL}/defender/set-protocol`, {
+                                vaultAddress: vault.vaultAddress,
+                                strategyAddress: vaultActiveStrategy,
+                                protocolAddress: protocolAddressData.protocolAddress
+                            })
+                            if (saveActiveProtocol.data.status) {
+                                console.log('Active Protocol added to DB')
+                            } else {
+                                console.log('Error in saving active protocol to db')
+                            }
                             return activeProtocolHash
                         } else {
                             return 'Error occured in getting maxAPYProtocol'
@@ -209,17 +220,37 @@ exports.handler = async function (credentials) {
                     }
                     // To check if there is a need to change protocol
                     else if (vaultActiveProtocol && vaultActiveProtocol != "0x0000000000000000000000000000000000000000") {
-                        // Getting APY value of current active protocol
-                        const protocolAPYData = await axios.get(`http://localhost:8050/defender/protocol-apy?protocolAddress=${vaultActiveProtocol}`)
-                        // Getting protocol with max APY active in the strategy
-                        let maxProtocolData = await exports.getMaxAPYProtocol(vault.vaultAddress, vaultActiveStrategy)
 
-                        if ((protocolAPYData.data.status) && (protocolAPYData.data.data) && (maxProtocolData) && (maxProtocolData.protocolAddress)) {
-                            if ((protocolAPYData.data.data.oneWeekAPY) < (maxProtocolData.oneWeekAPY)) {
-                                let changeProtocolHash = await exports.changeProtocol(relayer, vault.vaultAddress, (maxProtocolData.protocolAddress))
-                                return changeProtocolHash
-                            } else {
-                                console.log("No need to change protocol")
+                        // to get current active protcol and its activated date
+                        const strategyProtcolData = await axios.get(`${BASE_URL}/vault/strategymap?vaultAddress=${vault.vaultAddress}&strategyAddress=${vaultActiveStrategy}`)
+                        if (strategyProtcolData.data.status) {
+                            let currentData = Date.parse(new Date()); //getting current date in Unix epoch time
+                            let numberOfDaysToAdd = (strategyProtcolData.data.data.invesmentDuration) * 24 * 60 * 60 * 1000; //converting days into millisenconds
+                            let lastActivatedDate = Date.parse(strategyProtcolData.data.data.activeProtocolDetails.activatedDate); //converting last protocol activated date into Unix epoch time format
+                            if ((currentData - lastActivatedDate) > numberOfDaysToAdd) {
+                                // Getting APY value of current active protocol
+                                const protocolAPYData = await axios.get(`${BASE_URL}/defender/protocol-apy?protocolAddress=${vaultActiveProtocol}`)
+                                // Getting protocol with max APY active in the strategy
+                                let maxProtocolData = await exports.getMaxAPYProtocol(vault.vaultAddress, vaultActiveStrategy)
+
+                                if ((protocolAPYData.data.status) && (protocolAPYData.data.data) && (maxProtocolData) && (maxProtocolData.protocolAddress)) {
+                                    if ((protocolAPYData.data.data.oneWeekAPY) < (maxProtocolData.oneWeekAPY)) {
+                                        let changeProtocolHash = await exports.changeProtocol(relayer, vault.vaultAddress, (maxProtocolData.protocolAddress))
+                                        let saveActiveProtocol = await axios.patch(`${BASE_URL}/defender/set-protocol`, {
+                                            vaultAddress: vault.vaultAddress,
+                                            strategyAddress: vaultActiveStrategy,
+                                            protocolAddress: protocolAddressData.protocolAddress
+                                        })
+                                        if (saveActiveProtocol.data.status) {
+                                            console.log('Active Protocol added to DB')
+                                        } else {
+                                            console.log('Error in saving active protocol to db')
+                                        }
+                                        return changeProtocolHash
+                                    } else {
+                                        console.log("No need to change protocol")
+                                    }
+                                }
                             }
                         }
                     }
