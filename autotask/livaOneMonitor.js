@@ -4,7 +4,7 @@ const {
 const axios = require('axios')
 
 const Web3 = require('web3');
-const provider = new Web3.providers.WebsocketProvider("wss://rinkeby.infura.io/ws/v3/df57c5da4e444a4c94b362aeec143e9e")
+const provider = new Web3.providers.WebsocketProvider("wss://mainnet.infura.io/ws/v3/af7e2e37cd6545479e7523246fbaaa08")
 let web3 = new Web3(provider);
 
 const safeContractABI = require('yieldster-abi/contracts/YieldsterVault.json').abi;
@@ -13,10 +13,10 @@ const priceModuleABI = require('yieldster-abi/contracts/IPriceModule.json').abi;
 const IVaultABI = require('yieldster-abi/contracts/IVault.json').abi;
 const ERC20 = require('yieldster-abi/contracts/ERC20.json').abi;
 const ERC20Detailed = require("yieldster-abi/contracts/ERC20Detailed.json").abi;
-const CRV3Pool = require("./crv3pool.json"); //TODO Change
+const CRV3Pool = require("yieldster-abi/contracts/curve3pool.json").abi;
 
-const livaOneMinter = "0x653e276642654c63b9A5Bf2ed0D41f89c4B80034";
-const priceModuleAddress = "0x7DC54c1c19db05f0127CE53cE33304b4835eC41A";
+const livaOneMinter = "0x7573E53adeC374AEe7BD63f7d33e456EAcd10631";
+const priceModuleAddress = "0xc98435837175795d216547a8edc9e0472604bbda";
 const relayerAddress = "0xd1235f988cf494e97b92992ece0a4a2cbfec2ddf";
 
 const BASE_URL = "http://localhost:8050"
@@ -174,14 +174,14 @@ exports.callingEARN = (relayer, safeAddress, vaultAssetList, totalAssetPriceList
         let safeContract = new web3.eth.Contract(safeContractABI, safeAddress);
         let curve3Pool = new web3.eth.Contract(CRV3Pool, crv3poolAddress);
 
-        let balanceOfDAI = await safeContract.methods.getTokenBalance(DAI).call();
-        let balanceOfUSDC = await safeContract.methods.getTokenBalance(USDC).call();
-        let balanceOfUSDT = await safeContract.methods.getTokenBalance(USDT).call();
+        let balanceOfDAI = await (await safeContract.methods.getTokenBalance(DAI).call()).toString();
+        let balanceOfUSDC = await (await safeContract.methods.getTokenBalance(USDC).call()).toString();
+        let balanceOfUSDT = await (await safeContract.methods.getTokenBalance(USDT).call()).toString();
 
         let nonCrvAssetList = nonCrvBaseTokens.map((val) => val.assetAddress);
         let nonCrvAssetTotalBalance = nonCrvBaseTokens.map((val) => val.assetTotalBalance);
 
-        let estimatedReturns = await curve3Pool.methods.calc_token_amount([balanceOfDAI, balanceOfUSDT, balanceOfUSDC], true).call();
+        let estimatedReturns = await curve3Pool.methods.calc_token_amount([balanceOfDAI,balanceOfUSDT,balanceOfUSDC],true).call();
         estimatedReturns = estimatedReturns * (1 - slippage);
 
         let dataParams = web3.eth.encodeParameters(
@@ -189,7 +189,7 @@ exports.callingEARN = (relayer, safeAddress, vaultAssetList, totalAssetPriceList
             [
                 [DAI, USDC, USDT],
                 [balanceOfDAI, balanceOfUSDC, balanceOfUSDT],
-                estimatedReturns,
+                estimatedReturns.toString(),
                 nonCrvAssetList,
                 nonCrvAssetTotalBalance
             ]
