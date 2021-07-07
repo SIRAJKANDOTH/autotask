@@ -42,7 +42,7 @@ exports.sentInstruction = async function (relayer, minterAddress, instruction) {
 
 exports.getMaxAPYProtocol = async (vaultAddress, strategyAddress) => {
     try {
-        const maxAPYProtocol = await axios.get(`http://localhost:8050/defender/max-apy?vaultAddress=${vaultAddress}&strategyAddress=${strategyAddress}`)
+        const maxAPYProtocol = await axios.get(`${BASE_URL}/defender/max-apy?vaultAddress=${vaultAddress}&strategyAddress=${strategyAddress}`)
         if ((maxAPYProtocol.data.status) && (maxAPYProtocol.data.data)) {
             console.log("Max APY Protocol", maxAPYProtocol.data.data)
             return (maxAPYProtocol.data.data)
@@ -68,11 +68,8 @@ exports.estimateGas = async (from, to, data) => {
 
 exports.getGasUsedInUSD = async (gasUsed) => {
     try {
-        //for Mainnet
-        // const priceModule = require('yieldster-abi/contracts/PriceModule.json').abi;
         let oneEtherInWEI = await priceModuleABI.methods.getLatestPrice('0x5f4eC3Df9cbd43714FE2740f5E3616155c5b8419').call();
         let oneEtherInUSD = oneEtherInWEI[0] / (10 ** 8)
-
         let currentGasPriceInWEI = await web3.eth.getGasPrice();
         let gasUsedInUSD = (currentGasPriceInWEI * gasUsed * oneEtherInUSD) / (10 ** 18)
         return gasUsedInUSD;
@@ -132,7 +129,7 @@ exports.setActiveProtocol = async (relayer, vaultAddress, protocolAddress) => {
     }
 }
 
-exports.changeProtocol = async (relayer, vaultAddress, protocolAddress) => {
+exports.changeProtocol = async (relayer, vaultAddress, threshold, protocolAddress, newProtocolAPY, activeProtocolAPY, vaultNAVInStrategy) => {
     try {
         let instruction = web3.eth.abi.encodeFunctionCall({
             name: "changeProtocol",
@@ -161,31 +158,87 @@ exports.changeProtocol = async (relayer, vaultAddress, protocolAddress) => {
         let gasUsed = await exports.estimateGas(relayerAddress, livaOneMinter, minterInstruction);
         let gasCost = await exports.getGasUsedInUSD(gasUsed);
         console.log("GasCost: ", gasCost)
-        // let changeProtocolHash = await exports.sentInstruction(relayer, livaOneMinter, minterInstruction);
-        // return changeProtocolHash
+        if (vaultNAVInStrategy * (newProtocolAPY - activeProtocolAPY) - gasCost > 0) {
+            let changeProtocolHash = await exports.sentInstruction(relayer, livaOneMinter, minterInstruction);
+            return { response: changeProtocolHash, status: true }
+        }
+        else
+            return { response: 'Gas costs high', status: false }
     } catch (error) {
         return `Error occured in change-protocol,${error.message}`
     }
 }
 
+exports.earn = (relayer, vault, vaultActiveProtocol, vaultNAV) => {
 
-exports.callingEARN = (relayer, safeAddress, vaultAssetList, totalAssetPriceList, nonCrvBaseTokens) => {
     try {
-        let safeContract = new web3.eth.Contract(safeContractABI, safeAddress);
+        let priceModule = new web3.eth.Contract(priceModuleABI, priceModuleAddress);
+        let protocolContract = new web3.eth.Contract(IVaultABI, vaultActiveProtocol);
+        let safeContract = new web3.eth.Contract(safeContractABI, vault.vaultAddress);
         let curve3Pool = new web3.eth.Contract(CRV3Pool, crv3poolAddress);
 
-        let balanceOfDAI = await (await safeContract.methods.getTokenBalance(DAI).call()).toString();
-        let balanceOfUSDC = await (await safeContract.methods.getTokenBalance(USDC).call()).toString();
-        let balanceOfUSDT = await (await safeContract.methods.getTokenBalance(USDT).call()).toString();
+        let balanceOfDAI = await(await safeContract.methods.getTokenBalance(DAI).call()).toString();
+        let balanceOfUSDC = await(await safeContract.methods.getTokenBalance(USDC).call()).toString();
+        let balanceOfUSDT = await(await safeContract.methods.getTokenBalance(USDT).call()).toString();
+        let returnToken = await protocolContract.methods.token().call();
+        let returnTokenPrice = await priceModule.methods.getUSDPrice(returnToken).call();
+
+        let ocb = vaultNAV * 0.1;
+        let vaultAssets = [...new Set([...(vault.depositableAssets).map(x => x.assetAddress), ...(vault.withdrawableAssets).map(x => x.assetAddress)])]
+
+
+        let _assetArr = await Promise.all(
+            vaultAssets.map(async (assetAddress) => {
+
+                let assetBalance = await safeContract.methods.getTokenBalance(assetAddress).call();
+                let assetPrice = await priceModule.methods.getUSDPrice(assetAddress).call();
+                return {
+                    assetAddress: assetAddress,
+                    assetTotalPrice: assetBalance * assetPrice,
+                    assetTotalBalance: assetBalance
+                };
+            })
+        );
+
+
+        let nonCrvBaseTokens = await Promise.all(
+            _assetArr.map(async (val) => {
+                if ([DAI, USDC, USDC].indexOf(val.assetAddress) == -1)
+                    return {
+                        assetAddress: val.assetAddress,
+                        assetTotalBalance: val.assetBalance
+                    }
+            })
+        )
 
         let nonCrvAssetList = nonCrvBaseTokens.map((val) => val.assetAddress);
         let nonCrvAssetTotalBalance = nonCrvBaseTokens.map((val) => val.assetTotalBalance);
 
-        let estimatedReturns = await curve3Pool.methods.calc_token_amount([balanceOfDAI,balanceOfUSDT,balanceOfUSDC],true).call();
+        /* Sorting based on higher total price*/
+        _assetArr.sort((a, b) => {
+            return b.assetTotalPrice - a.assetTotalPrice;
+        })
+
+
+        let assetTotalPriceArr = _assetArr.map((val) => val.assetTotalPrice);
+        let vaultAssetList = _assetArr.map((val) => val.assetAddress);
+        let assetTotalBalance = _assetArr.map((val) => val.assetTotalBalance);
+
+        let estimatedSlippageReturn = _assetArr.reduce(
+            (accumulator, b) => {
+                return accumulator + (b.assetTotalPrice * (1 - slippage))
+            }, 0)
+
+        let expectedReturnsInYVTokens = estimatedSlippageReturn / returnTokenPrice; //Note:- In WEI
+
+        let toEarn = vaultNAV - ocb;
+        console.log("vaultAssetList: ", vaultAssetList, "\nassetTotalPriceArr", assetTotalPriceArr, "\nassetTotalBalance", assetTotalBalance)
+
+        let estimatedReturns = await curve3Pool.methods.calc_token_amount([balanceOfDAI, balanceOfUSDT, balanceOfUSDC], true).call();
         estimatedReturns = estimatedReturns * (1 - slippage);
 
         let dataParams = web3.eth.encodeParameters(
-            ['address[3]', 'uint256[3]', 'uint256', 'address[]', 'address[]'],
+            ['address[3]', 'uint256[3]', 'uint256', 'address[]', 'uint256[]'],
             [
                 [DAI, USDC, USDT],
                 [balanceOfDAI, balanceOfUSDC, balanceOfUSDT],
@@ -214,7 +267,7 @@ exports.callingEARN = (relayer, safeAddress, vaultAssetList, totalAssetPriceList
                 name: "data"
             }
             ]
-        }, [safeAddress, vaultAssetList, totalAssetPriceList, dataParams]);
+        }, [vault.vaultAddress, vaultAssetList, assetTotalBalance, dataParams]);
         earnInstruction = earnInstruction.substring(2)
 
         console.log("EarnInstruction: ", earnInstruction)
@@ -222,20 +275,18 @@ exports.callingEARN = (relayer, safeAddress, vaultAssetList, totalAssetPriceList
         let gasCost = await exports.getGasUsedInUSD(gasUsed);
         console.log("GasCost: ", gasCost)
 
-        if (toEarn - gasCosts > gasCosts) {
+        if (((toEarn / (returnTokenPrice)) >= expectedReturnsInYVTokens) && toEarn - gasCosts > gasCosts) {
             let earnInstructionHash = await exports.sentInstruction(relayer, livaOneMinter, earnInstruction)
             console.log("earnInstructionHash:", earnInstructionHash)
-            // return earnInstructionHash
-            return 'success'
+            return { response: earnInstructionHash, status: true };
         }
         else {
-            console.log('Failed due to gas prices')
-            return 'failure'
+            return { response: "Skipping deposit due to bad prices", status: false };
         }
-
     } catch (error) {
-        return `Error occured while calling EARN, ${error.message}`
+        return `Error occured in change-protocol,${error.message}`
     }
+
 }
 
 exports.handler = async function (credentials) {
@@ -254,14 +305,14 @@ exports.handler = async function (credentials) {
                 let vaultActiveStrategy = await safeContract.methods.getVaultActiveStrategy().call();
                 let vaultNAV = await safeContract.methods.getVaultNAV().call();
                 let vaultNAVWithoutStrategy = await safeContract.methods.getVaultNAVWithoutStrategyToken().call();
-
+                let vaultNAVInStrategy = vaultNAV - vaultNAVWithoutStrategy;
                 vaultActiveStrategy = vaultActiveStrategy[0];
 
                 if (vaultActiveStrategy === livaOne) {
                     let strategyInstance = new web3.eth.Contract(strategyABI, vaultActiveStrategy);
                     let vaultActiveProtocol = await strategyInstance.methods.getActiveProtocol(vault.vaultAddress).call();
                     /****
-                        To activate a protocol if no active protocol is present 
+                    To activate a protocol if no active protocol is present 
                     ***/
                     if (vaultActiveProtocol) {
                         let maxProtocolData = await exports.getMaxAPYProtocol(vault.vaultAddress, vaultActiveStrategy);
@@ -290,17 +341,23 @@ exports.handler = async function (credentials) {
                         else {
                             // to get current active protcol and its activated date
                             const strategyProtcolData = await axios.get(`${BASE_URL}/vault/strategymap?vaultAddress=${vault.vaultAddress}&strategyAddress=${vaultActiveStrategy}`)
+                            const protocolAPYData = await axios.get(`${BASE_URL}/defender/protocol-apy?protocolAddress=${vaultActiveProtocol}`)
+
                             if (strategyProtcolData.data.status) {
-                                let currentData = Date.parse(new Date()); //getting current date in Unix epoch time
-                                let numberOfDaysToAdd = (strategyProtcolData.data.data.invesmentDuration) * 24 * 60 * 60 * 1000; //converting days into millisenconds
-                                let lastActivatedDate = Date.parse(strategyProtcolData.data.data.activeProtocolDetails.activatedDate); //converting last protocol activated date into Unix epoch time format
-                                if ((currentData - lastActivatedDate) > numberOfDaysToAdd) {
-                                    // Getting APY value of current active protocol
-                                    const protocolAPYData = await axios.get(`${BASE_URL}/defender/protocol-apy?protocolAddress=${vaultActiveProtocol}`)
-                                    // Getting protocol with max APY active in the strategy
-                                    if ((protocolAPYData.data.status) && (protocolAPYData.data.data) && (maxProtocolData) && (maxProtocolData.protocolAddress)) {
-                                        if ((protocolAPYData.data.data.oneWeekAPY) < (maxProtocolData.oneWeekAPY)) {
-                                            let changeProtocolHash = await exports.changeProtocol(relayer, vault.vaultAddress, (maxProtocolData.protocolAddress))
+                                let currentDate = Date.parse(new Date());
+                                let numberOfDaysToAdd = (strategyProtcolData.data.data.invesmentDuration) * 24 * 60 * 60 * 1000;
+                                let lastActivatedDate = Date.parse(strategyProtcolData.data.data.activeProtocolDetails.activatedDate);
+
+                                let activeProtocolAPY = protocolAPYData.data.data.oneWeekAPY;
+
+                                if ((protocolAPYData.data.status) && (protocolAPYData.data.data) && (maxProtocolData)) {
+
+                                    let newProtocolAPY = maxProtocolData.oneWeekAPY;
+                                    let newProtocolAddress = maxProtocolData.protocolAddress;
+
+                                    if ((currentDate - lastActivatedDate) > numberOfDaysToAdd && newProtocolAddress != vaultActiveProtocol && newProtocolAPY > activeProtocolAPY) {
+                                        let changeProtocolHash = await exports.changeProtocol(relayer, vault.vaultAddress, threshold, newProtocolAddress, newProtocolAPY, activeProtocolAPY, vaultNAVInStrategy)
+                                        if (changeProtocolHash.status) {
                                             let saveActiveProtocol = await axios.patch(`${BASE_URL}/defender/set-protocol`, {
                                                 vaultAddress: vault.vaultAddress,
                                                 strategyAddress: vaultActiveStrategy,
@@ -311,69 +368,14 @@ exports.handler = async function (credentials) {
                                             } else {
                                                 console.log('Error in saving active protocol to db')
                                             }
-                                            return changeProtocolHash
+                                            return changeProtocolHash.response
                                         }
-                                        /**
-                                         * Calling EARN
-                                         */
-                                        else {
-                                            let vaultAssets = [...new Set([...(vault.depositableAssets).map(x => x.assetAddress), ...(vault.withdrawableAssets).map(x => x.assetAddress)])]
-                                            console.log("vaultAsset: ", vaultAssets)
-
-                                            let ocb = vaultNAV * 0.1;
-                                            let protocolContract = new web3.eth.Contract(IVaultABI, vaultActiveProtocol);
-                                            let returnToken = await protocolContract.methods.token().call();
-                                            let returnTokenPrice = await priceModule.methods.getUSDPrice(returnToken).call();
-
-                                            let _assetArr = await Promise.all(
-                                                vaultAssets.map(async (assetAddress) => {
-                                                    let assetBalance = await safeContract.methods.getTokenBalance(assetAddress).call();
-                                                    let assetPrice = await priceModule.methods.getUSDPrice(assetAddress).call();
-                                                    return {
-                                                        assetAddress: assetAddress,
-                                                        assetTotalPrice: assetBalance * assetPrice,
-                                                        assetTotalBalance: assetBalance
-                                                    };
-                                                })
-                                            );
-
-                                            let _non3CrvBaseTokens = await Promise.all(
-                                                _assetArr.map(async (val) => {
-                                                    if ([DAI, USDC, USDC].indexOf(val.assetAddress) == -1)
-                                                        return {
-                                                            assetAddress: val.assetAddress,
-                                                            assetTotalBalance: val.assetBalance
-                                                        }
-                                                })
-                                            )
-
-                                            /* Sorting based on higher total price*/
-                                            _assetArr.sort((a, b) => {
-                                                return b.assetTotalPrice - a.assetTotalPrice;
-                                            })
-
-                                            let assetTotalPriceArr = _assetArr.map((val) => val.assetTotalPrice);
-                                            let vaultAssetList = _assetArr.map((val) => val.assetAddress);
-                                            let assetTotalBalance = _assetArr.map((val) => val.assetTotalBalance);
-
-
-                                            let estimatedSlippageReturn = _assetArr.reduce(
-                                                (accumulator, b) => {
-                                                    return accumulator + (b.assetTotalPrice * (1 - slippage))
-                                                }, 0)
-
-                                            let expectedReturnsInYVTokens = estimatedSlippageReturn / returnTokenPrice; //Note:- In WEI
-
-                                            let toEarn = vaultNAV - ocb;
-                                            console.log("vaultAssetList: ", vaultAssetList, "\nassetTotalPriceArr", assetTotalPriceArr, "\nassetTotalBalance", assetTotalBalance)
-                                            if ((toEarn / (returnTokenPrice)) >= expectedReturnsInYVTokens) {
-                                                let earnData = await exports.callingEARN(relayer, vault.vaultAddress, vaultAssetList, assetTotalBalance, _non3CrvBaseTokens, toEarn)
-                                                return earnData
-                                            }
-                                            else
-                                                console.log("Skipping deposit due to bad prices")
-                                        }
+                                        else
+                                            console.log(changeProtocolHash.response)
                                     }
+                                    /*** Calling EARN*/
+                                    let earnHash = await exports.earn(relayer, vault, vaultActiveProtocol, vaultNAV);
+                                    return earnHash.response
                                 }
                             }
                         }
