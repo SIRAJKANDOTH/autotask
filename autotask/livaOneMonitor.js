@@ -27,8 +27,8 @@ const minimumInvestmentDuration = 7;
 const strategyPortfolio = 0.5;
 const slippage = 0.01;
 const DAI = "0x6B175474E89094C44Da98b954EedeAC495271d0F";
-const USDT = "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48";
-const USDC = "0xdAC17F958D2ee523a2206206994597C13D831ec7";
+const USDC = "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48";
+const USDT = "0xdAC17F958D2ee523a2206206994597C13D831ec7";
 
 exports.sentInstruction = async function (relayer, minterAddress, instruction) {
     const txRes = await relayer.sendTransaction({
@@ -159,6 +159,7 @@ exports.changeProtocol = async (relayer, vaultAddress, threshold, protocolAddres
         let gasCost = await exports.getGasUsedInUSD(gasUsed);
         console.log("GasCost: ", gasCost)
         if (vaultNAVInStrategy * (newProtocolAPY - activeProtocolAPY) - gasCost > 0) {
+            console.log("Change protocol condition satisfied")
             let changeProtocolHash = await exports.sentInstruction(relayer, livaOneMinter, minterInstruction);
             return { response: changeProtocolHash, status: true }
         }
@@ -276,6 +277,7 @@ exports.earn = (relayer, vault, vaultActiveProtocol, vaultNAV) => {
         console.log("GasCost: ", gasCost)
 
         if (((toEarn / (returnTokenPrice)) >= expectedReturnsInYVTokens) && toEarn - gasCosts > gasCosts) {
+            console.log("Earn condition satisfied")
             let earnInstructionHash = await exports.sentInstruction(relayer, livaOneMinter, earnInstruction)
             console.log("earnInstructionHash:", earnInstructionHash)
             return { response: earnInstructionHash, status: true };
