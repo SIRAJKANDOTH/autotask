@@ -83,17 +83,7 @@ exports.getGasUsedInUSD = async (gasUsed) => {
 
 }
 
-exports.calculateBalance = (tokenAddress, safeAddress) => {
-    try {
-        let tokenContract = new web3.eth.Contract(ERC20Detailed, tokenAddress);
-        let tokenBalance = await tokenContract.methods.balanceOf(safeAddress).call();
-        let decimals = await tokenContract.methods.balanceOf(safeAddress).call();
-        // return web3.utils.padRight(tokenBalance, 18 - decimals)
-        return tokenBalance;
-    } catch (error) {
-        return `Error occured while calling calculateBalance, ${error.message}`
-    }
-}
+
 
 exports.setActiveProtocol = async (relayer, vaultAddress, protocolAddress) => {
     try {
@@ -193,7 +183,7 @@ exports.changeProtocol = async (relayer, vaultAddress, threshold, protocolAddres
     }
 }
 
-exports.earn = (relayer, vault, vaultActiveProtocol, vaultNAV) => {
+exports.earn =async (relayer, vault, vaultActiveProtocol, vaultNAV) => {
 
     try {
         let priceModule = new web3.eth.Contract(priceModuleABI, priceModuleAddress);
