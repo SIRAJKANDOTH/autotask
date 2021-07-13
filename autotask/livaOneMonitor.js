@@ -9,7 +9,7 @@ let web3 = new Web3(provider);
 
 const safeContractABI = require('yieldster-abi/contracts/YieldsterVault.json').abi;
 const strategyABI = require('yieldster-abi/contracts/IStrategy.json').abi;
-const priceModuleABI = require('yieldster-abi/contracts/IPriceModule.json').abi;
+const priceModuleABI = require('yieldster-abi/contracts/PriceModule.json').abi;
 const IVaultABI = require('yieldster-abi/contracts/IVault.json').abi;
 const ERC20 = require('yieldster-abi/contracts/ERC20.json').abi;
 const ERC20Detailed = require("yieldster-abi/contracts/ERC20Detailed.json").abi;
@@ -17,7 +17,7 @@ const CRV3Pool = require("yieldster-abi/contracts/curve3pool.json").abi;
 
 const livaOneMinter = "0x7573E53adeC374AEe7BD63f7d33e456EAcd10631";
 const priceModuleAddress = "0xc98435837175795d216547a8edc9e0472604bbda";
-const relayerAddress = "0xd1235f988cf494e97b92992ece0a4a2cbfec2ddf";
+const relayerAddress = "0xb2AA4a5DF3641D42e72D7F07a40292794dfD07a0";
 
 const BASE_URL = "http://localhost:8050"
 const crv3poolAddress = "0xbEbc44782C7dB0a1A60Cb6fe97d0b483032FF1C7";
@@ -30,6 +30,9 @@ const DAI = "0x6B175474E89094C44Da98b954EedeAC495271d0F";
 const USDC = "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48";
 const USDT = "0xdAC17F958D2ee523a2206206994597C13D831ec7";
 
+exports.logInstruction = async function (params) {
+    console.log(params);
+}
 exports.sentInstruction = async function (relayer, minterAddress, instruction) {
     const txRes = await relayer.sendTransaction({
         to: minterAddress,
@@ -68,7 +71,8 @@ exports.estimateGas = async (from, to, data) => {
 
 exports.getGasUsedInUSD = async (gasUsed) => {
     try {
-        let oneEtherInWEI = await priceModuleABI.methods.getLatestPrice('0x5f4eC3Df9cbd43714FE2740f5E3616155c5b8419').call();
+        let priceModule = new web3.eth.Contract(priceModuleABI, priceModuleAddress);
+        let oneEtherInWEI = await priceModule.methods.getLatestPrice('0x5f4eC3Df9cbd43714FE2740f5E3616155c5b8419').call();
         let oneEtherInUSD = oneEtherInWEI[0] / (10 ** 8)
         let currentGasPriceInWEI = await web3.eth.getGasPrice();
         let gasUsedInUSD = (currentGasPriceInWEI * gasUsed * oneEtherInUSD) / (10 ** 18)
@@ -114,16 +118,24 @@ exports.setActiveProtocol = async (relayer, vaultAddress, protocolAddress) => {
                 name: 'instruction'
             }]
         }, [vaultAddress, instruction]);
-        minterInstruction = minterInstruction.substring(2)
 
         console.log(`Sending protocol set instruction:- setActiveProtocol(address) with hash ${minterInstruction}, to safe :- ${vaultAddress}`);
         let gasUsed = await exports.estimateGas(relayerAddress, livaOneMinter, minterInstruction);
         let gasCost = await exports.getGasUsedInUSD(gasUsed);
         console.log("GasCost: ", gasCost)
         // return 'success'
-        let activeProtocolHash = await exports.sentInstruction(relayer, livaOneMinter, minterInstruction);
-        console.log("activeProtocolHash", activeProtocolHash)
-        return activeProtocolHash
+        let params = {
+            type: 'set protocol',
+            gasUsed,
+            gasCost,
+            vaultAddress,
+            instruction,
+            protocolAddress
+        }
+        await exports.logInstruction(params);
+        // let activeProtocolHash = await exports.sentInstruction(relayer, livaOneMinter, minterInstruction);
+        // console.log("activeProtocolHash", activeProtocolHash)
+        return { response: "activeProtocolHash", status: true }
     } catch (error) {
         return `Error occured in setting activeProtocl,${error.message}`
     }
@@ -152,16 +164,27 @@ exports.changeProtocol = async (relayer, vaultAddress, threshold, protocolAddres
                 name: 'instruction'
             }]
         }, [vaultAddress, instruction]);
-        minterInstruction = minterInstruction.substring(2)
 
         console.log(`Sending protocol set instruction:- changeProtocol(address) with hash ${minterInstruction}, to safe :- ${vaultAddress}`);
         let gasUsed = await exports.estimateGas(relayerAddress, livaOneMinter, minterInstruction);
         let gasCost = await exports.getGasUsedInUSD(gasUsed);
         console.log("GasCost: ", gasCost)
-        if (vaultNAVInStrategy * (newProtocolAPY - activeProtocolAPY) - gasCost > 0) {
+        let params = {
+            type: 'change protocol',
+            gasUsed,
+            gasCost,
+            vaultAddress,
+            instruction,
+            protocolAddress,
+            vaultNAVInStrategy,
+            newProtocolAPY,
+            activeProtocolAPY
+        }
+        await exports.logInstruction(params);
+        if (web3.utils.fromWei(vaultNAVInStrategy) * (newProtocolAPY - activeProtocolAPY) - gasCost > 0) {
             console.log("Change protocol condition satisfied")
-            let changeProtocolHash = await exports.sentInstruction(relayer, livaOneMinter, minterInstruction);
-            return { response: changeProtocolHash, status: true }
+            // let changeProtocolHash = await exports.sentInstruction(relayer, livaOneMinter, minterInstruction);
+            return { response: "changeProtocolHash", status: true }
         }
         else
             return { response: 'Gas costs high', status: false }
@@ -276,11 +299,23 @@ exports.earn = (relayer, vault, vaultActiveProtocol, vaultNAV) => {
         let gasCost = await exports.getGasUsedInUSD(gasUsed);
         console.log("GasCost: ", gasCost)
 
+        let params = {
+            type: 'earn protocol',
+            gasUsed,
+            gasCost,
+            vaultAddress: vault.vaultAddress,
+            instruction,
+            vaultActiveProtocol,
+            toEarn,
+            returnTokenPrice,
+            expectedReturnsInYVTokens
+        }
+        await exports.logInstruction(params);
         if (((toEarn / (returnTokenPrice)) >= expectedReturnsInYVTokens) && toEarn - gasCosts > gasCosts) {
             console.log("Earn condition satisfied")
-            let earnInstructionHash = await exports.sentInstruction(relayer, livaOneMinter, earnInstruction)
-            console.log("earnInstructionHash:", earnInstructionHash)
-            return { response: earnInstructionHash, status: true };
+            // let earnInstructionHash = await exports.sentInstruction(relayer, livaOneMinter, earnInstruction)
+            // console.log("earnInstructionHash:", earnInstructionHash)
+            return { response: "earnInstructionHash", status: true };
         }
         else {
             return { response: "Skipping deposit due to bad prices", status: false };
@@ -307,7 +342,7 @@ exports.handler = async function (credentials) {
                 let vaultActiveStrategy = await safeContract.methods.getVaultActiveStrategy().call();
                 let vaultNAV = await safeContract.methods.getVaultNAV().call();
                 let vaultNAVWithoutStrategy = await safeContract.methods.getVaultNAVWithoutStrategyToken().call();
-                let vaultNAVInStrategy = vaultNAV - vaultNAVWithoutStrategy;
+                let vaultNAVInStrategy = (web3.utils.toBN(vaultNAV).sub(web3.utils.toBN(vaultNAVWithoutStrategy))).toString();
                 vaultActiveStrategy = vaultActiveStrategy[0];
 
                 if (vaultActiveStrategy === livaOne) {
@@ -321,17 +356,21 @@ exports.handler = async function (credentials) {
                         if (vaultActiveProtocol == "0x0000000000000000000000000000000000000000") {
                             if (maxProtocolData.protocolAddress != 0) {
                                 let activeProtocolHash = await exports.setActiveProtocol(relayer, vault.vaultAddress, maxProtocolData.protocolAddress)
-                                let saveActiveProtocol = await axios.patch(`${BASE_URL}/defender/set-protocol`, {
-                                    vaultAddress: vault.vaultAddress,
-                                    strategyAddress: vaultActiveStrategy,
-                                    protocolAddress: maxProtocolData.protocolAddress
-                                })
-                                if (saveActiveProtocol.data.status) {
-                                    console.log('Active Protocol added to DB')
-                                } else {
-                                    console.log('Error in saving active protocol to db')
-                                }
-                                return activeProtocolHash
+                                /**
+                                 * UNCOMMENT TO SAVE TO DB
+                                 * 
+                                 */
+                                // let saveActiveProtocol = await axios.patch(`${BASE_URL}/defender/set-protocol`, {
+                                //     vaultAddress: vault.vaultAddress,
+                                //     strategyAddress: vaultActiveStrategy,
+                                //     protocolAddress: maxProtocolData.protocolAddress
+                                // })
+                                // if (saveActiveProtocol.data.status) {
+                                //     console.log('Active Protocol added to DB')
+                                // } else {
+                                //     console.log('Error in saving active protocol to db')
+                                // }
+                                return activeProtocolHash.response
                             } else {
                                 return 'Error occured in getting maxAPYProtocol'
                             }
@@ -360,16 +399,19 @@ exports.handler = async function (credentials) {
                                     if ((currentDate - lastActivatedDate) > numberOfDaysToAdd && newProtocolAddress != vaultActiveProtocol && newProtocolAPY > activeProtocolAPY) {
                                         let changeProtocolHash = await exports.changeProtocol(relayer, vault.vaultAddress, threshold, newProtocolAddress, newProtocolAPY, activeProtocolAPY, vaultNAVInStrategy)
                                         if (changeProtocolHash.status) {
-                                            let saveActiveProtocol = await axios.patch(`${BASE_URL}/defender/set-protocol`, {
-                                                vaultAddress: vault.vaultAddress,
-                                                strategyAddress: vaultActiveStrategy,
-                                                protocolAddress: maxProtocolData.protocolAddress
-                                            })
-                                            if (saveActiveProtocol.data.status) {
-                                                console.log('Active Protocol added to DB')
-                                            } else {
-                                                console.log('Error in saving active protocol to db')
-                                            }
+                                            /**
+                                             * UNCOMMENT TO SAVE TO DB
+                                             */
+                                            // let saveActiveProtocol = await axios.patch(`${BASE_URL}/defender/set-protocol`, {
+                                            //     vaultAddress: vault.vaultAddress,
+                                            //     strategyAddress: vaultActiveStrategy,
+                                            //     protocolAddress: maxProtocolData.protocolAddress
+                                            // })
+                                            // if (saveActiveProtocol.data.status) {
+                                            //     console.log('Active Protocol added to DB')
+                                            // } else {
+                                            //     console.log('Error in saving active protocol to db')
+                                            // }
                                             return changeProtocolHash.response
                                         }
                                         else
