@@ -19,9 +19,9 @@ const livaOneMinter = "0x7573E53adeC374AEe7BD63f7d33e456EAcd10631";
 const priceModuleAddress = "0xc98435837175795d216547a8edc9e0472604bbda";
 const relayerAddress = "0xb2AA4a5DF3641D42e72D7F07a40292794dfD07a0";
 
-const BASE_URL = "http://localhost:8050"
+const BASE_URL = "https://api.yieldster.finance"
 const crv3poolAddress = "0xbEbc44782C7dB0a1A60Cb6fe97d0b483032FF1C7";
-const livaOne = "";
+const livaOne = "0x2747ce11793F7059567758cc35D34F63ceE8Ac00";
 const threshold = 0;
 const minimumInvestmentDuration = 7;
 const strategyPortfolio = 0.5;
@@ -45,7 +45,7 @@ exports.sentInstruction = async function (relayer, minterAddress, instruction) {
 
 exports.getMaxAPYProtocol = async (vaultAddress, strategyAddress) => {
     try {
-        const maxAPYProtocol = await axios.get(`${BASE_URL}/defender/max-apy?vaultAddress=${vaultAddress}&strategyAddress=${strategyAddress}`)
+        const maxAPYProtocol = await axios.get(`${BASE_URL}/defender/max-apy?vaultAddress=${vaultAddress}&strategyAddress=0x2747ce11793f7059567758cc35d34f63cee8ac00`)
         if ((maxAPYProtocol.data.status) && (maxAPYProtocol.data.data)) {
             console.log("Max APY Protocol", maxAPYProtocol.data.data)
             return (maxAPYProtocol.data.data)
@@ -131,7 +131,7 @@ exports.setActiveProtocol = async (relayer, vaultAddress, protocolAddress) => {
     }
 }
 
-exports.changeProtocol = async (relayer, vaultAddress, threshold, protocolAddress, newProtocolAPY, activeProtocolAPY, vaultNAVInStrategy) => {
+exports.changeProtocol = async (relayer, vaultAddress, threshold, protocolAddress, newProtocolAPY, activeProtocolAPY, vaultNAVInStrategy,ocb) => {
     try {
         let instruction = web3.eth.abi.encodeFunctionCall({
             name: "changeProtocol",
@@ -155,7 +155,7 @@ exports.changeProtocol = async (relayer, vaultAddress, threshold, protocolAddres
             }]
         }, [vaultAddress, instruction]);
 
-        console.log(`Sending protocol set instruction:- changeProtocol(address) with hash ${minterInstruction}, to safe :- ${vaultAddress}`);
+        console.log(`Sending protocol change instruction:- changeProtocol(address) with hash ${minterInstruction}, to safe :- ${vaultAddress}`);
         let gasUsed = await exports.estimateGas(relayerAddress, livaOneMinter, minterInstruction);
         let gasCost = await exports.getGasUsedInUSD(gasUsed);
         console.log("GasCost: ", gasCost)
@@ -171,7 +171,7 @@ exports.changeProtocol = async (relayer, vaultAddress, threshold, protocolAddres
             activeProtocolAPY
         }
         await exports.logInstruction(params);
-        if (web3.utils.fromWei(vaultNAVInStrategy) * (newProtocolAPY - activeProtocolAPY) - gasCost > 0) {
+        if (gascost > ocb && web3.utils.fromWei(vaultNAVInStrategy) * (newProtocolAPY - activeProtocolAPY) - gasCost > 0) {
             console.log("Change protocol condition satisfied")
             // let changeProtocolHash = await exports.sentInstruction(relayer, livaOneMinter, minterInstruction);
             return { response: "changeProtocolHash", status: true }
@@ -183,7 +183,7 @@ exports.changeProtocol = async (relayer, vaultAddress, threshold, protocolAddres
     }
 }
 
-exports.earn =async (relayer, vault, vaultActiveProtocol, vaultNAV) => {
+exports.earn = async (relayer, vault, vaultActiveProtocol, vaultNAV, ocb) => {
 
     try {
         let priceModule = new web3.eth.Contract(priceModuleABI, priceModuleAddress);
@@ -191,13 +191,12 @@ exports.earn =async (relayer, vault, vaultActiveProtocol, vaultNAV) => {
         let safeContract = new web3.eth.Contract(safeContractABI, vault.vaultAddress);
         let curve3Pool = new web3.eth.Contract(CRV3Pool, crv3poolAddress);
 
-        let balanceOfDAI = await(await safeContract.methods.getTokenBalance(DAI).call()).toString();
-        let balanceOfUSDC = await(await safeContract.methods.getTokenBalance(USDC).call()).toString();
-        let balanceOfUSDT = await(await safeContract.methods.getTokenBalance(USDT).call()).toString();
+        let balanceOfDAI = await (await safeContract.methods.getTokenBalance(DAI).call()).toString();
+        let balanceOfUSDC = await (await safeContract.methods.getTokenBalance(USDC).call()).toString();
+        let balanceOfUSDT = await (await safeContract.methods.getTokenBalance(USDT).call()).toString();
         let returnToken = await protocolContract.methods.token().call();
         let returnTokenPrice = await priceModule.methods.getUSDPrice(returnToken).call();
 
-        let ocb = vaultNAV * 0.1;
         let vaultAssets = [...new Set([...(vault.depositableAssets).map(x => x.assetAddress), ...(vault.withdrawableAssets).map(x => x.assetAddress)])]
 
 
@@ -334,6 +333,7 @@ exports.handler = async function (credentials) {
                 let vaultNAVWithoutStrategy = await safeContract.methods.getVaultNAVWithoutStrategyToken().call();
                 let vaultNAVInStrategy = (web3.utils.toBN(vaultNAV).sub(web3.utils.toBN(vaultNAVWithoutStrategy))).toString();
                 vaultActiveStrategy = vaultActiveStrategy[0];
+                let ocb = vaultNAV * 0.01;
 
                 if (vaultActiveStrategy === livaOne) {
                     let strategyInstance = new web3.eth.Contract(strategyABI, vaultActiveStrategy);
@@ -371,13 +371,12 @@ exports.handler = async function (credentials) {
                         ***/
                         else {
                             // to get current active protcol and its activated date
-                            const strategyProtcolData = await axios.get(`${BASE_URL}/vault/strategymap?vaultAddress=${vault.vaultAddress}&strategyAddress=${vaultActiveStrategy}`)
+                            const strategyProtocolData = await axios.get(`${BASE_URL}/vault/strategymap?vaultAddress=${vault.vaultAddress}&strategyAddress=0x2747ce11793f7059567758cc35d34f63cee8ac00`)
                             const protocolAPYData = await axios.get(`${BASE_URL}/defender/protocol-apy?protocolAddress=${vaultActiveProtocol}`)
-
-                            if (strategyProtcolData.data.status) {
+                            if (strategyProtocolData.data.status) {
                                 let currentDate = Date.parse(new Date());
-                                let numberOfDaysToAdd = (strategyProtcolData.data.data.invesmentDuration) * 24 * 60 * 60 * 1000;
-                                let lastActivatedDate = Date.parse(strategyProtcolData.data.data.activeProtocolDetails.activatedDate);
+                                let numberOfDaysToAdd = (strategyProtocolData.data.data.invesmentDuration) * 24 * 60 * 60 * 1000;
+                                let lastActivatedDate = Date.parse(strategyProtocolData.data.data.activeProtocolDetails.activatedDate);
 
                                 let activeProtocolAPY = protocolAPYData.data.data.oneWeekAPY;
 
@@ -387,7 +386,7 @@ exports.handler = async function (credentials) {
                                     let newProtocolAddress = maxProtocolData.protocolAddress;
 
                                     if ((currentDate - lastActivatedDate) > numberOfDaysToAdd && newProtocolAddress != vaultActiveProtocol && newProtocolAPY > activeProtocolAPY) {
-                                        let changeProtocolHash = await exports.changeProtocol(relayer, vault.vaultAddress, threshold, newProtocolAddress, newProtocolAPY, activeProtocolAPY, vaultNAVInStrategy)
+                                        let changeProtocolHash = await exports.changeProtocol(relayer, vault.vaultAddress, threshold, newProtocolAddress, newProtocolAPY, activeProtocolAPY, vaultNAVInStrategy,ocb)
                                         if (changeProtocolHash.status) {
                                             /**
                                              * UNCOMMENT TO SAVE TO DB
@@ -408,7 +407,7 @@ exports.handler = async function (credentials) {
                                             console.log(changeProtocolHash.response)
                                     }
                                     /*** Calling EARN*/
-                                    let earnHash = await exports.earn(relayer, vault, vaultActiveProtocol, vaultNAV);
+                                    let earnHash = await exports.earn(relayer, vault, vaultActiveProtocol, vaultNAV, ocb);
                                     return earnHash.response
                                 }
                             }
