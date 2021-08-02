@@ -166,14 +166,14 @@ exports.changeProtocol = async (relayer, vaultAddress, threshold, protocolAddres
             vaultAddress,
             instruction,
             protocolAddress,
-            vaultNAVInStrategy: web3.utils.fromWei(vaultNAVInStrategy),
+            vaultNAVInStrategy: web3.utils.fromWei(vaultNAVInStrategy.toString()),
             newProtocolAPY,
             activeProtocolAPY,
-            ocb: web3.utils.fromWei(ocb)
+            ocb: web3.utils.fromWei(ocb.toString())
         }
         console.log(params);
 
-        if (gascost < web3.utils.fromWei(ocb) && web3.utils.fromWei(vaultNAVInStrategy) * (newProtocolAPY - activeProtocolAPY) - gasCost > 0) {
+        if (gasCost < web3.utils.fromWei(ocb.toString()) && web3.utils.fromWei(vaultNAVInStrategy.toString()) * (newProtocolAPY - activeProtocolAPY) - gasCost > 0) {
             console.log("Change protocol condition satisfied")
             // let changeProtocolHash = await exports.sentInstruction(relayer, livaOneMinter, minterInstruction);
             return { response: "changeProtocolHash", status: true }
@@ -184,7 +184,8 @@ exports.changeProtocol = async (relayer, vaultAddress, threshold, protocolAddres
         }
 
     } catch (error) {
-        return `Error occured in change-protocol,${error.message}`
+        console.log( `Error occured in change-protocol,${error.message}`)
+        return { response:error.message, status: false }
     }
 }
 
@@ -340,7 +341,7 @@ exports.handler = async function (credentials) {
                 let vaultNAVWithoutStrategy = await safeContract.methods.getVaultNAVWithoutStrategyToken().call();
                 let vaultNAVInStrategy = (web3.utils.toBN(vaultNAV).sub(web3.utils.toBN(vaultNAVWithoutStrategy))).toString();
                 vaultActiveStrategy = vaultActiveStrategy[0];
-                let ocb = vaultNAV * 0.01;
+                let ocb = vaultNAV * 0.1;
 
                 if (vaultActiveStrategy === livaOne) {
                     let strategyInstance = new web3.eth.Contract(strategyABI, vaultActiveStrategy);
