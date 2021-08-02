@@ -30,9 +30,7 @@ const DAI = "0x6B175474E89094C44Da98b954EedeAC495271d0F";
 const USDC = "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48";
 const USDT = "0xdAC17F958D2ee523a2206206994597C13D831ec7";
 
-exports.logInstruction = async function (params) {
-    console.log(params);
-}
+
 exports.sentInstruction = async function (relayer, minterAddress, instruction) {
     const txRes = await relayer.sendTransaction({
         to: minterAddress,
@@ -57,6 +55,7 @@ exports.getMaxAPYProtocol = async (vaultAddress, strategyAddress) => {
         return 0
     }
 }
+// let gasUsed = await exports.estimateGas(relayerAddress, livaOneMinter, minterInstruction);
 
 exports.estimateGas = async (from, to, data) => {
     let txnObject = {
@@ -122,7 +121,8 @@ exports.setActiveProtocol = async (relayer, vaultAddress, protocolAddress) => {
             instruction,
             protocolAddress
         }
-        await exports.logInstruction(params);
+        console.log(params);
+
         // let activeProtocolHash = await exports.sentInstruction(relayer, livaOneMinter, minterInstruction);
         // console.log("activeProtocolHash", activeProtocolHash)
         return { response: "activeProtocolHash", status: true }
@@ -131,7 +131,7 @@ exports.setActiveProtocol = async (relayer, vaultAddress, protocolAddress) => {
     }
 }
 
-exports.changeProtocol = async (relayer, vaultAddress, threshold, protocolAddress, newProtocolAPY, activeProtocolAPY, vaultNAVInStrategy,ocb) => {
+exports.changeProtocol = async (relayer, vaultAddress, threshold, protocolAddress, newProtocolAPY, activeProtocolAPY, vaultNAVInStrategy, ocb) => {
     try {
         let instruction = web3.eth.abi.encodeFunctionCall({
             name: "changeProtocol",
@@ -166,18 +166,23 @@ exports.changeProtocol = async (relayer, vaultAddress, threshold, protocolAddres
             vaultAddress,
             instruction,
             protocolAddress,
-            vaultNAVInStrategy,
+            vaultNAVInStrategy: web3.utils.fromWei(vaultNAVInStrategy),
             newProtocolAPY,
-            activeProtocolAPY
+            activeProtocolAPY,
+            ocb: web3.utils.fromWei(ocb)
         }
-        await exports.logInstruction(params);
-        if (gascost > ocb && web3.utils.fromWei(vaultNAVInStrategy) * (newProtocolAPY - activeProtocolAPY) - gasCost > 0) {
+        console.log(params);
+
+        if (gascost < web3.utils.fromWei(ocb) && web3.utils.fromWei(vaultNAVInStrategy) * (newProtocolAPY - activeProtocolAPY) - gasCost > 0) {
             console.log("Change protocol condition satisfied")
             // let changeProtocolHash = await exports.sentInstruction(relayer, livaOneMinter, minterInstruction);
             return { response: "changeProtocolHash", status: true }
         }
-        else
+        else {
+            console.log("Change protocol condition not satisfied")
             return { response: 'Gas costs high', status: false }
+        }
+
     } catch (error) {
         return `Error occured in change-protocol,${error.message}`
     }
@@ -216,7 +221,7 @@ exports.earn = async (relayer, vault, vaultActiveProtocol, vaultNAV, ocb) => {
 
         let nonCrvBaseTokens = await Promise.all(
             _assetArr.map(async (val) => {
-                if ([DAI, USDC, USDC].indexOf(val.assetAddress) == -1)
+                if ([DAI, USDC, USDT].indexOf(val.assetAddress) == -1)
                     return {
                         assetAddress: val.assetAddress,
                         assetTotalBalance: val.assetBalance
@@ -299,7 +304,9 @@ exports.earn = async (relayer, vault, vaultActiveProtocol, vaultNAV, ocb) => {
             returnTokenPrice,
             expectedReturnsInYVTokens
         }
-        await exports.logInstruction(params);
+        console.log(params);
+
+
         if (((toEarn / (returnTokenPrice)) >= expectedReturnsInYVTokens) && toEarn - gasCosts > gasCosts) {
             console.log("Earn condition satisfied")
             // let earnInstructionHash = await exports.sentInstruction(relayer, livaOneMinter, earnInstruction)
@@ -386,7 +393,7 @@ exports.handler = async function (credentials) {
                                     let newProtocolAddress = maxProtocolData.protocolAddress;
 
                                     if ((currentDate - lastActivatedDate) > numberOfDaysToAdd && newProtocolAddress != vaultActiveProtocol && newProtocolAPY > activeProtocolAPY) {
-                                        let changeProtocolHash = await exports.changeProtocol(relayer, vault.vaultAddress, threshold, newProtocolAddress, newProtocolAPY, activeProtocolAPY, vaultNAVInStrategy,ocb)
+                                        let changeProtocolHash = await exports.changeProtocol(relayer, vault.vaultAddress, threshold, newProtocolAddress, newProtocolAPY, activeProtocolAPY, vaultNAVInStrategy, ocb)
                                         if (changeProtocolHash.status) {
                                             /**
                                              * UNCOMMENT TO SAVE TO DB
