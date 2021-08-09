@@ -143,76 +143,76 @@ exports.handler = async function (event) {
             let vaultAssets = [...new Set([...(vault.depositableAssets).map(x => x.assetAddress), ...(vault.withdrawableAssets).map(x => x.assetAddress)])] //UNCOMMENT
             // let vaultAssets = ['0xdac17f958d2ee523a2206206994597c13d831ec7', '0x7Eb40E450b9655f4B3cC4259BCC731c63ff55ae6', '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48'];
 
-        let _assetArr = (await Promise.all(
-            vaultAssets.map(async (assetAddress) => {
-                let assetBalance = await safeContract.methods.getTokenBalance(assetAddress).call();
-                let assetPrice = await priceModule.methods.getUSDPrice(assetAddress).call();
-                let token = new web3.eth.Contract(ERC20, assetAddress);
-                let decimals = await token.methods.decimals().call();
-                return {
-                    assetAddress: assetAddress,
-                    assetPrice,
-                    singleAssetPriceInEther: web3.utils.toWei((web3.utils.fromWei(assetPrice) / web3.utils.fromWei(etherPriceInUSD)).toFixed(18).toString()),
-                    assetPriceInEther: web3.utils.toWei((web3.utils.fromWei(assetPrice) / web3.utils.fromWei(etherPriceInUSD) * (assetBalance / (10 ** decimals))).toFixed(18).toString()),
-                    assetTotalPriceInUSD: web3.utils.toWei(((assetBalance / (10 ** decimals)) * web3.utils.fromWei(assetPrice.toString())).toString()),
-                    assetBalance,
-                    decimals
-                };
-            })
-        )).filter(element => element.assetBalance !== '0');
+            let _assetArr = (await Promise.all(
+                vaultAssets.map(async (assetAddress) => {
+                    let assetBalance = await safeContract.methods.getTokenBalance(assetAddress).call();
+                    let assetPrice = await priceModule.methods.getUSDPrice(assetAddress).call();
+                    let token = new web3.eth.Contract(ERC20, assetAddress);
+                    let decimals = await token.methods.decimals().call();
+                    return {
+                        assetAddress: assetAddress,
+                        assetPrice,
+                        singleAssetPriceInEther: web3.utils.toWei((web3.utils.fromWei(assetPrice) / web3.utils.fromWei(etherPriceInUSD)).toFixed(18).toString()),
+                        assetPriceInEther: web3.utils.toWei((web3.utils.fromWei(assetPrice) / web3.utils.fromWei(etherPriceInUSD) * (assetBalance / (10 ** decimals))).toFixed(18).toString()),
+                        assetTotalPriceInUSD: web3.utils.toWei(((assetBalance / (10 ** decimals)) * web3.utils.fromWei(assetPrice.toString())).toString()),
+                        assetBalance,
+                        decimals
+                    };
+                })
+            )).filter(element => element.assetBalance !== '0');
 
-        _assetArr = sortAssetArr(_assetArr);
-
-        let txn = await (await axios.get(`${BASE_URL}/defender/getpendingtxns`, {
-            data: {
-                    "safeaddress": vault.vaultAddress
-            }
-        })).data.data;
-
-        const txns = txn[0].transactions;
-
-        let reimbursedTxns = await getReimbursedTxns(txns);
-
-        let toBeReimbursed = txns.filter(element => {
-            return (reimbursedTxns.get(element.transactionHash) === undefined)
-        });
-
-        let toBeSentTxn = [];
-
-        for (let index = 0; index < toBeReimbursed.length; index++) {
-            const element = toBeReimbursed[index];
-            let obj = {};
-            let totalTxnCost = web3.utils.toWei((element.gascosts * web3.utils.fromWei(element.gasprice)).toString());
             _assetArr = sortAssetArr(_assetArr);
-            if (totalTxnCost < _assetArr[0].assetPriceInEther) {
-                obj.transactionHash = element.transactionHash;
-                obj.gasToken = _assetArr[0].assetAddress;
-                obj.beneficiary = element.beneficiary;
-                obj.gascost = totalTxnCost;
-                obj.tokenCount = (((web3.utils.fromWei(totalTxnCost) / web3.utils.fromWei(_assetArr[0].singleAssetPriceInEther)) * (10 ** _assetArr[0].decimals)).toFixed(0)).toString();
-                _assetArr[0].assetPriceInEther = (_assetArr[0].assetPriceInEther - totalTxnCost).toString();
-                toBeSentTxn.push(obj);
+
+            let txn = await (await axios.get(`${BASE_URL}/defender/getpendingtxns`, {
+                data: {
+                    "safeaddress": vault.vaultAddress
+                }
+            })).data.data;
+
+            const txns = txn[0].transactions;
+
+            let reimbursedTxns = await getReimbursedTxns(txns);
+
+            let toBeReimbursed = txns.filter(element => {
+                return (reimbursedTxns.get(element.transactionHash) === undefined)
+            });
+
+            let toBeSentTxn = [];
+
+            for (let index = 0; index < toBeReimbursed.length; index++) {
+                const element = toBeReimbursed[index];
+                let obj = {};
+                let totalTxnCost = web3.utils.toWei((element.gascosts * web3.utils.fromWei(element.gasprice)).toString());
+                _assetArr = sortAssetArr(_assetArr);
+                if (totalTxnCost < _assetArr[0].assetPriceInEther) {
+                    obj.transactionHash = element.transactionHash;
+                    obj.gasToken = _assetArr[0].assetAddress;
+                    obj.beneficiary = element.beneficiary;
+                    obj.gascost = totalTxnCost;
+                    obj.tokenCount = (((web3.utils.fromWei(totalTxnCost) / web3.utils.fromWei(_assetArr[0].singleAssetPriceInEther)) * (10 ** _assetArr[0].decimals)).toFixed(0)).toString();
+                    _assetArr[0].assetPriceInEther = (_assetArr[0].assetPriceInEther - totalTxnCost).toString();
+                    toBeSentTxn.push(obj);
+                }
+                else {
+                    break;
+                }
             }
-            else {
-                break;
-            }
-        }
-        const executorPaybackArgs = buildTxnArray(toBeSentTxn)
+            const executorPaybackArgs = buildTxnArray(toBeSentTxn)
             let minterInstruction = createTxn(executorPaybackArgs, vault.vaultAddress);
-        let estimatedGas = await web3.eth.estimateGas({
-            to: safeMinter,
+            let estimatedGas = await web3.eth.estimateGas({
+                to: safeMinter,
                 from: relayerAddress,
-            data: minterInstruction
+                data: minterInstruction
             });
 
             let txnHash = await sendTransaction(minterInstruction, relayerAddress, safeMinter, estimatedGas);
 
-        if (txnHash.status) {
-            let res = toBeReimbursed.map(async (element) => {
-                return { safeaddress: vault.vaultAddress, transactionHash: element.transactionHash, paybackReceipt: txnHash.txn }
-            });
-            let updatetxncost = await axios.patch(`${BASE_URL}/defender/updatetxncost`, res)
-        }
+            if (txnHash.status) {
+                let res = toBeReimbursed.map(async (element) => {
+                    return { safeaddress: vault.vaultAddress, transactionHash: element.transactionHash, paybackReceipt: txnHash.txn }
+                });
+                let updatetxncost = await axios.patch(`${BASE_URL}/defender/updatetxncost`, res)
+            }
         }));
     }
 
