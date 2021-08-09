@@ -1,7 +1,7 @@
 const { Relayer } = require('defender-relay-client');
 const axios = require('axios')
 const Web3 = require('web3');
-// const provider = new Web3.providers.WebsocketProvider("wss://mainnet.infura.io/ws/v3/af7e2e37cd6545479e7523246fbaaa08")
+const provider = new Web3.providers.WebsocketProvider(token)
 const provider = new Web3.providers.WebsocketProvider("ws://localhost:8545")
 let web3 = new Web3(provider);
 
@@ -11,10 +11,9 @@ const safeMinterABI = require('yieldster-abi/contracts/SafeMinter.json').abi;
 const ERC20 = require('yieldster-abi/contracts/ERC20Detailed.json').abi;
 
 const priceModuleAddress = "0xc98435837175795d216547a8edc9e0472604bbda";
-// const safeMinter = "0xd06d64f90f7d3ce5620c32e94306263c406703d7";
-const safeMinter = "0x9015E3AAA74CF482A7F66b75Fc036d3a2247Bb9F";
-
+const safeMinter = "0xd06d64f90f7d3ce5620c32e94306263c406703d7";
 const gasOracle = "0x169E633A2D1E6c10dD91238Ba11c4A708dfEF37C";
+
 const BASE_URL = "http://localhost:8050";
 // "https://api.yieldster.finance"
 
@@ -37,7 +36,6 @@ const sendTransaction = async (txData, from, to, estimatedGas) => {
         };
         let signedTxn = await web3.eth.accounts.signTransaction(
             tx,
-            "63f199a49e62ce84ca7266f30338e46674984b02e20d5a41634fc0fbbd15f4d6"
         );
 
         // let txn = await web3.eth.sendSignedTransaction(signedTxn.raw || signedTxn.rawTransaction);
