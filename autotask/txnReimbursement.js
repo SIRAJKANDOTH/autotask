@@ -2,6 +2,7 @@ const { Relayer } = require('defender-relay-client');
 const axios = require('axios')
 const Web3 = require('web3');
 const provider = new Web3.providers.WebsocketProvider(token)
+
 const provider = new Web3.providers.WebsocketProvider("ws://localhost:8545")
 let web3 = new Web3(provider);
 
@@ -13,6 +14,7 @@ const ERC20 = require('yieldster-abi/contracts/ERC20Detailed.json').abi;
 const priceModuleAddress = "0xc98435837175795d216547a8edc9e0472604bbda";
 const safeMinter = "0xd06d64f90f7d3ce5620c32e94306263c406703d7";
 const gasOracle = "0x169E633A2D1E6c10dD91238Ba11c4A708dfEF37C";
+const relayerAddress = "0x5091aF48BEB623b3DA0A53F726db63E13Ff91df9";
 
 const BASE_URL = "http://localhost:8050";
 // "https://api.yieldster.finance"
@@ -136,10 +138,10 @@ exports.handler = async function (event) {
 
     const vaults = await axios.get(`${BASE_URL}/vault`);
     if ((vaults.data.status) && ((vaults.data.data).length > 0)) {
-        // await Promise.all((vaults.data.data).map(async (vault) => {
-        let safeContract = new web3.eth.Contract(safeContractABI, "0x0Ec71f0605c9825f097Ed482922C3Be43A7e3439");
-        // let vaultAssets = [...new Set([...(vault.depositableAssets).map(x => x.assetAddress), ...(vault.withdrawableAssets).map(x => x.assetAddress)])] //UNCOMMENT
-        let vaultAssets = ['0xdac17f958d2ee523a2206206994597c13d831ec7', '0x7Eb40E450b9655f4B3cC4259BCC731c63ff55ae6', '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48'];
+        await Promise.all((vaults.data.data).map(async (vault) => {
+            let safeContract = new web3.eth.Contract(safeContractABI, vault.vaultAddress);
+            let vaultAssets = [...new Set([...(vault.depositableAssets).map(x => x.assetAddress), ...(vault.withdrawableAssets).map(x => x.assetAddress)])] //UNCOMMENT
+            // let vaultAssets = ['0xdac17f958d2ee523a2206206994597c13d831ec7', '0x7Eb40E450b9655f4B3cC4259BCC731c63ff55ae6', '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48'];
 
         let _assetArr = (await Promise.all(
             vaultAssets.map(async (assetAddress) => {
@@ -163,8 +165,7 @@ exports.handler = async function (event) {
 
         let txn = await (await axios.get(`${BASE_URL}/defender/getpendingtxns`, {
             data: {
-                // "safeaddress": vault.vaultAddress
-                "safeaddress": "abcd"
+                    "safeaddress": vault.vaultAddress
             }
         })).data.data;
 
@@ -196,17 +197,15 @@ exports.handler = async function (event) {
                 break;
             }
         }
-        // console.log(toBeSentTxn)
         const executorPaybackArgs = buildTxnArray(toBeSentTxn)
-
-        let minterInstruction = createTxn(executorPaybackArgs, "0x0Ec71f0605c9825f097Ed482922C3Be43A7e3439");
-
+            let minterInstruction = createTxn(executorPaybackArgs, vault.vaultAddress);
         let estimatedGas = await web3.eth.estimateGas({
             to: safeMinter,
-            from: "0x5091aF48BEB623b3DA0A53F726db63E13Ff91df9",
+                from: relayerAddress,
             data: minterInstruction
-        })
-        let txnHash = await sendTransaction(minterInstruction, "0x5091aF48BEB623b3DA0A53F726db63E13Ff91df9", safeMinter, estimatedGas);
+            });
+
+            let txnHash = await sendTransaction(minterInstruction, relayerAddress, safeMinter, estimatedGas);
 
         if (txnHash.status) {
             let res = toBeReimbursed.map(async (element) => {
@@ -214,9 +213,7 @@ exports.handler = async function (event) {
             });
             let updatetxncost = await axios.patch(`${BASE_URL}/defender/updatetxncost`, res)
         }
-
-
-        // }))
+        }));
     }
 
 }
@@ -229,6 +226,3 @@ if (require.main === module) {
         .then(() => process.exit(0))
         .catch(error => { console.error(error); process.exit(1); });
 }
-
-// 24622623
-// 06577
