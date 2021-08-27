@@ -200,10 +200,10 @@ const setActiveProtocol = async (relayer, vaultAddress, protocolAddress) => {
             gasCost,
             vaultAddress,
             instruction,
-            protocolAddress
+            protocolAddress,
+            livaOneMinter
         }
         console.log(params);
-
         // let activeProtocolHash = await exports.sentInstruction(relayer, livaOneMinter, minterInstruction);
         // console.log("activeProtocolHash", activeProtocolHash)
         return { response: "activeProtocolHash", status: true }
@@ -250,7 +250,8 @@ const changeProtocol = async (relayer, vaultAddress, threshold, protocolAddress,
             vaultNAVInStrategy: web3.utils.fromWei(vaultNAVInStrategy.toString()),
             newProtocolAPY,
             activeProtocolAPY,
-            ocb: web3.utils.fromWei(ocb.toString())
+            ocb: web3.utils.fromWei(ocb.toString()),
+            livaOneMinter
         }
         console.log(params);
 
@@ -370,6 +371,7 @@ const earn = async (relayer, vault, vaultActiveProtocol, amountToInvest) => {
 
         let params = {
             type: 'earn protocol',
+            livaOneMinter,
             gasUsed,
             gasCost,
             vaultAddress: vault.vaultAddress,
