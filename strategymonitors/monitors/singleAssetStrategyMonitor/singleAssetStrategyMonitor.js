@@ -15,12 +15,13 @@ const CRV3Pool = require("yieldster-abi/contracts/curve3pool.json").abi;
 
 //**************************************************************************************** */
 //**THE FOLLOWING CONFIGURATIONS ARE UNIQUE TO EACH SINGLE ASSET CRV STRATEGY */
-const singleAssetStrategyMinter = "0xE50f1Bd58AAba2F7505CEca19c50228202197612";
-const singleAssetStrategyAddress = "0x6F6a99DEB235121a01A4C06E208F9Fdec142FABE";
+const singleAssetStrategyMinter = "0x27f11E87a7492eA8d988EaA107311B38ff3DEE06";
+const singleAssetStrategyAddress = "0xb2F98AE1b70633CAa4Af8A7a9B2A489358F7c0F7";
 const curveVaultAddress = "0xbEbc44782C7dB0a1A60Cb6fe97d0b483032FF1C7";
 const yVAcceptToken = "";
-const ocbPercentage = '100';
+const ocbPercentage = '100'; //
 let minimumDeposit = '700000000000000000000'; //0.7k Dollars
+let maximumOptimalSafeBalance = new BN('10000000000000000000000'); //10k Dollars
 //**************************************************************************************** */
 //-------curve-vault--ERC-20-TOKENS-------------------------//
 const DAI = "0x6B175474E89094C44Da98b954EedeAC495271d0F";
@@ -90,8 +91,9 @@ const getAssetTotalPriceInUSD = (assetBalance, assetDecimals, assetPriceInUSD) =
 
 const getAmountToInvest = (_vaultNAV, _vaultNAVWithoutStrategy, _ocbPercentage) => {
     let optimalSafeBalance = new BN(_vaultNAV).mul(new BN(_ocbPercentage)).div(new BN('10000'));
+    if (optimalSafeBalance.gt(maximumOptimalSafeBalance))
+        optimalSafeBalance = maximumOptimalSafeBalance;
     let toDeposit = new BN(_vaultNAVWithoutStrategy).sub(optimalSafeBalance);
-    console.log(toDeposit.toString())
     if (toDeposit.isNeg() || toDeposit.lt(new BN(minimumDeposit)))
         return new BN('0');
     else
@@ -167,14 +169,13 @@ const earn = async (vault, amountToInvest, safeContract) => {
 
         let { assetsMapping, baseAssetMapping, nonBaseAssetMapping } = await assetProportions(assetArr, amountToInvest);
         let estimatedReturns = await curvePool.methods.calc_token_amount([balanceOfDAI, balanceOfUSDT, balanceOfUSDC], true).call();
-        let estimatedReturns = 0;
 
         let dataParams = web3.eth.abi.encodeParameters(
             ['address[3]', 'uint256[3]', 'uint256', 'address[]', 'uint256[]'],
             [
                 [DAI, USDC, USDT],
                 [baseAssetMapping.get(DAI) === undefined ? '0' : baseAssetMapping.get(DAI), baseAssetMapping.get(USDC) === undefined ? '0' : baseAssetMapping.get(USDC), baseAssetMapping.get(USDT) === undefined ? '0' : (baseAssetMapping.get(USDT))],
-                estimatedReturns,
+                estimatedReturns === '0' ? '0' : '1',
                 [...nonBaseAssetMapping.keys()],
                 [...nonBaseAssetMapping.values()]
             ]
@@ -182,7 +183,7 @@ const earn = async (vault, amountToInvest, safeContract) => {
 
         console.log([DAI, USDC, USDT],
             [baseAssetMapping.get(DAI) === undefined ? '0' : baseAssetMapping.get(DAI), baseAssetMapping.get(USDC) === undefined ? '0' : baseAssetMapping.get(USDC), baseAssetMapping.get(USDT) === undefined ? '0' : (baseAssetMapping.get(USDT))],
-            estimatedReturns,
+            estimatedReturns === '0' ? '0' : '1',
             [...nonBaseAssetMapping.keys()],
             [...nonBaseAssetMapping.values()])
         console.log(assetsMapping)
@@ -241,8 +242,10 @@ exports.handler = async (event) => {
                     /**
                      To check if optimal cash balance is present in the vault for strategy deposit
                      */
+                    console.log(vault.vaultAddress)
                     let amountToInvest = getAmountToInvest(vaultNAV, vaultNAVWithoutStrategy, ocbPercentage);
-
+                    console.log(amountToInvest.toString())
+                    console.log(vaultNAVWithoutStrategy.toString())
                     if (!amountToInvest.eq(new BN('0'))) {
                         let earnHash = await earn(vault, amountToInvest, yieldsterContractInstance);
                     } else console.log("Optimal Cash Balance not present in the vault");
