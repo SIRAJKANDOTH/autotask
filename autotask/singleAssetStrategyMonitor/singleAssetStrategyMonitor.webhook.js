@@ -1,8 +1,6 @@
 const { Relayer } = require('defender-relay-client');
 const axios = require('axios');
 const Web3 = require('web3');
-const HDWalletProvider = require("@truffle/hdwallet-provider");
-
 //**************************************************************************************** */
 //**THE FOLLOWING CONFIGURATIONS ARE TO BE ADDED POST DEPLOYMENT */
 const PRIVATE_KEY = "";
@@ -27,21 +25,10 @@ const priceModuleAddress = "0xc98435837175795d216547a8edc9e0472604bbda";
 
 const etherscanAPIKey = "EPZKUNTQJSRTD1RTVHVIF6AWJF4FP3FJZY";
 
-// //**************************************************************************************** */
-// //**THE FOLLOWING CONFIGURATIONS ARE UNIQUE TO EACH SINGLE ASSET CRV STRATEGY */
-// const singleAssetStrategyMinter = "0x27f11E87a7492eA8d988EaA107311B38ff3DEE06";
-// const singleAssetStrategyAddress = "0xb2F98AE1b70633CAa4Af8A7a9B2A489358F7c0F7";
-// const curveVaultAddress = "0xbEbc44782C7dB0a1A60Cb6fe97d0b483032FF1C7";
-// const yVAcceptToken = "";
-// const ocbPercentage = '10'; //0.1%
-// let minimumDeposit = '500000000000000000000'; //0.5k Dollars
-// let maximumOptimalSafeBalance = new BN('10000000000000000000000'); //10k Dollars
-// //**************************************************************************************** */
-
 //**************************************************************************************** */
 //**THE FOLLOWING CONFIGURATIONS ARE UNIQUE TO EACH SINGLE ASSET CRV STRATEGY */
-const singleAssetStrategyMinter = "0x7573E53adeC374AEe7BD63f7d33e456EAcd10631";
-const singleAssetStrategyAddress = "0x2747ce11793f7059567758cc35d34f63cee8ac00";
+const singleAssetStrategyMinter = "0x27f11E87a7492eA8d988EaA107311B38ff3DEE06";
+const singleAssetStrategyAddress = "0xb2F98AE1b70633CAa4Af8A7a9B2A489358F7c0F7";
 const curveVaultAddress = "0xbEbc44782C7dB0a1A60Cb6fe97d0b483032FF1C7";
 const yVAcceptToken = "";
 const ocbPercentage = '10'; //0.1%
@@ -68,13 +55,10 @@ const getGasUsedInUSD = async (gasUsed) => {
         let oneEtherInUSD = new BN(oneEtherInWEI[0]).div(
             (new BN('10')).pow(new BN('8'))
         );
-        // let oneEtherInUSD = oneEtherInWEI[0] / (10 ** 8)
-
         let currentGasPriceInWEI = (new BN(await web3.eth.getGasPrice())).add(new BN('10000000000')); // Adding 10 GWEI
         console.log("gasCosts", gasUsed)
         console.log("currentGasPriceInWEI", currentGasPriceInWEI.toString())
         // let currentGasPriceInWEI = web3.utils.toWei(((await axios.get(`https://api.etherscan.io/api/?module=gastracker&action=gasoracle&apikey=${etherscanAPIKey}`)).data.result.FastGasPrice).toString(), 'gwei');
-        // let gasUsedInUSD = (currentGasPriceInWEI * gasUsed * oneEtherInUSD) / (10 ** 18)
         let gasUsedInUSD = currentGasPriceInWEI
             .mul(new BN(gasUsed))
             .mul(oneEtherInUSD);
@@ -91,22 +75,22 @@ const getGasUsedInUSD = async (gasUsed) => {
 //     } else return 0;
 // }
 
-const sendTransaction = async (data) => {
+const sendTransaction = async (data, secrets) => {
     try {
-        let WALLET_PROVIDER = new HDWalletProvider({
-            privateKeys: [PRIVATE_KEY],
-            providerOrUrl: PROVIDER
-        });
-        const txnWEB3 = new Web3(WALLET_PROVIDER);
-        // const txn = await txnWEB3.eth.sendTransaction({
-        //     to: singleAssetStrategyMinter,
-        //     from: TXN_SIGNER,
-        //     data: data,
-        // })
-        // WALLET_PROVIDER.engine.stop();
-        // return { status: true, message: txn.hash }
-        return { status: true, message: "txn.hash" }
+        let privateKey = ""
+        if (secrets.hasOwnProperty('MAINNET_ACTUAL'))
+            privateKey = secrets.MAINNET_ACTUAL;
+        else
+            privateKey = PRIVATE_KEY;
+        let acc = web3.eth.accounts.privateKeyToAccount(PRIVATE_KEY);
+        let wallet = web3.eth.accounts.wallet.add(acc);
+        const txn = await web3.eth.sendTransaction({
+            to: singleAssetStrategyMinter,
+            from: 0,
+            data: data,
 
+        })
+        return { status: true, message: txn.hash }
     } catch (error) {
         console.log(error)
         return { status: false, message: error }
@@ -169,7 +153,7 @@ const assetProportions = (assetArr, amountToInvest) => {
     return { assetsMapping, baseAssetMapping, nonBaseAssetMapping }
 }
 
-const earn = async (vault, amountToInvest, safeContract) => {
+const earn = async (vault, amountToInvest, safeContract, secrets) => {
     try {
         // const strategyInstance = new web3.eth.Contract(strategyABI, singleAssetStrategyAddress);
         const curvePool = new web3.eth.Contract(CRV3Pool, curveVaultAddress);
@@ -247,7 +231,7 @@ const earn = async (vault, amountToInvest, safeContract) => {
         let gasUsedInUSD = await getGasUsedInUSD(gasCosts);
         if ((amountToInvest.mul(new BN('5')).div(new BN('100'))).gt(gasUsedInUSD)) //Checking if 5% of amount to invest is > gas costs 
         {
-            let txn = await sendTransaction(earnInstruction)
+            let txn = await sendTransaction(earnInstruction, secrets)
             return { status: txn.status, response: txn.message }
         }
         else {
@@ -262,7 +246,7 @@ const earn = async (vault, amountToInvest, safeContract) => {
     }
 }
 
-const handleVault = async (vault) => {
+const handleVault = async (vault, secrets) => {
     try {
         console.log(`Vault Address :- ${vault.vaultAddress}`)
         const yieldsterContractInstance = new web3.eth.Contract(yieldsterABI, vault.vaultAddress);
@@ -281,7 +265,7 @@ const handleVault = async (vault) => {
             console.log("amountToInvest: ", amountToInvest.toString())
 
             if (!amountToInvest.eq(new BN('0'))) {
-                let earnHash = await earn(vault, amountToInvest, yieldsterContractInstance);
+                let earnHash = await earn(vault, amountToInvest, yieldsterContractInstance, secrets);
             } else console.log("Optimal Cash Balance not present in the vault");
             return { status: true, message: "processing" }
         }
@@ -295,13 +279,14 @@ const handleVault = async (vault) => {
     }
 }
 
-const handler = async (event) => {
+exports.handler = async (event) => {
     try {
+        const secrets = event.secrets;
         if (event.request.hasOwnProperty('queryParameters')) {
             if (event.request.queryParameters.hasOwnProperty('vaultAddress')) {
                 const vault = await axios.get(`${BASE_URL}/vault/${event.request.queryParameters.vaultAddress}`);
                 if ((vault.data.status) && (vault.data.data)) {
-                    let res = await handleVault(vault.data.data);
+                    let res = await handleVault(vault.data.data, secrets);
                     return res;
                 }
                 else
@@ -312,7 +297,7 @@ const handler = async (event) => {
             const vaults = await axios.get(`${BASE_URL}/vault`);
             if ((vaults.data.status) && (vaults.data.data)) {
                 let response = await Promise.all((vaults.data.data).map(async (vault) => {
-                    let res = await handleVault(vault);
+                    let res = await handleVault(vault, secrets);
                     return res;
                 }))
                 return response;
@@ -329,10 +314,8 @@ const handler = async (event) => {
     }
 }
 
-handler({
+exports.handler({
     request: {
         queryParameters: { vaultAddress: "0x02FB737B01dd3Dfc4eF006969b4211487afdd06a" }
     }
 });
-
-// handler({request:""});
