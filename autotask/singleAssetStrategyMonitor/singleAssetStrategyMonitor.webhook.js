@@ -1,10 +1,18 @@
 const { Relayer } = require('defender-relay-client');
 const axios = require('axios');
 const Web3 = require('web3');
-// const web3 = new Web3(new Web3.providers.WebsocketProvider("ws://localhost:8545"));
-const web3 = new Web3(new Web3.providers.WebsocketProvider("wss://mainnet.infura.io/ws/v3/af7e2e37cd6545479e7523246fbaaa08"));
-const BN = web3.utils.BN;
+const HDWalletProvider = require("@truffle/hdwallet-provider");
 
+//**************************************************************************************** */
+//**THE FOLLOWING CONFIGURATIONS ARE TO BE ADDED POST DEPLOYMENT */
+const PRIVATE_KEY = "";
+// const PROVIDER = "ws://localhost:8545";
+const PROVIDER = "wss://mainnet.infura.io/ws/v3/af7e2e37cd6545479e7523246fbaaa08";
+const TXN_SIGNER = "0xb2AA4a5DF3641D42e72D7F07a40292794dfD07a0";
+//**************************************************************************************** */
+
+const web3 = new Web3(new Web3.providers.WebsocketProvider(PROVIDER));
+const BN = web3.utils.BN;
 
 const yieldsterABI = require('yieldster-abi/contracts/YieldsterVault.json').abi;
 const strategyABI = require('yieldster-abi/contracts/IStrategy.json').abi;
@@ -12,17 +20,35 @@ const priceModuleABI = require('yieldster-abi/contracts/PriceModule.json').abi;
 const IVaultABI = require('yieldster-abi/contracts/IVault.json').abi;
 const ERC20 = require('yieldster-abi/contracts/ERC20Detailed.json').abi;
 const CRV3Pool = require("yieldster-abi/contracts/curve3pool.json").abi;
+const minter = require("yieldster-abi/contracts/LivaOneMinter.json").abi;
+
+const zeroAddress = "0x0000000000000000000000000000000000000000";
+const priceModuleAddress = "0xc98435837175795d216547a8edc9e0472604bbda";
+
+const etherscanAPIKey = "EPZKUNTQJSRTD1RTVHVIF6AWJF4FP3FJZY";
+
+// //**************************************************************************************** */
+// //**THE FOLLOWING CONFIGURATIONS ARE UNIQUE TO EACH SINGLE ASSET CRV STRATEGY */
+// const singleAssetStrategyMinter = "0x27f11E87a7492eA8d988EaA107311B38ff3DEE06";
+// const singleAssetStrategyAddress = "0xb2F98AE1b70633CAa4Af8A7a9B2A489358F7c0F7";
+// const curveVaultAddress = "0xbEbc44782C7dB0a1A60Cb6fe97d0b483032FF1C7";
+// const yVAcceptToken = "";
+// const ocbPercentage = '10'; //0.1%
+// let minimumDeposit = '500000000000000000000'; //0.5k Dollars
+// let maximumOptimalSafeBalance = new BN('10000000000000000000000'); //10k Dollars
+// //**************************************************************************************** */
 
 //**************************************************************************************** */
 //**THE FOLLOWING CONFIGURATIONS ARE UNIQUE TO EACH SINGLE ASSET CRV STRATEGY */
-const singleAssetStrategyMinter = "0x27f11E87a7492eA8d988EaA107311B38ff3DEE06";
-const singleAssetStrategyAddress = "0xb2F98AE1b70633CAa4Af8A7a9B2A489358F7c0F7";
+const singleAssetStrategyMinter = "0x7573E53adeC374AEe7BD63f7d33e456EAcd10631";
+const singleAssetStrategyAddress = "0x2747ce11793f7059567758cc35d34f63cee8ac00";
 const curveVaultAddress = "0xbEbc44782C7dB0a1A60Cb6fe97d0b483032FF1C7";
 const yVAcceptToken = "";
-const ocbPercentage = '10'; //
-let minimumDeposit = '700000000000000000000'; //0.7k Dollars
+const ocbPercentage = '10'; //0.1%
+let minimumDeposit = '500000000000000000000'; //0.5k Dollars
 let maximumOptimalSafeBalance = new BN('10000000000000000000000'); //10k Dollars
 //**************************************************************************************** */
+
 //-------curve-vault--ERC-20-TOKENS-------------------------//
 const DAI = "0x6B175474E89094C44Da98b954EedeAC495271d0F";
 const USDC = "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48";
@@ -34,55 +60,58 @@ const priceModule = new web3.eth.Contract(priceModuleABI, "0xc98435837175795d216
 
 const BASE_URL = "https://api.yieldster.finance";
 
-const getPriceInUsd = (assetBalance, assetDecimals, assetPriceInUSD) => {
-    return web3.utils.toWei(((assetBalance / (10 ** assetDecimals)) * web3.utils.fromWei(assetPriceInUSD.toString())).toString())
-}
 
 const getGasUsedInUSD = async (gasUsed) => {
     try {
         let priceModule = new web3.eth.Contract(priceModuleABI, priceModuleAddress);
         let oneEtherInWEI = await priceModule.methods.getLatestPrice('0x5f4eC3Df9cbd43714FE2740f5E3616155c5b8419').call();
-        let oneEtherInUSD = oneEtherInWEI[0] / (10 ** 8)
-        let currentGasPriceInWEI = await web3.eth.getGasPrice(); // UNCOMMENT IN PRODUCTION
+        let oneEtherInUSD = new BN(oneEtherInWEI[0]).div(
+            (new BN('10')).pow(new BN('8'))
+        );
+        // let oneEtherInUSD = oneEtherInWEI[0] / (10 ** 8)
+
+        let currentGasPriceInWEI = (new BN(await web3.eth.getGasPrice())).add(new BN('10000000000')); // Adding 10 GWEI
+        console.log("gasCosts", gasUsed)
+        console.log("currentGasPriceInWEI", currentGasPriceInWEI.toString())
         // let currentGasPriceInWEI = web3.utils.toWei(((await axios.get(`https://api.etherscan.io/api/?module=gastracker&action=gasoracle&apikey=${etherscanAPIKey}`)).data.result.FastGasPrice).toString(), 'gwei');
-        let gasUsedInUSD = (currentGasPriceInWEI * gasUsed * oneEtherInUSD) / (10 ** 18)
+        // let gasUsedInUSD = (currentGasPriceInWEI * gasUsed * oneEtherInUSD) / (10 ** 18)
+        let gasUsedInUSD = currentGasPriceInWEI
+            .mul(new BN(gasUsed))
+            .mul(oneEtherInUSD);
         return gasUsedInUSD;
     } catch (error) {
         throw error;
     }
 }
 
-const getAverageGasPrice = async () => {
-    let gasPrice = await axios.get(`${BASE_URL}/defender/gas-price`);
-    if (gasPrice.data.status) {
-        return gasPrice.data.data.GasPrice;
-    } else return 0;
-}
+// const getAverageGasPrice = async () => {
+//     let gasPrice = await axios.get(`${BASE_URL}/defender/gas-price`);
+//     if (gasPrice.data.status) {
+//         return gasPrice.data.data.GasPrice;
+//     } else return 0;
+// }
 
-const sentInstruction = async function (relayer, minterAddress, instruction) {
-    const txRes = {
-        hash: 'hash'
+const sendTransaction = async (data) => {
+    try {
+        let WALLET_PROVIDER = new HDWalletProvider({
+            privateKeys: [PRIVATE_KEY],
+            providerOrUrl: PROVIDER
+        });
+        const txnWEB3 = new Web3(WALLET_PROVIDER);
+        // const txn = await txnWEB3.eth.sendTransaction({
+        //     to: singleAssetStrategyMinter,
+        //     from: TXN_SIGNER,
+        //     data: data,
+        // })
+        // WALLET_PROVIDER.engine.stop();
+        // return { status: true, message: txn.hash }
+        return { status: true, message: "txn.hash" }
+
+    } catch (error) {
+        console.log(error)
+        return { status: false, message: error }
     }
-    // const txRes = await relayer.sendTransaction({
-    //     to: minterAddress,
-    //     data: instruction,
-    //     speed: 'fast',
-    //     gasLimit: '1000000',
-    // });
-    return `Transaction hash: ${txRes.hash}`;
 }
-
-const estimateGas = async (from, to, data) => {
-    let txnObject = {
-        from,
-        to,
-        data
-    };
-    let estGas = await web3.eth.estimateGas(txnObject);
-    console.log("estGs:", estGas)
-    return estGas;
-}
-
 
 const getAssetTotalPriceInUSD = (assetBalance, assetDecimals, assetPriceInUSD) => {
     let val = (new BN(assetBalance).div(new BN('10').pow(new BN(assetDecimals)))).mul(new BN(assetPriceInUSD));
@@ -91,7 +120,7 @@ const getAssetTotalPriceInUSD = (assetBalance, assetDecimals, assetPriceInUSD) =
 
 const getAmountToInvest = (_vaultNAV, _vaultNAVWithoutStrategy, _ocbPercentage) => {
     let optimalSafeBalance = new BN(_vaultNAV).mul(new BN(_ocbPercentage)).div(new BN('10000'));
-
+    console.log("optimalSafeBalance:- ", optimalSafeBalance.toString() / (10 ** 18))
     if (optimalSafeBalance.gt(maximumOptimalSafeBalance))
         optimalSafeBalance = maximumOptimalSafeBalance;
     let toDeposit = new BN(_vaultNAVWithoutStrategy).sub(optimalSafeBalance);
@@ -99,16 +128,6 @@ const getAmountToInvest = (_vaultNAV, _vaultNAVWithoutStrategy, _ocbPercentage) 
         return new BN('0');
     else
         return toDeposit
-}
-
-let gasPercent = '500';
-totalEarnedAMount = '1000000000000000000000000';
-let harvestCriteria=(new BN(totalEarnedAMount)).mul((new BN(gasPercent)).div(new BN('10000')))
-
-let totalGas = '10000000000000'
-
-if((new BN(totalGas)).lt(harvestCriteria)) {
-    //Then call harvest
 }
 
 const isBaseAsset = (val) => {
@@ -153,7 +172,8 @@ const assetProportions = (assetArr, amountToInvest) => {
 const earn = async (vault, amountToInvest, safeContract) => {
     try {
         // const strategyInstance = new web3.eth.Contract(strategyABI, singleAssetStrategyAddress);
-        const curvePool = new web3.eth.Contract(CRV3Pool, curveVaultAddress)
+        const curvePool = new web3.eth.Contract(CRV3Pool, curveVaultAddress);
+        let minterContract = new web3.eth.Contract(minter, singleAssetStrategyMinter);
         let balanceOfDAI = await safeContract.methods.getTokenBalance(DAI).call();
         let balanceOfUSDC = await safeContract.methods.getTokenBalance(USDC).call();
         let balanceOfUSDT = await safeContract.methods.getTokenBalance(USDT).call();
@@ -200,7 +220,6 @@ const earn = async (vault, amountToInvest, safeContract) => {
             [...nonBaseAssetMapping.keys()],
             [...nonBaseAssetMapping.values()])
         console.log(assetsMapping)
-        console.log("dataparams:- ", dataParams);
 
         let earnInstruction = web3.eth.abi.encodeFunctionCall({
             name: "earn",
@@ -222,7 +241,20 @@ const earn = async (vault, amountToInvest, safeContract) => {
             }
             ]
         }, [vault.vaultAddress, [...assetsMapping.keys()], [...assetsMapping.values()], dataParams]);
-        return { status: true, response: earnInstruction }
+
+        let gasCosts = await minterContract.methods.earn(vault.vaultAddress, [...assetsMapping.keys()], [...assetsMapping.values()], dataParams).estimateGas({ from: TXN_SIGNER });
+
+        let gasUsedInUSD = await getGasUsedInUSD(gasCosts);
+        if ((amountToInvest.mul(new BN('5')).div(new BN('100'))).gt(gasUsedInUSD)) //Checking if 5% of amount to invest is > gas costs 
+        {
+            let txn = await sendTransaction(earnInstruction)
+            return { status: txn.status, response: txn.message }
+        }
+        else {
+            console.log("Gas costs high")
+            return { status: false, response: "Gas costs high" }
+        }
+
     }
     catch (error) {
         console.log(error)
@@ -230,40 +262,33 @@ const earn = async (vault, amountToInvest, safeContract) => {
     }
 }
 
-const sendTransaction = async (relayer, data) => {
-    try {
-        let tx = relayer.sendTransaction({
-            singleAssetStrategyMinter, data, speed: 'fast'
-        });
-        return tx;
-    } catch (error) {
-        console.log(error)
-    }
-}
-
 const handleVault = async (vault) => {
     try {
         console.log(`Vault Address :- ${vault.vaultAddress}`)
-        let relayer = zeroAddress;
         const yieldsterContractInstance = new web3.eth.Contract(yieldsterABI, vault.vaultAddress);
         let vaultActiveStrategy = await yieldsterContractInstance.methods.getVaultActiveStrategy().call();
         vaultActiveStrategy = vaultActiveStrategy[0];
 
-        let vaultNAV = await yieldsterContractInstance.methods.getVaultNAV().call();
-        let vaultNAVWithoutStrategy = await yieldsterContractInstance.methods.getVaultNAVWithoutStrategyToken().call();
-        console.log("vaultNAV: ", vaultNAV);
-        console.log("vaultNAVWithoutStrategy: ", vaultNAVWithoutStrategy);
-        /**
-         To check if optimal cash balance is present in the vault for strategy deposit
-         */
-        let amountToInvest = getAmountToInvest(vaultNAV, vaultNAVWithoutStrategy, ocbPercentage);
-        console.log(amountToInvest.toString())
-        console.log(vaultNAVWithoutStrategy.toString())
+        if (vaultActiveStrategy && vaultActiveStrategy.toLowerCase() === singleAssetStrategyAddress.toLowerCase()) {
+            let vaultNAV = await yieldsterContractInstance.methods.getVaultNAV().call();
+            let vaultNAVWithoutStrategy = await yieldsterContractInstance.methods.getVaultNAVWithoutStrategyToken().call();
+            console.log("vaultNAV: ", vaultNAV);
+            console.log("vaultNAVWithoutStrategy: ", vaultNAVWithoutStrategy);
+            /**
+             To check if optimal cash balance is present in the vault for strategy deposit
+             */
+            let amountToInvest = getAmountToInvest(vaultNAV, vaultNAVWithoutStrategy, ocbPercentage);
+            console.log("amountToInvest: ", amountToInvest.toString())
 
-        if (!amountToInvest.eq(new BN('0'))) {
-            let earnHash = await earn(vault, amountToInvest, yieldsterContractInstance);
-        } else console.log("Optimal Cash Balance not present in the vault");
-        return { status: true, message: "processing" }
+            if (!amountToInvest.eq(new BN('0'))) {
+                let earnHash = await earn(vault, amountToInvest, yieldsterContractInstance);
+            } else console.log("Optimal Cash Balance not present in the vault");
+            return { status: true, message: "processing" }
+        }
+        else {
+            return { status: false, message: "Strategy not present for the vault" }
+        }
+
     } catch (error) {
         console.log(error.message)
         return { status: false, message: error.message }
@@ -279,7 +304,8 @@ const handler = async (event) => {
                     let res = await handleVault(vault.data.data);
                     return res;
                 }
-                return { status: "false", message: "nil" };
+                else
+                    return { status: "false", message: "nil" };
             }
         }
         else {
@@ -291,19 +317,21 @@ const handler = async (event) => {
                 }))
                 return response;
             }
+            else
+                return { status: "false", message: "nil" };
         }
-        process.exit(0) // Remove in PRODUCTION
+        process.exit(0) // TODO Remove in PRODUCTION
         return { status: "false", message: "Invalid" }
     } catch (error) {
         console.log(error)
-        process.exit(0) // Remove in PRODUCTION
+        process.exit(0) // TODO Remove in PRODUCTION
         return { status: "false", message: error.message }
     }
 }
 
 handler({
     request: {
-        queryParameters: { vaultAddress: "0x4B9aE1480c1b533256543D75367804159875724B" }
+        queryParameters: { vaultAddress: "0x02FB737B01dd3Dfc4eF006969b4211487afdd06a" }
     }
 });
 
