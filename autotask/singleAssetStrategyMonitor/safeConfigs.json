@@ -1,0 +1,8 @@
+{
+    "0x04D981889cdCA9344AF7d1D16206e62751430984": {
+        "name": "falcon-vault",
+        "ocbPercentage": "10",
+        "maximumOptimalSafeBalance": "10000000000000000000000",
+        "minimumDeposit":"500000000000000000000"
+    }
+}

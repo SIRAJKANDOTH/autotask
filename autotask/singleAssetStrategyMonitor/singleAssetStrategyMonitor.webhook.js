@@ -1,12 +1,13 @@
 const { Relayer } = require('defender-relay-client');
 const axios = require('axios');
 const Web3 = require('web3');
+
 //**************************************************************************************** */
 //**THE FOLLOWING CONFIGURATIONS ARE TO BE ADDED POST DEPLOYMENT */
-const PRIVATE_KEY = "";
+const PRIVATE_KEY = "84bf18c3f7b5d1a0b8afbd3fb7f50477bf2f95803b770c9916f504e55b45fc0e";
 // const PROVIDER = "ws://localhost:8545";
 const PROVIDER = "wss://mainnet.infura.io/ws/v3/af7e2e37cd6545479e7523246fbaaa08";
-const TXN_SIGNER = "0xb2AA4a5DF3641D42e72D7F07a40292794dfD07a0";
+const TXN_SIGNER = "0x92506Ee00ad88354fa25E6CbFa7d42116d6823C0";
 //**************************************************************************************** */
 
 const web3 = new Web3(new Web3.providers.WebsocketProvider(PROVIDER));
@@ -19,6 +20,7 @@ const IVaultABI = require('yieldster-abi/contracts/IVault.json').abi;
 const ERC20 = require('yieldster-abi/contracts/ERC20Detailed.json').abi;
 const CRV3Pool = require("yieldster-abi/contracts/curve3pool.json").abi;
 const minter = require("yieldster-abi/contracts/LivaOneMinter.json").abi;
+const safeConfig = require("./safeConfigs.json");
 
 const zeroAddress = "0x0000000000000000000000000000000000000000";
 const priceModuleAddress = "0xc98435837175795d216547a8edc9e0472604bbda";
@@ -31,10 +33,15 @@ const singleAssetStrategyMinter = "0x27f11E87a7492eA8d988EaA107311B38ff3DEE06";
 const singleAssetStrategyAddress = "0xb2F98AE1b70633CAa4Af8A7a9B2A489358F7c0F7";
 const curveVaultAddress = "0xbEbc44782C7dB0a1A60Cb6fe97d0b483032FF1C7";
 const yVAcceptToken = "";
-const ocbPercentage = '10'; //0.1%
-let minimumDeposit = '500000000000000000000'; //0.5k Dollars
-let maximumOptimalSafeBalance = new BN('10000000000000000000000'); //10k Dollars
 //**************************************************************************************** */
+
+//**************************************************************************************** */
+//**THE FOLLOWING CONFIGURATIONS MUST BE UNIQUE FOR EACH VAULT. Vaulues here are defaults */
+const ocbPercentage = '10'; //0.1%
+let maximumOptimalSafeBalance = '10000000000000000000000'; //10k Dollars
+let minimumDeposit = '500000000000000000000'; //0.5k Dollars
+//**************************************************************************************** */
+
 
 //-------curve-vault--ERC-20-TOKENS-------------------------//
 const DAI = "0x6B175474E89094C44Da98b954EedeAC495271d0F";
@@ -68,11 +75,8 @@ const getGasUsedInUSD = async (gasUsed) => {
     }
 }
 
-// const getAverageGasPrice = async () => {
-//     let gasPrice = await axios.get(`${BASE_URL}/defender/gas-price`);
-//     if (gasPrice.data.status) {
-//         return gasPrice.data.data.GasPrice;
-//     } else return 0;
+// const getOCB = (vaultAddress) => {
+//     let obj = 
 // }
 
 const sendTransaction = async (data, secrets) => {
@@ -88,7 +92,6 @@ const sendTransaction = async (data, secrets) => {
             to: singleAssetStrategyMinter,
             from: 0,
             data: data,
-
         })
         return { status: true, message: txn.hash }
     } catch (error) {
@@ -102,13 +105,13 @@ const getAssetTotalPriceInUSD = (assetBalance, assetDecimals, assetPriceInUSD) =
     return (val)
 }
 
-const getAmountToInvest = (_vaultNAV, _vaultNAVWithoutStrategy, _ocbPercentage) => {
+const getAmountToInvest = (_vaultNAV, _vaultNAVWithoutStrategy, _ocbPercentage, minDeposit, maxOptimalSafeBalance) => {
     let optimalSafeBalance = new BN(_vaultNAV).mul(new BN(_ocbPercentage)).div(new BN('10000'));
     console.log("optimalSafeBalance:- ", optimalSafeBalance.toString() / (10 ** 18))
-    if (optimalSafeBalance.gt(maximumOptimalSafeBalance))
-        optimalSafeBalance = maximumOptimalSafeBalance;
+    if (optimalSafeBalance.gt(new BN(maxOptimalSafeBalance)))
+        optimalSafeBalance = new BN(maxOptimalSafeBalance);
     let toDeposit = new BN(_vaultNAVWithoutStrategy).sub(optimalSafeBalance);
-    if (toDeposit.isNeg() || toDeposit.lt(new BN(minimumDeposit)))
+    if (toDeposit.isNeg() || toDeposit.lt(new BN(minDeposit)))
         return new BN('0');
     else
         return toDeposit
@@ -149,7 +152,6 @@ const assetProportions = (assetArr, amountToInvest) => {
             }
         }
     })
-
     return { assetsMapping, baseAssetMapping, nonBaseAssetMapping }
 }
 
@@ -261,7 +263,10 @@ const handleVault = async (vault, secrets) => {
             /**
              To check if optimal cash balance is present in the vault for strategy deposit
              */
-            let amountToInvest = getAmountToInvest(vaultNAV, vaultNAVWithoutStrategy, ocbPercentage);
+            let minDeposit = safeConfig[vault.vaultAddress] ? safeConfig[vault.vaultAddress].minimumDeposit : minimumDeposit;
+            let maxOptimalSafeBalance = safeConfig[vault.vaultAddress] ? safeConfig[vault.vaultAddress].maximumOptimalSafeBalance : maximumOptimalSafeBalance;
+            let OCB = safeConfig[vault.vaultAddress] ? safeConfig[vault.vaultAddress].ocbPercentage : ocbPercentage;
+            let amountToInvest = getAmountToInvest(vaultNAV, vaultNAVWithoutStrategy, OCB, minDeposit, maxOptimalSafeBalance);
             console.log("amountToInvest: ", amountToInvest.toString())
 
             if (!amountToInvest.eq(new BN('0'))) {
@@ -305,11 +310,9 @@ exports.handler = async (event) => {
             else
                 return { status: "false", message: "nil" };
         }
-        process.exit(0) // TODO Remove in PRODUCTION
         return { status: "false", message: "Invalid" }
     } catch (error) {
         console.log(error)
-        process.exit(0) // TODO Remove in PRODUCTION
         return { status: "false", message: error.message }
     }
 }
