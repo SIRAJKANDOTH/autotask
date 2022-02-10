@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "@openzeppelin/contracts": "^3.3.0",
+    "@truffle/hdwallet-provider": "^2.0.0",
     "async": "^3.2.0",
     "defender-kvstore-client": "^1.10.0",
     "defender-relay-client": "^1.1.0",

@@ -4,10 +4,10 @@ const Web3 = require('web3');
 
 //**************************************************************************************** */
 //**THE FOLLOWING CONFIGURATIONS ARE TO BE ADDED POST DEPLOYMENT */
-const PRIVATE_KEY = "84bf18c3f7b5d1a0b8afbd3fb7f50477bf2f95803b770c9916f504e55b45fc0e";
+const PRIVATE_KEY = "";
 // const PROVIDER = "ws://localhost:8545";
 const PROVIDER = "wss://mainnet.infura.io/ws/v3/af7e2e37cd6545479e7523246fbaaa08";
-const TXN_SIGNER = "0x92506Ee00ad88354fa25E6CbFa7d42116d6823C0";
+const TXN_SIGNER = "0xb2AA4a5DF3641D42e72D7F07a40292794dfD07a0";
 //**************************************************************************************** */
 
 const web3 = new Web3(new Web3.providers.WebsocketProvider(PROVIDER));
@@ -63,9 +63,9 @@ const getGasUsedInUSD = async (gasUsed) => {
             (new BN('10')).pow(new BN('8'))
         );
         let currentGasPriceInWEI = (new BN(await web3.eth.getGasPrice())).add(new BN('10000000000')); // Adding 10 GWEI
+        // let currentGasPriceInWEI = (new BN(web3.utils.toWei(((await axios.get(`https://api.etherscan.io/api/?module=gastracker&action=gasoracle&apikey=${etherscanAPIKey}`)).data.result.FastGasPrice).toString(), 'gwei')));
         console.log("gasCosts", gasUsed)
         console.log("currentGasPriceInWEI", currentGasPriceInWEI.toString())
-        // let currentGasPriceInWEI = web3.utils.toWei(((await axios.get(`https://api.etherscan.io/api/?module=gastracker&action=gasoracle&apikey=${etherscanAPIKey}`)).data.result.FastGasPrice).toString(), 'gwei');
         let gasUsedInUSD = currentGasPriceInWEI
             .mul(new BN(gasUsed))
             .mul(oneEtherInUSD);
@@ -79,21 +79,23 @@ const getGasUsedInUSD = async (gasUsed) => {
 //     let obj = 
 // }
 
-const sendTransaction = async (data, secrets) => {
+const sendTransaction = async (data, secrets,gasCosts) => {
     try {
         let privateKey = ""
         if (secrets.hasOwnProperty('MAINNET_ACTUAL'))
             privateKey = secrets.MAINNET_ACTUAL;
         else
             privateKey = PRIVATE_KEY;
-        let acc = web3.eth.accounts.privateKeyToAccount(PRIVATE_KEY);
+        let acc = web3.eth.accounts.privateKeyToAccount(privateKey);
         let wallet = web3.eth.accounts.wallet.add(acc);
+
         const txn = await web3.eth.sendTransaction({
             to: singleAssetStrategyMinter,
             from: 0,
             data: data,
+            gas:((new BN(gasCosts)).add(new BN('50000'))).toString()
         })
-        return { status: true, message: txn.hash }
+        return { status: true, message: "txn.hash" }
     } catch (error) {
         console.log(error)
         return { status: false, message: error }
@@ -233,7 +235,7 @@ const earn = async (vault, amountToInvest, safeContract, secrets) => {
         let gasUsedInUSD = await getGasUsedInUSD(gasCosts);
         if ((amountToInvest.mul(new BN('5')).div(new BN('100'))).gt(gasUsedInUSD)) //Checking if 5% of amount to invest is > gas costs 
         {
-            let txn = await sendTransaction(earnInstruction, secrets)
+            let txn = await sendTransaction(earnInstruction, secrets,gasCosts)
             return { status: txn.status, response: txn.message }
         }
         else {
@@ -319,6 +321,7 @@ exports.handler = async (event) => {
 
 exports.handler({
     request: {
-        queryParameters: { vaultAddress: "0x02FB737B01dd3Dfc4eF006969b4211487afdd06a" }
-    }
+        queryParameters: { vaultAddress: "0x04D981889cdCA9344AF7d1D16206e62751430984" }
+    },
+    secrets: { MAINNET_ACTUAL: "" }
 });
