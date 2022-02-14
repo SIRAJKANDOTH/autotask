@@ -1,0 +1,197 @@
+{
+  "contractName": "IStake",
+  "abi": [
+    {
+      "constant": false,
+      "inputs": [],
+      "name": "stakeAll",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "metadata": "{\"compiler\":{\"version\":\"0.5.17+commit.d19bba13\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"constant\":false,\"inputs\":[],\"name\":\"stakeAll\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"methods\":{}},\"userdoc\":{\"methods\":{}}},\"settings\":{\"compilationTarget\":{\"project:/contracts/strategies/ConvexSingleAsset/interfaces/convex/IStake.sol\":\"IStake\"},\"evmVersion\":\"petersburg\",\"libraries\":{},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"project:/contracts/strategies/ConvexSingleAsset/interfaces/convex/IStake.sol\":{\"keccak256\":\"0x92a9b0177c42fe68eb1be64d77ca7c1bbee04b85c4c28db1698d2051ba020cfd\",\"urls\":[\"bzz-raw://70c3156e44ac29cbcae623dff3799352ee18842d145f2406bf200352d379194b\",\"dweb:/ipfs/QmWzcff9Pq38poeYEzkJFLroQAaX4mdmPwSoqEKuCBpaT7\"]}},\"version\":1}",
+  "bytecode": "0x",
+  "deployedBytecode": "0x",
+  "sourceMap": "",
+  "deployedSourceMap": "",
+  "source": "pragma solidity ^0.5.0;\ninterface IStake {\n\n    //function to stake cvx to reward contract and reward given is cvxcrv\n    function stakeAll() external;\n}",
+  "sourcePath": "/home/dxuser/Documents/scode/yieldster-vault/contracts/strategies/ConvexSingleAsset/interfaces/convex/IStake.sol",
+  "ast": {
+    "absolutePath": "project:/contracts/strategies/ConvexSingleAsset/interfaces/convex/IStake.sol",
+    "exportedSymbols": {
+      "IStake": [
+        13396
+      ]
+    },
+    "id": 13397,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 13392,
+        "literals": [
+          "solidity",
+          "^",
+          "0.5",
+          ".0"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "0:23:52"
+      },
+      {
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "interface",
+        "documentation": null,
+        "fullyImplemented": false,
+        "id": 13396,
+        "linearizedBaseContracts": [
+          13396
+        ],
+        "name": "IStake",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "body": null,
+            "documentation": null,
+            "id": 13395,
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "stakeAll",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 13393,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "139:2:52"
+            },
+            "returnParameters": {
+              "id": 13394,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "150:0:52"
+            },
+            "scope": 13396,
+            "src": "122:29:52",
+            "stateMutability": "nonpayable",
+            "superFunction": null,
+            "visibility": "external"
+          }
+        ],
+        "scope": 13397,
+        "src": "24:129:52"
+      }
+    ],
+    "src": "0:153:52"
+  },
+  "legacyAST": {
+    "attributes": {
+      "absolutePath": "project:/contracts/strategies/ConvexSingleAsset/interfaces/convex/IStake.sol",
+      "exportedSymbols": {
+        "IStake": [
+          13396
+        ]
+      }
+    },
+    "children": [
+      {
+        "attributes": {
+          "literals": [
+            "solidity",
+            "^",
+            "0.5",
+            ".0"
+          ]
+        },
+        "id": 13392,
+        "name": "PragmaDirective",
+        "src": "0:23:52"
+      },
+      {
+        "attributes": {
+          "baseContracts": [
+            null
+          ],
+          "contractDependencies": [
+            null
+          ],
+          "contractKind": "interface",
+          "documentation": null,
+          "fullyImplemented": false,
+          "linearizedBaseContracts": [
+            13396
+          ],
+          "name": "IStake",
+          "scope": 13397
+        },
+        "children": [
+          {
+            "attributes": {
+              "body": null,
+              "documentation": null,
+              "implemented": false,
+              "isConstructor": false,
+              "kind": "function",
+              "modifiers": [
+                null
+              ],
+              "name": "stakeAll",
+              "scope": 13396,
+              "stateMutability": "nonpayable",
+              "superFunction": null,
+              "visibility": "external"
+            },
+            "children": [
+              {
+                "attributes": {
+                  "parameters": [
+                    null
+                  ]
+                },
+                "children": [],
+                "id": 13393,
+                "name": "ParameterList",
+                "src": "139:2:52"
+              },
+              {
+                "attributes": {
+                  "parameters": [
+                    null
+                  ]
+                },
+                "children": [],
+                "id": 13394,
+                "name": "ParameterList",
+                "src": "150:0:52"
+              }
+            ],
+            "id": 13395,
+            "name": "FunctionDefinition",
+            "src": "122:29:52"
+          }
+        ],
+        "id": 13396,
+        "name": "ContractDefinition",
+        "src": "24:129:52"
+      }
+    ],
+    "id": 13397,
+    "name": "SourceUnit",
+    "src": "0:153:52"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.5.17+commit.d19bba13.Emscripten.clang"
+  },
+  "networks": {},
+  "schemaVersion": "3.4.4",
+  "updatedAt": "2022-02-01T11:12:09.371Z",
+  "devdoc": {
+    "methods": {}
+  },
+  "userdoc": {
+    "methods": {}
+  }
+}

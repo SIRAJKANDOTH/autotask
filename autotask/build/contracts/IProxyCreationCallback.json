@@ -1,0 +1,455 @@
+{
+  "contractName": "IProxyCreationCallback",
+  "abi": [
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "internalType": "contract YieldsterVaultProxy",
+          "name": "proxy",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "_mastercopy",
+          "type": "address"
+        },
+        {
+          "internalType": "bytes",
+          "name": "initializer",
+          "type": "bytes"
+        },
+        {
+          "internalType": "uint256",
+          "name": "saltNonce",
+          "type": "uint256"
+        }
+      ],
+      "name": "proxyCreated",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "metadata": "{\"compiler\":{\"version\":\"0.5.17+commit.d19bba13\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"constant\":false,\"inputs\":[{\"internalType\":\"contract YieldsterVaultProxy\",\"name\":\"proxy\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"_mastercopy\",\"type\":\"address\"},{\"internalType\":\"bytes\",\"name\":\"initializer\",\"type\":\"bytes\"},{\"internalType\":\"uint256\",\"name\":\"saltNonce\",\"type\":\"uint256\"}],\"name\":\"proxyCreated\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"methods\":{}},\"userdoc\":{\"methods\":{}}},\"settings\":{\"compilationTarget\":{\"project:/contracts/proxies/IProxyCreationCallback.sol\":\"IProxyCreationCallback\"},\"evmVersion\":\"petersburg\",\"libraries\":{},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"project:/contracts/proxies/IProxyCreationCallback.sol\":{\"keccak256\":\"0xc6431458847987f36a2953e30f7046f28cef803504ef0df89b2f79757178fc20\",\"urls\":[\"bzz-raw://aa6d52ad7019a291d58b2fd318f3e692ecccd3f12bd7a34f05059d10759e08b0\",\"dweb:/ipfs/QmcuidnSAb4ctzibovpvCxPu3yN94dFAuyza7mae3yC9FL\"]},\"project:/contracts/proxies/YieldsterVaultProxy.sol\":{\"keccak256\":\"0xc10e7cdc4fbc4d221f5cbc8b184e1988a0430ee3b0bc20755566df4ffcc4bce3\",\"urls\":[\"bzz-raw://9edc5a29a449c0604d26412c1ce2805f10c0f911aef829248df12e1bc57f1c51\",\"dweb:/ipfs/QmZLfj1eDohyw8dkqeLZx59b8ig7E17L8sMG2r8jajF4pM\"]}},\"version\":1}",
+  "bytecode": "0x",
+  "deployedBytecode": "0x",
+  "sourceMap": "",
+  "deployedSourceMap": "",
+  "source": "pragma solidity ^0.5.3;\nimport \"./YieldsterVaultProxy.sol\";\n\ninterface IProxyCreationCallback {\n    function proxyCreated(\n        YieldsterVaultProxy proxy,\n        address _mastercopy,\n        bytes calldata initializer,\n        uint256 saltNonce\n    ) external;\n}\n",
+  "sourcePath": "/home/dxuser/Documents/scode/yieldster-vault/contracts/proxies/IProxyCreationCallback.sol",
+  "ast": {
+    "absolutePath": "project:/contracts/proxies/IProxyCreationCallback.sol",
+    "exportedSymbols": {
+      "IProxyCreationCallback": [
+        6836
+      ]
+    },
+    "id": 6837,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 6823,
+        "literals": [
+          "solidity",
+          "^",
+          "0.5",
+          ".3"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "0:23:34"
+      },
+      {
+        "absolutePath": "project:/contracts/proxies/YieldsterVaultProxy.sol",
+        "file": "./YieldsterVaultProxy.sol",
+        "id": 6824,
+        "nodeType": "ImportDirective",
+        "scope": 6837,
+        "sourceUnit": 6872,
+        "src": "24:35:34",
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "interface",
+        "documentation": null,
+        "fullyImplemented": false,
+        "id": 6836,
+        "linearizedBaseContracts": [
+          6836
+        ],
+        "name": "IProxyCreationCallback",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "body": null,
+            "documentation": null,
+            "id": 6835,
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "proxyCreated",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 6833,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 6826,
+                  "name": "proxy",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 6835,
+                  "src": "131:25:34",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_contract$_YieldsterVaultProxy_$6871",
+                    "typeString": "contract YieldsterVaultProxy"
+                  },
+                  "typeName": {
+                    "contractScope": null,
+                    "id": 6825,
+                    "name": "YieldsterVaultProxy",
+                    "nodeType": "UserDefinedTypeName",
+                    "referencedDeclaration": 6871,
+                    "src": "131:19:34",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_contract$_YieldsterVaultProxy_$6871",
+                      "typeString": "contract YieldsterVaultProxy"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 6828,
+                  "name": "_mastercopy",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 6835,
+                  "src": "166:19:34",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 6827,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "166:7:34",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 6830,
+                  "name": "initializer",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 6835,
+                  "src": "195:26:34",
+                  "stateVariable": false,
+                  "storageLocation": "calldata",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes_calldata_ptr",
+                    "typeString": "bytes"
+                  },
+                  "typeName": {
+                    "id": 6829,
+                    "name": "bytes",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "195:5:34",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes_storage_ptr",
+                      "typeString": "bytes"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 6832,
+                  "name": "saltNonce",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 6835,
+                  "src": "231:17:34",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 6831,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "231:7:34",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "121:133:34"
+            },
+            "returnParameters": {
+              "id": 6834,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "263:0:34"
+            },
+            "scope": 6836,
+            "src": "100:164:34",
+            "stateMutability": "nonpayable",
+            "superFunction": null,
+            "visibility": "external"
+          }
+        ],
+        "scope": 6837,
+        "src": "61:205:34"
+      }
+    ],
+    "src": "0:267:34"
+  },
+  "legacyAST": {
+    "attributes": {
+      "absolutePath": "project:/contracts/proxies/IProxyCreationCallback.sol",
+      "exportedSymbols": {
+        "IProxyCreationCallback": [
+          6836
+        ]
+      }
+    },
+    "children": [
+      {
+        "attributes": {
+          "literals": [
+            "solidity",
+            "^",
+            "0.5",
+            ".3"
+          ]
+        },
+        "id": 6823,
+        "name": "PragmaDirective",
+        "src": "0:23:34"
+      },
+      {
+        "attributes": {
+          "SourceUnit": 6872,
+          "absolutePath": "project:/contracts/proxies/YieldsterVaultProxy.sol",
+          "file": "./YieldsterVaultProxy.sol",
+          "scope": 6837,
+          "symbolAliases": [
+            null
+          ],
+          "unitAlias": ""
+        },
+        "id": 6824,
+        "name": "ImportDirective",
+        "src": "24:35:34"
+      },
+      {
+        "attributes": {
+          "baseContracts": [
+            null
+          ],
+          "contractDependencies": [
+            null
+          ],
+          "contractKind": "interface",
+          "documentation": null,
+          "fullyImplemented": false,
+          "linearizedBaseContracts": [
+            6836
+          ],
+          "name": "IProxyCreationCallback",
+          "scope": 6837
+        },
+        "children": [
+          {
+            "attributes": {
+              "body": null,
+              "documentation": null,
+              "implemented": false,
+              "isConstructor": false,
+              "kind": "function",
+              "modifiers": [
+                null
+              ],
+              "name": "proxyCreated",
+              "scope": 6836,
+              "stateMutability": "nonpayable",
+              "superFunction": null,
+              "visibility": "external"
+            },
+            "children": [
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "proxy",
+                      "scope": 6835,
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "type": "contract YieldsterVaultProxy",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "contractScope": null,
+                          "name": "YieldsterVaultProxy",
+                          "referencedDeclaration": 6871,
+                          "type": "contract YieldsterVaultProxy"
+                        },
+                        "id": 6825,
+                        "name": "UserDefinedTypeName",
+                        "src": "131:19:34"
+                      }
+                    ],
+                    "id": 6826,
+                    "name": "VariableDeclaration",
+                    "src": "131:25:34"
+                  },
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "_mastercopy",
+                      "scope": 6835,
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "type": "address",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "address",
+                          "stateMutability": "nonpayable",
+                          "type": "address"
+                        },
+                        "id": 6827,
+                        "name": "ElementaryTypeName",
+                        "src": "166:7:34"
+                      }
+                    ],
+                    "id": 6828,
+                    "name": "VariableDeclaration",
+                    "src": "166:19:34"
+                  },
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "initializer",
+                      "scope": 6835,
+                      "stateVariable": false,
+                      "storageLocation": "calldata",
+                      "type": "bytes",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "bytes",
+                          "type": "bytes"
+                        },
+                        "id": 6829,
+                        "name": "ElementaryTypeName",
+                        "src": "195:5:34"
+                      }
+                    ],
+                    "id": 6830,
+                    "name": "VariableDeclaration",
+                    "src": "195:26:34"
+                  },
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "saltNonce",
+                      "scope": 6835,
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "type": "uint256",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "uint256",
+                          "type": "uint256"
+                        },
+                        "id": 6831,
+                        "name": "ElementaryTypeName",
+                        "src": "231:7:34"
+                      }
+                    ],
+                    "id": 6832,
+                    "name": "VariableDeclaration",
+                    "src": "231:17:34"
+                  }
+                ],
+                "id": 6833,
+                "name": "ParameterList",
+                "src": "121:133:34"
+              },
+              {
+                "attributes": {
+                  "parameters": [
+                    null
+                  ]
+                },
+                "children": [],
+                "id": 6834,
+                "name": "ParameterList",
+                "src": "263:0:34"
+              }
+            ],
+            "id": 6835,
+            "name": "FunctionDefinition",
+            "src": "100:164:34"
+          }
+        ],
+        "id": 6836,
+        "name": "ContractDefinition",
+        "src": "61:205:34"
+      }
+    ],
+    "id": 6837,
+    "name": "SourceUnit",
+    "src": "0:267:34"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.5.17+commit.d19bba13.Emscripten.clang"
+  },
+  "networks": {},
+  "schemaVersion": "3.4.4",
+  "updatedAt": "2022-02-01T11:12:09.307Z",
+  "devdoc": {
+    "methods": {}
+  },
+  "userdoc": {
+    "methods": {}
+  }
+}

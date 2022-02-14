@@ -1,0 +1,260 @@
+{
+  "contractName": "ICrvAddressProvider",
+  "abi": [
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "get_registry",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ],
+  "metadata": "{\"compiler\":{\"version\":\"0.5.17+commit.d19bba13\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"constant\":true,\"inputs\":[],\"name\":\"get_registry\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"methods\":{}},\"userdoc\":{\"methods\":{}}},\"settings\":{\"compilationTarget\":{\"project:/contracts/strategies/interfaces/ICrvAddressProvider.sol\":\"ICrvAddressProvider\"},\"evmVersion\":\"petersburg\",\"libraries\":{},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"project:/contracts/strategies/interfaces/ICrvAddressProvider.sol\":{\"keccak256\":\"0x0628df3bcc3da2efaba442fd87ac45c42140951e41ae00891c1c241d8a4c010a\",\"urls\":[\"bzz-raw://476b4f8818dc9b3cd5402700055a7011f30a4e718810220b60df3b80dc2a8b37\",\"dweb:/ipfs/QmTmYy9mv5fsioe3BdofrEXq1hMK4GQX9EiGDh4qb7fJsu\"]}},\"version\":1}",
+  "bytecode": "0x",
+  "deployedBytecode": "0x",
+  "sourceMap": "",
+  "deployedSourceMap": "",
+  "source": "// SPDX-License-Identifier: MIT\npragma solidity >=0.5.0 <0.7.0;\n\ninterface ICrvAddressProvider {\n    function get_registry() external view returns (address);\n}\n",
+  "sourcePath": "/home/dxuser/Documents/scode/yieldster-vault/contracts/strategies/interfaces/ICrvAddressProvider.sol",
+  "ast": {
+    "absolutePath": "project:/contracts/strategies/interfaces/ICrvAddressProvider.sol",
+    "exportedSymbols": {
+      "ICrvAddressProvider": [
+        19279
+      ]
+    },
+    "id": 19280,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 19273,
+        "literals": [
+          "solidity",
+          ">=",
+          "0.5",
+          ".0",
+          "<",
+          "0.7",
+          ".0"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "32:31:63"
+      },
+      {
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "interface",
+        "documentation": null,
+        "fullyImplemented": false,
+        "id": 19279,
+        "linearizedBaseContracts": [
+          19279
+        ],
+        "name": "ICrvAddressProvider",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "body": null,
+            "documentation": null,
+            "id": 19278,
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "get_registry",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 19274,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "122:2:63"
+            },
+            "returnParameters": {
+              "id": 19277,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 19276,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 19278,
+                  "src": "148:7:63",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 19275,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "148:7:63",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "147:9:63"
+            },
+            "scope": 19279,
+            "src": "101:56:63",
+            "stateMutability": "view",
+            "superFunction": null,
+            "visibility": "external"
+          }
+        ],
+        "scope": 19280,
+        "src": "65:94:63"
+      }
+    ],
+    "src": "32:128:63"
+  },
+  "legacyAST": {
+    "attributes": {
+      "absolutePath": "project:/contracts/strategies/interfaces/ICrvAddressProvider.sol",
+      "exportedSymbols": {
+        "ICrvAddressProvider": [
+          19279
+        ]
+      }
+    },
+    "children": [
+      {
+        "attributes": {
+          "literals": [
+            "solidity",
+            ">=",
+            "0.5",
+            ".0",
+            "<",
+            "0.7",
+            ".0"
+          ]
+        },
+        "id": 19273,
+        "name": "PragmaDirective",
+        "src": "32:31:63"
+      },
+      {
+        "attributes": {
+          "baseContracts": [
+            null
+          ],
+          "contractDependencies": [
+            null
+          ],
+          "contractKind": "interface",
+          "documentation": null,
+          "fullyImplemented": false,
+          "linearizedBaseContracts": [
+            19279
+          ],
+          "name": "ICrvAddressProvider",
+          "scope": 19280
+        },
+        "children": [
+          {
+            "attributes": {
+              "body": null,
+              "documentation": null,
+              "implemented": false,
+              "isConstructor": false,
+              "kind": "function",
+              "modifiers": [
+                null
+              ],
+              "name": "get_registry",
+              "scope": 19279,
+              "stateMutability": "view",
+              "superFunction": null,
+              "visibility": "external"
+            },
+            "children": [
+              {
+                "attributes": {
+                  "parameters": [
+                    null
+                  ]
+                },
+                "children": [],
+                "id": 19274,
+                "name": "ParameterList",
+                "src": "122:2:63"
+              },
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "",
+                      "scope": 19278,
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "type": "address",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "address",
+                          "stateMutability": "nonpayable",
+                          "type": "address"
+                        },
+                        "id": 19275,
+                        "name": "ElementaryTypeName",
+                        "src": "148:7:63"
+                      }
+                    ],
+                    "id": 19276,
+                    "name": "VariableDeclaration",
+                    "src": "148:7:63"
+                  }
+                ],
+                "id": 19277,
+                "name": "ParameterList",
+                "src": "147:9:63"
+              }
+            ],
+            "id": 19278,
+            "name": "FunctionDefinition",
+            "src": "101:56:63"
+          }
+        ],
+        "id": 19279,
+        "name": "ContractDefinition",
+        "src": "65:94:63"
+      }
+    ],
+    "id": 19280,
+    "name": "SourceUnit",
+    "src": "32:128:63"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.5.17+commit.d19bba13.Emscripten.clang"
+  },
+  "networks": {},
+  "schemaVersion": "3.4.4",
+  "updatedAt": "2022-02-01T11:12:09.418Z",
+  "devdoc": {
+    "methods": {}
+  },
+  "userdoc": {
+    "methods": {}
+  }
+}

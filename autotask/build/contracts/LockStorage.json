@@ -1,0 +1,4197 @@
+{
+  "contractName": "LockStorage",
+  "abi": [
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_APContract",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_withdrawer",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "_asset",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_amount",
+          "type": "uint256"
+        }
+      ],
+      "name": "addRequest",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [],
+      "name": "clearWithdrawals",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_vaultAddress",
+          "type": "address"
+        }
+      ],
+      "name": "getWithdrawalList",
+      "outputs": [
+        {
+          "internalType": "address[]",
+          "name": "",
+          "type": "address[]"
+        },
+        {
+          "internalType": "address[]",
+          "name": "",
+          "type": "address[]"
+        },
+        {
+          "internalType": "uint256[]",
+          "name": "",
+          "type": "uint256[]"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ],
+  "metadata": "{\"compiler\":{\"version\":\"0.5.17+commit.d19bba13\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_APContract\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"_withdrawer\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"_asset\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_amount\",\"type\":\"uint256\"}],\"name\":\"addRequest\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[],\"name\":\"clearWithdrawals\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"_vaultAddress\",\"type\":\"address\"}],\"name\":\"getWithdrawalList\",\"outputs\":[{\"internalType\":\"address[]\",\"name\":\"\",\"type\":\"address[]\"},{\"internalType\":\"address[]\",\"name\":\"\",\"type\":\"address[]\"},{\"internalType\":\"uint256[]\",\"name\":\"\",\"type\":\"uint256[]\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"methods\":{}},\"userdoc\":{\"methods\":{}}},\"settings\":{\"compilationTarget\":{\"project:/contracts/smartStrategies/withdraw/storage/LockStorage.sol\":\"LockStorage\"},\"evmVersion\":\"petersburg\",\"libraries\":{},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"project:/contracts/interfaces/IAPContract.sol\":{\"keccak256\":\"0x760e15c052831dc0d33bb82b0595f860fddb6b1f1fe8232bdfc3ae56f2ea7024\",\"urls\":[\"bzz-raw://95de4716f094dfae90e9c4ddab80ad6832dff868fc4a44507279983387b0567a\",\"dweb:/ipfs/QmSMuiv9fgHGo7czszx8Sinkoc5Npt9RKxd3c6G3y8Joib\"]},\"project:/contracts/smartStrategies/withdraw/storage/LockStorage.sol\":{\"keccak256\":\"0xe8b9c8e749d5108159df6567eadd10778a431e2d329dd7c75cac06a418f42dd8\",\"urls\":[\"bzz-raw://6c155e0973a5f9e788ec2eec0f3cf85d91bd757da772eb6ead87db8a1f1969e2\",\"dweb:/ipfs/QmT1GHDrxGuFdrWQskGAMPP7PrsmHM3DZgFEMsKMdWaoLk\"]}},\"version\":1}",
+  "bytecode": "0x608060405234801561001057600080fd5b506040516106d13803806106d18339818101604052602081101561003357600080fd5b5051600180546001600160a01b0319166001600160a01b0390921691909117905561066e806100636000396000f3fe608060405234801561001057600080fd5b50600436106100415760003560e01c806338439f2214610046578063837b528114610050578063cb38c7b414610086575b600080fd5b61004e61018a565b005b61004e6004803603606081101561006657600080fd5b506001600160a01b038135811691602081013590911690604001356102da565b6100ac6004803603602081101561009c57600080fd5b50356001600160a01b0316610410565b60405180806020018060200180602001848103845287818151815260200191508051906020019060200280838360005b838110156100f45781810151838201526020016100dc565b50505050905001848103835286818151815260200191508051906020019060200280838360005b8381101561013357818101518382015260200161011b565b50505050905001848103825285818151815260200191508051906020019060200280838360005b8381101561017257818101518382015260200161015a565b50505050905001965050505050505060405180910390f35b6001546040805163652b9b4160e01b815233600482015290516001600160a01b039092169163652b9b4191602480820192602092909190829003018186803b1580156101d557600080fd5b505afa1580156101e9573d6000803e3d6000fd5b505050506040513d60208110156101ff57600080fd5b505161024c576040805162461bcd60e51b81526020600482015260176024820152764e6f7420612072656769737465726564207661756c742160481b604482015290519081900360640190fd5b60408051600060608201818152608083018452825282518181526020818101855280840191909152835182815280820185528385015233825281815292902081518051929391926102a0928492019061054c565b5060208281015180516102b9926001850192019061054c565b50604082015180516102d59160028401916020909101906105b1565b505050565b6001546040805163652b9b4160e01b815233600482015290516001600160a01b039092169163652b9b4191602480820192602092909190829003018186803b15801561032557600080fd5b505afa158015610339573d6000803e3d6000fd5b505050506040513d602081101561034f57600080fd5b505161039c576040805162461bcd60e51b81526020600482015260176024820152764e6f7420612072656769737465726564207661756c742160481b604482015290519081900360640190fd5b33600090815260208181526040822080546001818101835582855283852090910180546001600160a01b039889166001600160a01b03199182161790915581830180548084018255908652848620018054979098169616959095179095556002909401805493840181558152929092200155565b6001600160a01b0381166000908152602081815260409182902080548351818402810184019094528084526060938493849392600184019260028501929091859183018282801561048a57602002820191906000526020600020905b81546001600160a01b0316815260019091019060200180831161046c575b50505050509250818054806020026020016040519081016040528092919081815260200182805480156104e657602002820191906000526020600020905b81546001600160a01b031681526001909101906020018083116104c8575b505050505091508080548060200260200160405190810160405280929190818152602001828054801561053857602002820191906000526020600020905b815481526020019060010190808311610524575b505050505090509250925092509193909250565b8280548282559060005260206000209081019282156105a1579160200282015b828111156105a157825182546001600160a01b0319166001600160a01b0390911617825560209092019160019091019061056c565b506105ad9291506105f8565b5090565b8280548282559060005260206000209081019282156105ec579160200282015b828111156105ec5782518255916020019190600101906105d1565b506105ad92915061061f565b61061c91905b808211156105ad5780546001600160a01b03191681556001016105fe565b90565b61061c91905b808211156105ad576000815560010161062556fea265627a7a72315820ce163ce90c4673b0e4b72b0b624c5b7a233564f3666d2c683d317ad0c110dc5264736f6c63430005110032",
+  "deployedBytecode": "0x608060405234801561001057600080fd5b50600436106100415760003560e01c806338439f2214610046578063837b528114610050578063cb38c7b414610086575b600080fd5b61004e61018a565b005b61004e6004803603606081101561006657600080fd5b506001600160a01b038135811691602081013590911690604001356102da565b6100ac6004803603602081101561009c57600080fd5b50356001600160a01b0316610410565b60405180806020018060200180602001848103845287818151815260200191508051906020019060200280838360005b838110156100f45781810151838201526020016100dc565b50505050905001848103835286818151815260200191508051906020019060200280838360005b8381101561013357818101518382015260200161011b565b50505050905001848103825285818151815260200191508051906020019060200280838360005b8381101561017257818101518382015260200161015a565b50505050905001965050505050505060405180910390f35b6001546040805163652b9b4160e01b815233600482015290516001600160a01b039092169163652b9b4191602480820192602092909190829003018186803b1580156101d557600080fd5b505afa1580156101e9573d6000803e3d6000fd5b505050506040513d60208110156101ff57600080fd5b505161024c576040805162461bcd60e51b81526020600482015260176024820152764e6f7420612072656769737465726564207661756c742160481b604482015290519081900360640190fd5b60408051600060608201818152608083018452825282518181526020818101855280840191909152835182815280820185528385015233825281815292902081518051929391926102a0928492019061054c565b5060208281015180516102b9926001850192019061054c565b50604082015180516102d59160028401916020909101906105b1565b505050565b6001546040805163652b9b4160e01b815233600482015290516001600160a01b039092169163652b9b4191602480820192602092909190829003018186803b15801561032557600080fd5b505afa158015610339573d6000803e3d6000fd5b505050506040513d602081101561034f57600080fd5b505161039c576040805162461bcd60e51b81526020600482015260176024820152764e6f7420612072656769737465726564207661756c742160481b604482015290519081900360640190fd5b33600090815260208181526040822080546001818101835582855283852090910180546001600160a01b039889166001600160a01b03199182161790915581830180548084018255908652848620018054979098169616959095179095556002909401805493840181558152929092200155565b6001600160a01b0381166000908152602081815260409182902080548351818402810184019094528084526060938493849392600184019260028501929091859183018282801561048a57602002820191906000526020600020905b81546001600160a01b0316815260019091019060200180831161046c575b50505050509250818054806020026020016040519081016040528092919081815260200182805480156104e657602002820191906000526020600020905b81546001600160a01b031681526001909101906020018083116104c8575b505050505091508080548060200260200160405190810160405280929190818152602001828054801561053857602002820191906000526020600020905b815481526020019060010190808311610524575b505050505090509250925092509193909250565b8280548282559060005260206000209081019282156105a1579160200282015b828111156105a157825182546001600160a01b0319166001600160a01b0390911617825560209092019160019091019061056c565b506105ad9291506105f8565b5090565b8280548282559060005260206000209081019282156105ec579160200282015b828111156105ec5782518255916020019190600101906105d1565b506105ad92915061061f565b61061c91905b808211156105ad5780546001600160a01b03191681556001016105fe565b90565b61061c91905b808211156105ad576000815560010161062556fea265627a7a72315820ce163ce90c4673b0e4b72b0b624c5b7a233564f3666d2c683d317ad0c110dc5264736f6c63430005110032",
+  "sourceMap": "79:1659:38:-;;;383:81;8:9:-1;5:2;;;30:1;27;20:12;5:2;383:81:38;;;;;;;;;;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;-1:-1;383:81:38;433:10;:24;;-1:-1:-1;;;;;;433:24:38;-1:-1:-1;;;;;433:24:38;;;;;;;;;79:1659;;;-1:-1:-1;79:1659:38;;",
+  "deployedSourceMap": "79:1659:38:-;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;79:1659:38;;;;;;;;;;;;;;;;;;;;;;;;;;;;;964:332;;;:::i;:::-;;470:488;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;-1:-1;;;;;;470:488:38;;;;;;;;;;;;;;;;;:::i;1302:434::-;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;-1:-1;1302:434:38;-1:-1:-1;;;;;1302:434:38;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;23:1:-1;8:100;33:3;30:1;27:10;8:100;;;90:11;;;84:18;71:11;;;64:39;52:2;45:10;8:100;;;12:14;1302:434:38;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;23:1:-1;8:100;33:3;30:1;27:10;8:100;;;90:11;;;84:18;71:11;;;64:39;52:2;45:10;8:100;;;12:14;1302:434:38;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;23:1:-1;8:100;33:3;30:1;27:10;8:100;;;90:11;;;84:18;71:11;;;64:39;52:2;45:10;8:100;;;12:14;1302:434:38;;;;;;;;;;;;;;;;;;;;;964:332;1044:10;;1032:43;;;-1:-1:-1;;;1032:43:38;;1064:10;1032:43;;;;;;-1:-1:-1;;;;;1044:10:38;;;;1032:31;;:43;;;;;;;;;;;;;;;1044:10;1032:43;;;5:2:-1;;;;30:1;27;20:12;5:2;1032:43:38;;;;8:9:-1;5:2;;;45:16;42:1;39;24:38;77:16;74:1;67:27;5:2;1032:43:38;;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;-1:-1;1032:43:38;1011:113;;;;;-1:-1:-1;;;1011:113:38;;;;;;;;;;;;-1:-1:-1;;;1011:113:38;;;;;;;;;;;;;;;1172:117;;;-1:-1:-1;1172:117:38;;;1203:16;;;;;;;;1172:117;;1233:16;;;;;-1:-1:-1;1233:16:38;;;;;-1:-1:-1;;;1172:117:38;;;;1263:16;;;;;;;;;;1172:117;;;;1158:10;1134:35;;;;;;;;:155;;;;1172:117;;1134:35;;:155;;:35;;:155;;;:::i;:::-;-1:-1:-1;1134:155:38;;;;;;;;;;;;;;;;:::i;:::-;-1:-1:-1;1134:155:38;;;;;;;;;;;;;;;;;;:::i;:::-;-1:-1:-1;;;964:332:38:o;470:488::-;626:10;;614:43;;;-1:-1:-1;;;614:43:38;;646:10;614:43;;;;;;-1:-1:-1;;;;;626:10:38;;;;614:31;;:43;;;;;;;;;;;;;;;626:10;614:43;;;5:2:-1;;;;30:1;27;20:12;5:2;614:43:38;;;;8:9:-1;5:2;;;45:16;42:1;39;24:38;77:16;74:1;67:27;5:2;614:43:38;;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;-1:-1;614:43:38;593:113;;;;;-1:-1:-1;;;593:113:38;;;;;;;;;;;;-1:-1:-1;;;593:113:38;;;;;;;;;;;;;;;740:10;716:23;:35;;;;;;;;;;27:10:-1;;39:1;23:18;;;45:23;;716:94:38;;;;;;;;;;;-1:-1:-1;;;;;716:94:38;;;-1:-1:-1;;;;;;716:94:38;;;;;;;820:51;;;27:10:-1;;23:18;;;45:23;;820:64:38;;;;;;;;;;;;;;;;;;;;;;894:43;;;;27:10:-1;;23:18;;;45:23;;894:57:38;;;;;;;;470:488::o;1302:434::-;-1:-1:-1;;;;;1534:38:38;;:23;:38;;;;;;;;;;;;1513:216;;;;;;;;;;;;;;;;;1412:16;;;;;;1534:38;1605:54;;;;1673:46;;;;1513:216;;1534:38;;1513:216;;1534:38;1513:216;;;;;;;;;;;;;;;;;;;;-1:-1:-1;;;;;1513:216:38;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;-1:-1:-1;;;;;1513:216:38;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;1302:434;;;;;:::o;79:1659::-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;-1:-1:-1;;;;;;79:1659:38;-1:-1:-1;;;;;79:1659:38;;;;;;;;;;;-1:-1:-1;79:1659:38;;;;;;;-1:-1:-1;79:1659:38;;;-1:-1:-1;79:1659:38;:::i;:::-;;;:::o;:::-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;-1:-1:-1;79:1659:38;;;-1:-1:-1;79:1659:38;:::i;:::-;;;;;;;;;;;;;-1:-1:-1;;;;;;79:1659:38;;;;;;;;;:::o;:::-;;;;;;;;;;;;;;;;;",
+  "source": "pragma solidity >=0.5.0 <0.7.0;\nimport \"../../../interfaces/IAPContract.sol\";\n\ncontract LockStorage {\n    struct WithdrawalStorage {\n        address[] requestedAddresses;\n        address[] withdrawalAsset; // addresses of requested\n        uint256[] amounts; // safe share\n    }\n    mapping(address => WithdrawalStorage) vaultWithdrawalRequests;\n    address private APContract;\n\n    constructor(address _APContract) public {\n        APContract = _APContract;\n    }\n\n    function addRequest(\n        address _withdrawer,\n        address _asset,\n        uint256 _amount\n    ) external {\n        require(\n            IAPContract(APContract).isVault(msg.sender),\n            \"Not a registered vault!\"\n        );\n        vaultWithdrawalRequests[msg.sender].requestedAddresses.push(\n            _withdrawer\n        );\n        vaultWithdrawalRequests[msg.sender].withdrawalAsset.push(_asset);\n        vaultWithdrawalRequests[msg.sender].amounts.push(_amount);\n    }\n\n    function clearWithdrawals() external {\n        require(\n            IAPContract(APContract).isVault(msg.sender),\n            \"Not a registered vault!\"\n        );\n        vaultWithdrawalRequests[msg.sender] = WithdrawalStorage(\n            new address[](0),\n            new address[](0),\n            new uint256[](0)\n        );\n    }\n\n    function getWithdrawalList(address _vaultAddress)\n        external\n        view\n        returns (\n            address[] memory,\n            address[] memory,\n            uint256[] memory\n        )\n    {\n        return (\n            vaultWithdrawalRequests[_vaultAddress].requestedAddresses,\n            vaultWithdrawalRequests[_vaultAddress].withdrawalAsset,\n            vaultWithdrawalRequests[_vaultAddress].amounts\n        );\n    }\n}\n",
+  "sourcePath": "/home/dxuser/Documents/scode/yieldster-vault/contracts/smartStrategies/withdraw/storage/LockStorage.sol",
+  "ast": {
+    "absolutePath": "project:/contracts/smartStrategies/withdraw/storage/LockStorage.sol",
+    "exportedSymbols": {
+      "LockStorage": [
+        7152
+      ]
+    },
+    "id": 7153,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 7009,
+        "literals": [
+          "solidity",
+          ">=",
+          "0.5",
+          ".0",
+          "<",
+          "0.7",
+          ".0"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "0:31:38"
+      },
+      {
+        "absolutePath": "project:/contracts/interfaces/IAPContract.sol",
+        "file": "../../../interfaces/IAPContract.sol",
+        "id": 7010,
+        "nodeType": "ImportDirective",
+        "scope": 7153,
+        "sourceUnit": 3484,
+        "src": "32:45:38",
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "contract",
+        "documentation": null,
+        "fullyImplemented": true,
+        "id": 7152,
+        "linearizedBaseContracts": [
+          7152
+        ],
+        "name": "LockStorage",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "canonicalName": "LockStorage.WithdrawalStorage",
+            "id": 7020,
+            "members": [
+              {
+                "constant": false,
+                "id": 7013,
+                "name": "requestedAddresses",
+                "nodeType": "VariableDeclaration",
+                "scope": 7020,
+                "src": "141:28:38",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_array$_t_address_$dyn_storage_ptr",
+                  "typeString": "address[]"
+                },
+                "typeName": {
+                  "baseType": {
+                    "id": 7011,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "141:7:38",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "id": 7012,
+                  "length": null,
+                  "nodeType": "ArrayTypeName",
+                  "src": "141:9:38",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_array$_t_address_$dyn_storage_ptr",
+                    "typeString": "address[]"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 7016,
+                "name": "withdrawalAsset",
+                "nodeType": "VariableDeclaration",
+                "scope": 7020,
+                "src": "179:25:38",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_array$_t_address_$dyn_storage_ptr",
+                  "typeString": "address[]"
+                },
+                "typeName": {
+                  "baseType": {
+                    "id": 7014,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "179:7:38",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "id": 7015,
+                  "length": null,
+                  "nodeType": "ArrayTypeName",
+                  "src": "179:9:38",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_array$_t_address_$dyn_storage_ptr",
+                    "typeString": "address[]"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 7019,
+                "name": "amounts",
+                "nodeType": "VariableDeclaration",
+                "scope": 7020,
+                "src": "240:17:38",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_array$_t_uint256_$dyn_storage_ptr",
+                  "typeString": "uint256[]"
+                },
+                "typeName": {
+                  "baseType": {
+                    "id": 7017,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "240:7:38",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "id": 7018,
+                  "length": null,
+                  "nodeType": "ArrayTypeName",
+                  "src": "240:9:38",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_array$_t_uint256_$dyn_storage_ptr",
+                    "typeString": "uint256[]"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              }
+            ],
+            "name": "WithdrawalStorage",
+            "nodeType": "StructDefinition",
+            "scope": 7152,
+            "src": "106:172:38",
+            "visibility": "public"
+          },
+          {
+            "constant": false,
+            "id": 7024,
+            "name": "vaultWithdrawalRequests",
+            "nodeType": "VariableDeclaration",
+            "scope": 7152,
+            "src": "283:61:38",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_mapping$_t_address_$_t_struct$_WithdrawalStorage_$7020_storage_$",
+              "typeString": "mapping(address => struct LockStorage.WithdrawalStorage)"
+            },
+            "typeName": {
+              "id": 7023,
+              "keyType": {
+                "id": 7021,
+                "name": "address",
+                "nodeType": "ElementaryTypeName",
+                "src": "291:7:38",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_address",
+                  "typeString": "address"
+                }
+              },
+              "nodeType": "Mapping",
+              "src": "283:37:38",
+              "typeDescriptions": {
+                "typeIdentifier": "t_mapping$_t_address_$_t_struct$_WithdrawalStorage_$7020_storage_$",
+                "typeString": "mapping(address => struct LockStorage.WithdrawalStorage)"
+              },
+              "valueType": {
+                "contractScope": null,
+                "id": 7022,
+                "name": "WithdrawalStorage",
+                "nodeType": "UserDefinedTypeName",
+                "referencedDeclaration": 7020,
+                "src": "302:17:38",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_struct$_WithdrawalStorage_$7020_storage_ptr",
+                  "typeString": "struct LockStorage.WithdrawalStorage"
+                }
+              }
+            },
+            "value": null,
+            "visibility": "internal"
+          },
+          {
+            "constant": false,
+            "id": 7026,
+            "name": "APContract",
+            "nodeType": "VariableDeclaration",
+            "scope": 7152,
+            "src": "350:26:38",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_address",
+              "typeString": "address"
+            },
+            "typeName": {
+              "id": 7025,
+              "name": "address",
+              "nodeType": "ElementaryTypeName",
+              "src": "350:7:38",
+              "stateMutability": "nonpayable",
+              "typeDescriptions": {
+                "typeIdentifier": "t_address",
+                "typeString": "address"
+              }
+            },
+            "value": null,
+            "visibility": "private"
+          },
+          {
+            "body": {
+              "id": 7035,
+              "nodeType": "Block",
+              "src": "423:41:38",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "id": 7033,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "argumentTypes": null,
+                      "id": 7031,
+                      "name": "APContract",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 7026,
+                      "src": "433:10:38",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_address",
+                        "typeString": "address"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "argumentTypes": null,
+                      "id": 7032,
+                      "name": "_APContract",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 7028,
+                      "src": "446:11:38",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_address",
+                        "typeString": "address"
+                      }
+                    },
+                    "src": "433:24:38",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "id": 7034,
+                  "nodeType": "ExpressionStatement",
+                  "src": "433:24:38"
+                }
+              ]
+            },
+            "documentation": null,
+            "id": 7036,
+            "implemented": true,
+            "kind": "constructor",
+            "modifiers": [],
+            "name": "",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 7029,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 7028,
+                  "name": "_APContract",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 7036,
+                  "src": "395:19:38",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 7027,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "395:7:38",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "394:21:38"
+            },
+            "returnParameters": {
+              "id": 7030,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "423:0:38"
+            },
+            "scope": 7152,
+            "src": "383:81:38",
+            "stateMutability": "nonpayable",
+            "superFunction": null,
+            "visibility": "public"
+          },
+          {
+            "body": {
+              "id": 7083,
+              "nodeType": "Block",
+              "src": "583:375:38",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "arguments": [
+                      {
+                        "argumentTypes": null,
+                        "arguments": [
+                          {
+                            "argumentTypes": null,
+                            "expression": {
+                              "argumentTypes": null,
+                              "id": 7050,
+                              "name": "msg",
+                              "nodeType": "Identifier",
+                              "overloadedDeclarations": [],
+                              "referencedDeclaration": 9684,
+                              "src": "646:3:38",
+                              "typeDescriptions": {
+                                "typeIdentifier": "t_magic_message",
+                                "typeString": "msg"
+                              }
+                            },
+                            "id": 7051,
+                            "isConstant": false,
+                            "isLValue": false,
+                            "isPure": false,
+                            "lValueRequested": false,
+                            "memberName": "sender",
+                            "nodeType": "MemberAccess",
+                            "referencedDeclaration": null,
+                            "src": "646:10:38",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_address_payable",
+                              "typeString": "address payable"
+                            }
+                          }
+                        ],
+                        "expression": {
+                          "argumentTypes": [
+                            {
+                              "typeIdentifier": "t_address_payable",
+                              "typeString": "address payable"
+                            }
+                          ],
+                          "expression": {
+                            "argumentTypes": null,
+                            "arguments": [
+                              {
+                                "argumentTypes": null,
+                                "id": 7047,
+                                "name": "APContract",
+                                "nodeType": "Identifier",
+                                "overloadedDeclarations": [],
+                                "referencedDeclaration": 7026,
+                                "src": "626:10:38",
+                                "typeDescriptions": {
+                                  "typeIdentifier": "t_address",
+                                  "typeString": "address"
+                                }
+                              }
+                            ],
+                            "expression": {
+                              "argumentTypes": [
+                                {
+                                  "typeIdentifier": "t_address",
+                                  "typeString": "address"
+                                }
+                              ],
+                              "id": 7046,
+                              "name": "IAPContract",
+                              "nodeType": "Identifier",
+                              "overloadedDeclarations": [],
+                              "referencedDeclaration": 3483,
+                              "src": "614:11:38",
+                              "typeDescriptions": {
+                                "typeIdentifier": "t_type$_t_contract$_IAPContract_$3483_$",
+                                "typeString": "type(contract IAPContract)"
+                              }
+                            },
+                            "id": 7048,
+                            "isConstant": false,
+                            "isLValue": false,
+                            "isPure": false,
+                            "kind": "typeConversion",
+                            "lValueRequested": false,
+                            "names": [],
+                            "nodeType": "FunctionCall",
+                            "src": "614:23:38",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_contract$_IAPContract_$3483",
+                              "typeString": "contract IAPContract"
+                            }
+                          },
+                          "id": 7049,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "memberName": "isVault",
+                          "nodeType": "MemberAccess",
+                          "referencedDeclaration": 3482,
+                          "src": "614:31:38",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_function_external_view$_t_address_$returns$_t_bool_$",
+                            "typeString": "function (address) view external returns (bool)"
+                          }
+                        },
+                        "id": 7052,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": false,
+                        "kind": "functionCall",
+                        "lValueRequested": false,
+                        "names": [],
+                        "nodeType": "FunctionCall",
+                        "src": "614:43:38",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_bool",
+                          "typeString": "bool"
+                        }
+                      },
+                      {
+                        "argumentTypes": null,
+                        "hexValue": "4e6f7420612072656769737465726564207661756c7421",
+                        "id": 7053,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": true,
+                        "kind": "string",
+                        "lValueRequested": false,
+                        "nodeType": "Literal",
+                        "src": "671:25:38",
+                        "subdenomination": null,
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_stringliteral_a73b3a1743b8d0d21f64ae16d7bb5e749b8fd278e12e169399f559f3a5b7acad",
+                          "typeString": "literal_string \"Not a registered vault!\""
+                        },
+                        "value": "Not a registered vault!"
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_bool",
+                          "typeString": "bool"
+                        },
+                        {
+                          "typeIdentifier": "t_stringliteral_a73b3a1743b8d0d21f64ae16d7bb5e749b8fd278e12e169399f559f3a5b7acad",
+                          "typeString": "literal_string \"Not a registered vault!\""
+                        }
+                      ],
+                      "id": 7045,
+                      "name": "require",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [
+                        9687,
+                        9688
+                      ],
+                      "referencedDeclaration": 9688,
+                      "src": "593:7:38",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
+                        "typeString": "function (bool,string memory) pure"
+                      }
+                    },
+                    "id": 7054,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "593:113:38",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_tuple$__$",
+                      "typeString": "tuple()"
+                    }
+                  },
+                  "id": 7055,
+                  "nodeType": "ExpressionStatement",
+                  "src": "593:113:38"
+                },
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "arguments": [
+                      {
+                        "argumentTypes": null,
+                        "id": 7062,
+                        "name": "_withdrawer",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 7038,
+                        "src": "789:11:38",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_address",
+                          "typeString": "address"
+                        }
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_address",
+                          "typeString": "address"
+                        }
+                      ],
+                      "expression": {
+                        "argumentTypes": null,
+                        "expression": {
+                          "argumentTypes": null,
+                          "baseExpression": {
+                            "argumentTypes": null,
+                            "id": 7056,
+                            "name": "vaultWithdrawalRequests",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 7024,
+                            "src": "716:23:38",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_mapping$_t_address_$_t_struct$_WithdrawalStorage_$7020_storage_$",
+                              "typeString": "mapping(address => struct LockStorage.WithdrawalStorage storage ref)"
+                            }
+                          },
+                          "id": 7059,
+                          "indexExpression": {
+                            "argumentTypes": null,
+                            "expression": {
+                              "argumentTypes": null,
+                              "id": 7057,
+                              "name": "msg",
+                              "nodeType": "Identifier",
+                              "overloadedDeclarations": [],
+                              "referencedDeclaration": 9684,
+                              "src": "740:3:38",
+                              "typeDescriptions": {
+                                "typeIdentifier": "t_magic_message",
+                                "typeString": "msg"
+                              }
+                            },
+                            "id": 7058,
+                            "isConstant": false,
+                            "isLValue": false,
+                            "isPure": false,
+                            "lValueRequested": false,
+                            "memberName": "sender",
+                            "nodeType": "MemberAccess",
+                            "referencedDeclaration": null,
+                            "src": "740:10:38",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_address_payable",
+                              "typeString": "address payable"
+                            }
+                          },
+                          "isConstant": false,
+                          "isLValue": true,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "nodeType": "IndexAccess",
+                          "src": "716:35:38",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_struct$_WithdrawalStorage_$7020_storage",
+                            "typeString": "struct LockStorage.WithdrawalStorage storage ref"
+                          }
+                        },
+                        "id": 7060,
+                        "isConstant": false,
+                        "isLValue": true,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "memberName": "requestedAddresses",
+                        "nodeType": "MemberAccess",
+                        "referencedDeclaration": 7013,
+                        "src": "716:54:38",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_array$_t_address_$dyn_storage",
+                          "typeString": "address[] storage ref"
+                        }
+                      },
+                      "id": 7061,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberName": "push",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": null,
+                      "src": "716:59:38",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_arraypush_nonpayable$_t_address_$returns$_t_uint256_$",
+                        "typeString": "function (address) returns (uint256)"
+                      }
+                    },
+                    "id": 7063,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "716:94:38",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "id": 7064,
+                  "nodeType": "ExpressionStatement",
+                  "src": "716:94:38"
+                },
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "arguments": [
+                      {
+                        "argumentTypes": null,
+                        "id": 7071,
+                        "name": "_asset",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 7040,
+                        "src": "877:6:38",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_address",
+                          "typeString": "address"
+                        }
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_address",
+                          "typeString": "address"
+                        }
+                      ],
+                      "expression": {
+                        "argumentTypes": null,
+                        "expression": {
+                          "argumentTypes": null,
+                          "baseExpression": {
+                            "argumentTypes": null,
+                            "id": 7065,
+                            "name": "vaultWithdrawalRequests",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 7024,
+                            "src": "820:23:38",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_mapping$_t_address_$_t_struct$_WithdrawalStorage_$7020_storage_$",
+                              "typeString": "mapping(address => struct LockStorage.WithdrawalStorage storage ref)"
+                            }
+                          },
+                          "id": 7068,
+                          "indexExpression": {
+                            "argumentTypes": null,
+                            "expression": {
+                              "argumentTypes": null,
+                              "id": 7066,
+                              "name": "msg",
+                              "nodeType": "Identifier",
+                              "overloadedDeclarations": [],
+                              "referencedDeclaration": 9684,
+                              "src": "844:3:38",
+                              "typeDescriptions": {
+                                "typeIdentifier": "t_magic_message",
+                                "typeString": "msg"
+                              }
+                            },
+                            "id": 7067,
+                            "isConstant": false,
+                            "isLValue": false,
+                            "isPure": false,
+                            "lValueRequested": false,
+                            "memberName": "sender",
+                            "nodeType": "MemberAccess",
+                            "referencedDeclaration": null,
+                            "src": "844:10:38",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_address_payable",
+                              "typeString": "address payable"
+                            }
+                          },
+                          "isConstant": false,
+                          "isLValue": true,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "nodeType": "IndexAccess",
+                          "src": "820:35:38",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_struct$_WithdrawalStorage_$7020_storage",
+                            "typeString": "struct LockStorage.WithdrawalStorage storage ref"
+                          }
+                        },
+                        "id": 7069,
+                        "isConstant": false,
+                        "isLValue": true,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "memberName": "withdrawalAsset",
+                        "nodeType": "MemberAccess",
+                        "referencedDeclaration": 7016,
+                        "src": "820:51:38",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_array$_t_address_$dyn_storage",
+                          "typeString": "address[] storage ref"
+                        }
+                      },
+                      "id": 7070,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberName": "push",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": null,
+                      "src": "820:56:38",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_arraypush_nonpayable$_t_address_$returns$_t_uint256_$",
+                        "typeString": "function (address) returns (uint256)"
+                      }
+                    },
+                    "id": 7072,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "820:64:38",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "id": 7073,
+                  "nodeType": "ExpressionStatement",
+                  "src": "820:64:38"
+                },
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "arguments": [
+                      {
+                        "argumentTypes": null,
+                        "id": 7080,
+                        "name": "_amount",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 7042,
+                        "src": "943:7:38",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      ],
+                      "expression": {
+                        "argumentTypes": null,
+                        "expression": {
+                          "argumentTypes": null,
+                          "baseExpression": {
+                            "argumentTypes": null,
+                            "id": 7074,
+                            "name": "vaultWithdrawalRequests",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 7024,
+                            "src": "894:23:38",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_mapping$_t_address_$_t_struct$_WithdrawalStorage_$7020_storage_$",
+                              "typeString": "mapping(address => struct LockStorage.WithdrawalStorage storage ref)"
+                            }
+                          },
+                          "id": 7077,
+                          "indexExpression": {
+                            "argumentTypes": null,
+                            "expression": {
+                              "argumentTypes": null,
+                              "id": 7075,
+                              "name": "msg",
+                              "nodeType": "Identifier",
+                              "overloadedDeclarations": [],
+                              "referencedDeclaration": 9684,
+                              "src": "918:3:38",
+                              "typeDescriptions": {
+                                "typeIdentifier": "t_magic_message",
+                                "typeString": "msg"
+                              }
+                            },
+                            "id": 7076,
+                            "isConstant": false,
+                            "isLValue": false,
+                            "isPure": false,
+                            "lValueRequested": false,
+                            "memberName": "sender",
+                            "nodeType": "MemberAccess",
+                            "referencedDeclaration": null,
+                            "src": "918:10:38",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_address_payable",
+                              "typeString": "address payable"
+                            }
+                          },
+                          "isConstant": false,
+                          "isLValue": true,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "nodeType": "IndexAccess",
+                          "src": "894:35:38",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_struct$_WithdrawalStorage_$7020_storage",
+                            "typeString": "struct LockStorage.WithdrawalStorage storage ref"
+                          }
+                        },
+                        "id": 7078,
+                        "isConstant": false,
+                        "isLValue": true,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "memberName": "amounts",
+                        "nodeType": "MemberAccess",
+                        "referencedDeclaration": 7019,
+                        "src": "894:43:38",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_array$_t_uint256_$dyn_storage",
+                          "typeString": "uint256[] storage ref"
+                        }
+                      },
+                      "id": 7079,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberName": "push",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": null,
+                      "src": "894:48:38",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_arraypush_nonpayable$_t_uint256_$returns$_t_uint256_$",
+                        "typeString": "function (uint256) returns (uint256)"
+                      }
+                    },
+                    "id": 7081,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "894:57:38",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "id": 7082,
+                  "nodeType": "ExpressionStatement",
+                  "src": "894:57:38"
+                }
+              ]
+            },
+            "documentation": null,
+            "id": 7084,
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "addRequest",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 7043,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 7038,
+                  "name": "_withdrawer",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 7084,
+                  "src": "499:19:38",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 7037,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "499:7:38",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 7040,
+                  "name": "_asset",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 7084,
+                  "src": "528:14:38",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 7039,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "528:7:38",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 7042,
+                  "name": "_amount",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 7084,
+                  "src": "552:15:38",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 7041,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "552:7:38",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "489:84:38"
+            },
+            "returnParameters": {
+              "id": 7044,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "583:0:38"
+            },
+            "scope": 7152,
+            "src": "470:488:38",
+            "stateMutability": "nonpayable",
+            "superFunction": null,
+            "visibility": "external"
+          },
+          {
+            "body": {
+              "id": 7121,
+              "nodeType": "Block",
+              "src": "1001:295:38",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "arguments": [
+                      {
+                        "argumentTypes": null,
+                        "arguments": [
+                          {
+                            "argumentTypes": null,
+                            "expression": {
+                              "argumentTypes": null,
+                              "id": 7092,
+                              "name": "msg",
+                              "nodeType": "Identifier",
+                              "overloadedDeclarations": [],
+                              "referencedDeclaration": 9684,
+                              "src": "1064:3:38",
+                              "typeDescriptions": {
+                                "typeIdentifier": "t_magic_message",
+                                "typeString": "msg"
+                              }
+                            },
+                            "id": 7093,
+                            "isConstant": false,
+                            "isLValue": false,
+                            "isPure": false,
+                            "lValueRequested": false,
+                            "memberName": "sender",
+                            "nodeType": "MemberAccess",
+                            "referencedDeclaration": null,
+                            "src": "1064:10:38",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_address_payable",
+                              "typeString": "address payable"
+                            }
+                          }
+                        ],
+                        "expression": {
+                          "argumentTypes": [
+                            {
+                              "typeIdentifier": "t_address_payable",
+                              "typeString": "address payable"
+                            }
+                          ],
+                          "expression": {
+                            "argumentTypes": null,
+                            "arguments": [
+                              {
+                                "argumentTypes": null,
+                                "id": 7089,
+                                "name": "APContract",
+                                "nodeType": "Identifier",
+                                "overloadedDeclarations": [],
+                                "referencedDeclaration": 7026,
+                                "src": "1044:10:38",
+                                "typeDescriptions": {
+                                  "typeIdentifier": "t_address",
+                                  "typeString": "address"
+                                }
+                              }
+                            ],
+                            "expression": {
+                              "argumentTypes": [
+                                {
+                                  "typeIdentifier": "t_address",
+                                  "typeString": "address"
+                                }
+                              ],
+                              "id": 7088,
+                              "name": "IAPContract",
+                              "nodeType": "Identifier",
+                              "overloadedDeclarations": [],
+                              "referencedDeclaration": 3483,
+                              "src": "1032:11:38",
+                              "typeDescriptions": {
+                                "typeIdentifier": "t_type$_t_contract$_IAPContract_$3483_$",
+                                "typeString": "type(contract IAPContract)"
+                              }
+                            },
+                            "id": 7090,
+                            "isConstant": false,
+                            "isLValue": false,
+                            "isPure": false,
+                            "kind": "typeConversion",
+                            "lValueRequested": false,
+                            "names": [],
+                            "nodeType": "FunctionCall",
+                            "src": "1032:23:38",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_contract$_IAPContract_$3483",
+                              "typeString": "contract IAPContract"
+                            }
+                          },
+                          "id": 7091,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "memberName": "isVault",
+                          "nodeType": "MemberAccess",
+                          "referencedDeclaration": 3482,
+                          "src": "1032:31:38",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_function_external_view$_t_address_$returns$_t_bool_$",
+                            "typeString": "function (address) view external returns (bool)"
+                          }
+                        },
+                        "id": 7094,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": false,
+                        "kind": "functionCall",
+                        "lValueRequested": false,
+                        "names": [],
+                        "nodeType": "FunctionCall",
+                        "src": "1032:43:38",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_bool",
+                          "typeString": "bool"
+                        }
+                      },
+                      {
+                        "argumentTypes": null,
+                        "hexValue": "4e6f7420612072656769737465726564207661756c7421",
+                        "id": 7095,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": true,
+                        "kind": "string",
+                        "lValueRequested": false,
+                        "nodeType": "Literal",
+                        "src": "1089:25:38",
+                        "subdenomination": null,
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_stringliteral_a73b3a1743b8d0d21f64ae16d7bb5e749b8fd278e12e169399f559f3a5b7acad",
+                          "typeString": "literal_string \"Not a registered vault!\""
+                        },
+                        "value": "Not a registered vault!"
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_bool",
+                          "typeString": "bool"
+                        },
+                        {
+                          "typeIdentifier": "t_stringliteral_a73b3a1743b8d0d21f64ae16d7bb5e749b8fd278e12e169399f559f3a5b7acad",
+                          "typeString": "literal_string \"Not a registered vault!\""
+                        }
+                      ],
+                      "id": 7087,
+                      "name": "require",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [
+                        9687,
+                        9688
+                      ],
+                      "referencedDeclaration": 9688,
+                      "src": "1011:7:38",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
+                        "typeString": "function (bool,string memory) pure"
+                      }
+                    },
+                    "id": 7096,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "1011:113:38",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_tuple$__$",
+                      "typeString": "tuple()"
+                    }
+                  },
+                  "id": 7097,
+                  "nodeType": "ExpressionStatement",
+                  "src": "1011:113:38"
+                },
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "id": 7119,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "argumentTypes": null,
+                      "baseExpression": {
+                        "argumentTypes": null,
+                        "id": 7098,
+                        "name": "vaultWithdrawalRequests",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 7024,
+                        "src": "1134:23:38",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_mapping$_t_address_$_t_struct$_WithdrawalStorage_$7020_storage_$",
+                          "typeString": "mapping(address => struct LockStorage.WithdrawalStorage storage ref)"
+                        }
+                      },
+                      "id": 7101,
+                      "indexExpression": {
+                        "argumentTypes": null,
+                        "expression": {
+                          "argumentTypes": null,
+                          "id": 7099,
+                          "name": "msg",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 9684,
+                          "src": "1158:3:38",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_magic_message",
+                            "typeString": "msg"
+                          }
+                        },
+                        "id": 7100,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "memberName": "sender",
+                        "nodeType": "MemberAccess",
+                        "referencedDeclaration": null,
+                        "src": "1158:10:38",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_address_payable",
+                          "typeString": "address payable"
+                        }
+                      },
+                      "isConstant": false,
+                      "isLValue": true,
+                      "isPure": false,
+                      "lValueRequested": true,
+                      "nodeType": "IndexAccess",
+                      "src": "1134:35:38",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_struct$_WithdrawalStorage_$7020_storage",
+                        "typeString": "struct LockStorage.WithdrawalStorage storage ref"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "argumentTypes": null,
+                      "arguments": [
+                        {
+                          "argumentTypes": null,
+                          "arguments": [
+                            {
+                              "argumentTypes": null,
+                              "hexValue": "30",
+                              "id": 7106,
+                              "isConstant": false,
+                              "isLValue": false,
+                              "isPure": true,
+                              "kind": "number",
+                              "lValueRequested": false,
+                              "nodeType": "Literal",
+                              "src": "1217:1:38",
+                              "subdenomination": null,
+                              "typeDescriptions": {
+                                "typeIdentifier": "t_rational_0_by_1",
+                                "typeString": "int_const 0"
+                              },
+                              "value": "0"
+                            }
+                          ],
+                          "expression": {
+                            "argumentTypes": [
+                              {
+                                "typeIdentifier": "t_rational_0_by_1",
+                                "typeString": "int_const 0"
+                              }
+                            ],
+                            "id": 7105,
+                            "isConstant": false,
+                            "isLValue": false,
+                            "isPure": true,
+                            "lValueRequested": false,
+                            "nodeType": "NewExpression",
+                            "src": "1203:13:38",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_function_objectcreation_pure$_t_uint256_$returns$_t_array$_t_address_$dyn_memory_$",
+                              "typeString": "function (uint256) pure returns (address[] memory)"
+                            },
+                            "typeName": {
+                              "baseType": {
+                                "id": 7103,
+                                "name": "address",
+                                "nodeType": "ElementaryTypeName",
+                                "src": "1207:7:38",
+                                "stateMutability": "nonpayable",
+                                "typeDescriptions": {
+                                  "typeIdentifier": "t_address",
+                                  "typeString": "address"
+                                }
+                              },
+                              "id": 7104,
+                              "length": null,
+                              "nodeType": "ArrayTypeName",
+                              "src": "1207:9:38",
+                              "typeDescriptions": {
+                                "typeIdentifier": "t_array$_t_address_$dyn_storage_ptr",
+                                "typeString": "address[]"
+                              }
+                            }
+                          },
+                          "id": 7107,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": true,
+                          "kind": "functionCall",
+                          "lValueRequested": false,
+                          "names": [],
+                          "nodeType": "FunctionCall",
+                          "src": "1203:16:38",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_array$_t_address_$dyn_memory",
+                            "typeString": "address[] memory"
+                          }
+                        },
+                        {
+                          "argumentTypes": null,
+                          "arguments": [
+                            {
+                              "argumentTypes": null,
+                              "hexValue": "30",
+                              "id": 7111,
+                              "isConstant": false,
+                              "isLValue": false,
+                              "isPure": true,
+                              "kind": "number",
+                              "lValueRequested": false,
+                              "nodeType": "Literal",
+                              "src": "1247:1:38",
+                              "subdenomination": null,
+                              "typeDescriptions": {
+                                "typeIdentifier": "t_rational_0_by_1",
+                                "typeString": "int_const 0"
+                              },
+                              "value": "0"
+                            }
+                          ],
+                          "expression": {
+                            "argumentTypes": [
+                              {
+                                "typeIdentifier": "t_rational_0_by_1",
+                                "typeString": "int_const 0"
+                              }
+                            ],
+                            "id": 7110,
+                            "isConstant": false,
+                            "isLValue": false,
+                            "isPure": true,
+                            "lValueRequested": false,
+                            "nodeType": "NewExpression",
+                            "src": "1233:13:38",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_function_objectcreation_pure$_t_uint256_$returns$_t_array$_t_address_$dyn_memory_$",
+                              "typeString": "function (uint256) pure returns (address[] memory)"
+                            },
+                            "typeName": {
+                              "baseType": {
+                                "id": 7108,
+                                "name": "address",
+                                "nodeType": "ElementaryTypeName",
+                                "src": "1237:7:38",
+                                "stateMutability": "nonpayable",
+                                "typeDescriptions": {
+                                  "typeIdentifier": "t_address",
+                                  "typeString": "address"
+                                }
+                              },
+                              "id": 7109,
+                              "length": null,
+                              "nodeType": "ArrayTypeName",
+                              "src": "1237:9:38",
+                              "typeDescriptions": {
+                                "typeIdentifier": "t_array$_t_address_$dyn_storage_ptr",
+                                "typeString": "address[]"
+                              }
+                            }
+                          },
+                          "id": 7112,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": true,
+                          "kind": "functionCall",
+                          "lValueRequested": false,
+                          "names": [],
+                          "nodeType": "FunctionCall",
+                          "src": "1233:16:38",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_array$_t_address_$dyn_memory",
+                            "typeString": "address[] memory"
+                          }
+                        },
+                        {
+                          "argumentTypes": null,
+                          "arguments": [
+                            {
+                              "argumentTypes": null,
+                              "hexValue": "30",
+                              "id": 7116,
+                              "isConstant": false,
+                              "isLValue": false,
+                              "isPure": true,
+                              "kind": "number",
+                              "lValueRequested": false,
+                              "nodeType": "Literal",
+                              "src": "1277:1:38",
+                              "subdenomination": null,
+                              "typeDescriptions": {
+                                "typeIdentifier": "t_rational_0_by_1",
+                                "typeString": "int_const 0"
+                              },
+                              "value": "0"
+                            }
+                          ],
+                          "expression": {
+                            "argumentTypes": [
+                              {
+                                "typeIdentifier": "t_rational_0_by_1",
+                                "typeString": "int_const 0"
+                              }
+                            ],
+                            "id": 7115,
+                            "isConstant": false,
+                            "isLValue": false,
+                            "isPure": true,
+                            "lValueRequested": false,
+                            "nodeType": "NewExpression",
+                            "src": "1263:13:38",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_function_objectcreation_pure$_t_uint256_$returns$_t_array$_t_uint256_$dyn_memory_$",
+                              "typeString": "function (uint256) pure returns (uint256[] memory)"
+                            },
+                            "typeName": {
+                              "baseType": {
+                                "id": 7113,
+                                "name": "uint256",
+                                "nodeType": "ElementaryTypeName",
+                                "src": "1267:7:38",
+                                "typeDescriptions": {
+                                  "typeIdentifier": "t_uint256",
+                                  "typeString": "uint256"
+                                }
+                              },
+                              "id": 7114,
+                              "length": null,
+                              "nodeType": "ArrayTypeName",
+                              "src": "1267:9:38",
+                              "typeDescriptions": {
+                                "typeIdentifier": "t_array$_t_uint256_$dyn_storage_ptr",
+                                "typeString": "uint256[]"
+                              }
+                            }
+                          },
+                          "id": 7117,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": true,
+                          "kind": "functionCall",
+                          "lValueRequested": false,
+                          "names": [],
+                          "nodeType": "FunctionCall",
+                          "src": "1263:16:38",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_array$_t_uint256_$dyn_memory",
+                            "typeString": "uint256[] memory"
+                          }
+                        }
+                      ],
+                      "expression": {
+                        "argumentTypes": [
+                          {
+                            "typeIdentifier": "t_array$_t_address_$dyn_memory",
+                            "typeString": "address[] memory"
+                          },
+                          {
+                            "typeIdentifier": "t_array$_t_address_$dyn_memory",
+                            "typeString": "address[] memory"
+                          },
+                          {
+                            "typeIdentifier": "t_array$_t_uint256_$dyn_memory",
+                            "typeString": "uint256[] memory"
+                          }
+                        ],
+                        "id": 7102,
+                        "name": "WithdrawalStorage",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 7020,
+                        "src": "1172:17:38",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_type$_t_struct$_WithdrawalStorage_$7020_storage_ptr_$",
+                          "typeString": "type(struct LockStorage.WithdrawalStorage storage pointer)"
+                        }
+                      },
+                      "id": 7118,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": true,
+                      "kind": "structConstructorCall",
+                      "lValueRequested": false,
+                      "names": [],
+                      "nodeType": "FunctionCall",
+                      "src": "1172:117:38",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_struct$_WithdrawalStorage_$7020_memory",
+                        "typeString": "struct LockStorage.WithdrawalStorage memory"
+                      }
+                    },
+                    "src": "1134:155:38",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_WithdrawalStorage_$7020_storage",
+                      "typeString": "struct LockStorage.WithdrawalStorage storage ref"
+                    }
+                  },
+                  "id": 7120,
+                  "nodeType": "ExpressionStatement",
+                  "src": "1134:155:38"
+                }
+              ]
+            },
+            "documentation": null,
+            "id": 7122,
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "clearWithdrawals",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 7085,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "989:2:38"
+            },
+            "returnParameters": {
+              "id": 7086,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "1001:0:38"
+            },
+            "scope": 7152,
+            "src": "964:332:38",
+            "stateMutability": "nonpayable",
+            "superFunction": null,
+            "visibility": "external"
+          },
+          {
+            "body": {
+              "id": 7150,
+              "nodeType": "Block",
+              "src": "1503:233:38",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "components": [
+                      {
+                        "argumentTypes": null,
+                        "expression": {
+                          "argumentTypes": null,
+                          "baseExpression": {
+                            "argumentTypes": null,
+                            "id": 7136,
+                            "name": "vaultWithdrawalRequests",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 7024,
+                            "src": "1534:23:38",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_mapping$_t_address_$_t_struct$_WithdrawalStorage_$7020_storage_$",
+                              "typeString": "mapping(address => struct LockStorage.WithdrawalStorage storage ref)"
+                            }
+                          },
+                          "id": 7138,
+                          "indexExpression": {
+                            "argumentTypes": null,
+                            "id": 7137,
+                            "name": "_vaultAddress",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 7124,
+                            "src": "1558:13:38",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_address",
+                              "typeString": "address"
+                            }
+                          },
+                          "isConstant": false,
+                          "isLValue": true,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "nodeType": "IndexAccess",
+                          "src": "1534:38:38",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_struct$_WithdrawalStorage_$7020_storage",
+                            "typeString": "struct LockStorage.WithdrawalStorage storage ref"
+                          }
+                        },
+                        "id": 7139,
+                        "isConstant": false,
+                        "isLValue": true,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "memberName": "requestedAddresses",
+                        "nodeType": "MemberAccess",
+                        "referencedDeclaration": 7013,
+                        "src": "1534:57:38",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_array$_t_address_$dyn_storage",
+                          "typeString": "address[] storage ref"
+                        }
+                      },
+                      {
+                        "argumentTypes": null,
+                        "expression": {
+                          "argumentTypes": null,
+                          "baseExpression": {
+                            "argumentTypes": null,
+                            "id": 7140,
+                            "name": "vaultWithdrawalRequests",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 7024,
+                            "src": "1605:23:38",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_mapping$_t_address_$_t_struct$_WithdrawalStorage_$7020_storage_$",
+                              "typeString": "mapping(address => struct LockStorage.WithdrawalStorage storage ref)"
+                            }
+                          },
+                          "id": 7142,
+                          "indexExpression": {
+                            "argumentTypes": null,
+                            "id": 7141,
+                            "name": "_vaultAddress",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 7124,
+                            "src": "1629:13:38",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_address",
+                              "typeString": "address"
+                            }
+                          },
+                          "isConstant": false,
+                          "isLValue": true,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "nodeType": "IndexAccess",
+                          "src": "1605:38:38",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_struct$_WithdrawalStorage_$7020_storage",
+                            "typeString": "struct LockStorage.WithdrawalStorage storage ref"
+                          }
+                        },
+                        "id": 7143,
+                        "isConstant": false,
+                        "isLValue": true,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "memberName": "withdrawalAsset",
+                        "nodeType": "MemberAccess",
+                        "referencedDeclaration": 7016,
+                        "src": "1605:54:38",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_array$_t_address_$dyn_storage",
+                          "typeString": "address[] storage ref"
+                        }
+                      },
+                      {
+                        "argumentTypes": null,
+                        "expression": {
+                          "argumentTypes": null,
+                          "baseExpression": {
+                            "argumentTypes": null,
+                            "id": 7144,
+                            "name": "vaultWithdrawalRequests",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 7024,
+                            "src": "1673:23:38",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_mapping$_t_address_$_t_struct$_WithdrawalStorage_$7020_storage_$",
+                              "typeString": "mapping(address => struct LockStorage.WithdrawalStorage storage ref)"
+                            }
+                          },
+                          "id": 7146,
+                          "indexExpression": {
+                            "argumentTypes": null,
+                            "id": 7145,
+                            "name": "_vaultAddress",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 7124,
+                            "src": "1697:13:38",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_address",
+                              "typeString": "address"
+                            }
+                          },
+                          "isConstant": false,
+                          "isLValue": true,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "nodeType": "IndexAccess",
+                          "src": "1673:38:38",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_struct$_WithdrawalStorage_$7020_storage",
+                            "typeString": "struct LockStorage.WithdrawalStorage storage ref"
+                          }
+                        },
+                        "id": 7147,
+                        "isConstant": false,
+                        "isLValue": true,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "memberName": "amounts",
+                        "nodeType": "MemberAccess",
+                        "referencedDeclaration": 7019,
+                        "src": "1673:46:38",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_array$_t_uint256_$dyn_storage",
+                          "typeString": "uint256[] storage ref"
+                        }
+                      }
+                    ],
+                    "id": 7148,
+                    "isConstant": false,
+                    "isInlineArray": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "nodeType": "TupleExpression",
+                    "src": "1520:209:38",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_tuple$_t_array$_t_address_$dyn_storage_$_t_array$_t_address_$dyn_storage_$_t_array$_t_uint256_$dyn_storage_$",
+                      "typeString": "tuple(address[] storage ref,address[] storage ref,uint256[] storage ref)"
+                    }
+                  },
+                  "functionReturnParameters": 7135,
+                  "id": 7149,
+                  "nodeType": "Return",
+                  "src": "1513:216:38"
+                }
+              ]
+            },
+            "documentation": null,
+            "id": 7151,
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "getWithdrawalList",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 7125,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 7124,
+                  "name": "_vaultAddress",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 7151,
+                  "src": "1329:21:38",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 7123,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1329:7:38",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1328:23:38"
+            },
+            "returnParameters": {
+              "id": 7135,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 7128,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 7151,
+                  "src": "1412:16:38",
+                  "stateVariable": false,
+                  "storageLocation": "memory",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_array$_t_address_$dyn_memory_ptr",
+                    "typeString": "address[]"
+                  },
+                  "typeName": {
+                    "baseType": {
+                      "id": 7126,
+                      "name": "address",
+                      "nodeType": "ElementaryTypeName",
+                      "src": "1412:7:38",
+                      "stateMutability": "nonpayable",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_address",
+                        "typeString": "address"
+                      }
+                    },
+                    "id": 7127,
+                    "length": null,
+                    "nodeType": "ArrayTypeName",
+                    "src": "1412:9:38",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_array$_t_address_$dyn_storage_ptr",
+                      "typeString": "address[]"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 7131,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 7151,
+                  "src": "1442:16:38",
+                  "stateVariable": false,
+                  "storageLocation": "memory",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_array$_t_address_$dyn_memory_ptr",
+                    "typeString": "address[]"
+                  },
+                  "typeName": {
+                    "baseType": {
+                      "id": 7129,
+                      "name": "address",
+                      "nodeType": "ElementaryTypeName",
+                      "src": "1442:7:38",
+                      "stateMutability": "nonpayable",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_address",
+                        "typeString": "address"
+                      }
+                    },
+                    "id": 7130,
+                    "length": null,
+                    "nodeType": "ArrayTypeName",
+                    "src": "1442:9:38",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_array$_t_address_$dyn_storage_ptr",
+                      "typeString": "address[]"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 7134,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 7151,
+                  "src": "1472:16:38",
+                  "stateVariable": false,
+                  "storageLocation": "memory",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_array$_t_uint256_$dyn_memory_ptr",
+                    "typeString": "uint256[]"
+                  },
+                  "typeName": {
+                    "baseType": {
+                      "id": 7132,
+                      "name": "uint256",
+                      "nodeType": "ElementaryTypeName",
+                      "src": "1472:7:38",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      }
+                    },
+                    "id": 7133,
+                    "length": null,
+                    "nodeType": "ArrayTypeName",
+                    "src": "1472:9:38",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_array$_t_uint256_$dyn_storage_ptr",
+                      "typeString": "uint256[]"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1398:100:38"
+            },
+            "scope": 7152,
+            "src": "1302:434:38",
+            "stateMutability": "view",
+            "superFunction": null,
+            "visibility": "external"
+          }
+        ],
+        "scope": 7153,
+        "src": "79:1659:38"
+      }
+    ],
+    "src": "0:1739:38"
+  },
+  "legacyAST": {
+    "attributes": {
+      "absolutePath": "project:/contracts/smartStrategies/withdraw/storage/LockStorage.sol",
+      "exportedSymbols": {
+        "LockStorage": [
+          7152
+        ]
+      }
+    },
+    "children": [
+      {
+        "attributes": {
+          "literals": [
+            "solidity",
+            ">=",
+            "0.5",
+            ".0",
+            "<",
+            "0.7",
+            ".0"
+          ]
+        },
+        "id": 7009,
+        "name": "PragmaDirective",
+        "src": "0:31:38"
+      },
+      {
+        "attributes": {
+          "SourceUnit": 3484,
+          "absolutePath": "project:/contracts/interfaces/IAPContract.sol",
+          "file": "../../../interfaces/IAPContract.sol",
+          "scope": 7153,
+          "symbolAliases": [
+            null
+          ],
+          "unitAlias": ""
+        },
+        "id": 7010,
+        "name": "ImportDirective",
+        "src": "32:45:38"
+      },
+      {
+        "attributes": {
+          "baseContracts": [
+            null
+          ],
+          "contractDependencies": [
+            null
+          ],
+          "contractKind": "contract",
+          "documentation": null,
+          "fullyImplemented": true,
+          "linearizedBaseContracts": [
+            7152
+          ],
+          "name": "LockStorage",
+          "scope": 7153
+        },
+        "children": [
+          {
+            "attributes": {
+              "canonicalName": "LockStorage.WithdrawalStorage",
+              "name": "WithdrawalStorage",
+              "scope": 7152,
+              "visibility": "public"
+            },
+            "children": [
+              {
+                "attributes": {
+                  "constant": false,
+                  "name": "requestedAddresses",
+                  "scope": 7020,
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "type": "address[]",
+                  "value": null,
+                  "visibility": "internal"
+                },
+                "children": [
+                  {
+                    "attributes": {
+                      "length": null,
+                      "type": "address[]"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "address",
+                          "stateMutability": "nonpayable",
+                          "type": "address"
+                        },
+                        "id": 7011,
+                        "name": "ElementaryTypeName",
+                        "src": "141:7:38"
+                      }
+                    ],
+                    "id": 7012,
+                    "name": "ArrayTypeName",
+                    "src": "141:9:38"
+                  }
+                ],
+                "id": 7013,
+                "name": "VariableDeclaration",
+                "src": "141:28:38"
+              },
+              {
+                "attributes": {
+                  "constant": false,
+                  "name": "withdrawalAsset",
+                  "scope": 7020,
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "type": "address[]",
+                  "value": null,
+                  "visibility": "internal"
+                },
+                "children": [
+                  {
+                    "attributes": {
+                      "length": null,
+                      "type": "address[]"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "address",
+                          "stateMutability": "nonpayable",
+                          "type": "address"
+                        },
+                        "id": 7014,
+                        "name": "ElementaryTypeName",
+                        "src": "179:7:38"
+                      }
+                    ],
+                    "id": 7015,
+                    "name": "ArrayTypeName",
+                    "src": "179:9:38"
+                  }
+                ],
+                "id": 7016,
+                "name": "VariableDeclaration",
+                "src": "179:25:38"
+              },
+              {
+                "attributes": {
+                  "constant": false,
+                  "name": "amounts",
+                  "scope": 7020,
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "type": "uint256[]",
+                  "value": null,
+                  "visibility": "internal"
+                },
+                "children": [
+                  {
+                    "attributes": {
+                      "length": null,
+                      "type": "uint256[]"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "uint256",
+                          "type": "uint256"
+                        },
+                        "id": 7017,
+                        "name": "ElementaryTypeName",
+                        "src": "240:7:38"
+                      }
+                    ],
+                    "id": 7018,
+                    "name": "ArrayTypeName",
+                    "src": "240:9:38"
+                  }
+                ],
+                "id": 7019,
+                "name": "VariableDeclaration",
+                "src": "240:17:38"
+              }
+            ],
+            "id": 7020,
+            "name": "StructDefinition",
+            "src": "106:172:38"
+          },
+          {
+            "attributes": {
+              "constant": false,
+              "name": "vaultWithdrawalRequests",
+              "scope": 7152,
+              "stateVariable": true,
+              "storageLocation": "default",
+              "type": "mapping(address => struct LockStorage.WithdrawalStorage)",
+              "value": null,
+              "visibility": "internal"
+            },
+            "children": [
+              {
+                "attributes": {
+                  "type": "mapping(address => struct LockStorage.WithdrawalStorage)"
+                },
+                "children": [
+                  {
+                    "attributes": {
+                      "name": "address",
+                      "type": "address"
+                    },
+                    "id": 7021,
+                    "name": "ElementaryTypeName",
+                    "src": "291:7:38"
+                  },
+                  {
+                    "attributes": {
+                      "contractScope": null,
+                      "name": "WithdrawalStorage",
+                      "referencedDeclaration": 7020,
+                      "type": "struct LockStorage.WithdrawalStorage"
+                    },
+                    "id": 7022,
+                    "name": "UserDefinedTypeName",
+                    "src": "302:17:38"
+                  }
+                ],
+                "id": 7023,
+                "name": "Mapping",
+                "src": "283:37:38"
+              }
+            ],
+            "id": 7024,
+            "name": "VariableDeclaration",
+            "src": "283:61:38"
+          },
+          {
+            "attributes": {
+              "constant": false,
+              "name": "APContract",
+              "scope": 7152,
+              "stateVariable": true,
+              "storageLocation": "default",
+              "type": "address",
+              "value": null,
+              "visibility": "private"
+            },
+            "children": [
+              {
+                "attributes": {
+                  "name": "address",
+                  "stateMutability": "nonpayable",
+                  "type": "address"
+                },
+                "id": 7025,
+                "name": "ElementaryTypeName",
+                "src": "350:7:38"
+              }
+            ],
+            "id": 7026,
+            "name": "VariableDeclaration",
+            "src": "350:26:38"
+          },
+          {
+            "attributes": {
+              "documentation": null,
+              "implemented": true,
+              "isConstructor": true,
+              "kind": "constructor",
+              "modifiers": [
+                null
+              ],
+              "name": "",
+              "scope": 7152,
+              "stateMutability": "nonpayable",
+              "superFunction": null,
+              "visibility": "public"
+            },
+            "children": [
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "_APContract",
+                      "scope": 7036,
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "type": "address",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "address",
+                          "stateMutability": "nonpayable",
+                          "type": "address"
+                        },
+                        "id": 7027,
+                        "name": "ElementaryTypeName",
+                        "src": "395:7:38"
+                      }
+                    ],
+                    "id": 7028,
+                    "name": "VariableDeclaration",
+                    "src": "395:19:38"
+                  }
+                ],
+                "id": 7029,
+                "name": "ParameterList",
+                "src": "394:21:38"
+              },
+              {
+                "attributes": {
+                  "parameters": [
+                    null
+                  ]
+                },
+                "children": [],
+                "id": 7030,
+                "name": "ParameterList",
+                "src": "423:0:38"
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "attributes": {
+                          "argumentTypes": null,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "operator": "=",
+                          "type": "address"
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "overloadedDeclarations": [
+                                null
+                              ],
+                              "referencedDeclaration": 7026,
+                              "type": "address",
+                              "value": "APContract"
+                            },
+                            "id": 7031,
+                            "name": "Identifier",
+                            "src": "433:10:38"
+                          },
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "overloadedDeclarations": [
+                                null
+                              ],
+                              "referencedDeclaration": 7028,
+                              "type": "address",
+                              "value": "_APContract"
+                            },
+                            "id": 7032,
+                            "name": "Identifier",
+                            "src": "446:11:38"
+                          }
+                        ],
+                        "id": 7033,
+                        "name": "Assignment",
+                        "src": "433:24:38"
+                      }
+                    ],
+                    "id": 7034,
+                    "name": "ExpressionStatement",
+                    "src": "433:24:38"
+                  }
+                ],
+                "id": 7035,
+                "name": "Block",
+                "src": "423:41:38"
+              }
+            ],
+            "id": 7036,
+            "name": "FunctionDefinition",
+            "src": "383:81:38"
+          },
+          {
+            "attributes": {
+              "documentation": null,
+              "implemented": true,
+              "isConstructor": false,
+              "kind": "function",
+              "modifiers": [
+                null
+              ],
+              "name": "addRequest",
+              "scope": 7152,
+              "stateMutability": "nonpayable",
+              "superFunction": null,
+              "visibility": "external"
+            },
+            "children": [
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "_withdrawer",
+                      "scope": 7084,
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "type": "address",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "address",
+                          "stateMutability": "nonpayable",
+                          "type": "address"
+                        },
+                        "id": 7037,
+                        "name": "ElementaryTypeName",
+                        "src": "499:7:38"
+                      }
+                    ],
+                    "id": 7038,
+                    "name": "VariableDeclaration",
+                    "src": "499:19:38"
+                  },
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "_asset",
+                      "scope": 7084,
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "type": "address",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "address",
+                          "stateMutability": "nonpayable",
+                          "type": "address"
+                        },
+                        "id": 7039,
+                        "name": "ElementaryTypeName",
+                        "src": "528:7:38"
+                      }
+                    ],
+                    "id": 7040,
+                    "name": "VariableDeclaration",
+                    "src": "528:14:38"
+                  },
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "_amount",
+                      "scope": 7084,
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "type": "uint256",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "uint256",
+                          "type": "uint256"
+                        },
+                        "id": 7041,
+                        "name": "ElementaryTypeName",
+                        "src": "552:7:38"
+                      }
+                    ],
+                    "id": 7042,
+                    "name": "VariableDeclaration",
+                    "src": "552:15:38"
+                  }
+                ],
+                "id": 7043,
+                "name": "ParameterList",
+                "src": "489:84:38"
+              },
+              {
+                "attributes": {
+                  "parameters": [
+                    null
+                  ]
+                },
+                "children": [],
+                "id": 7044,
+                "name": "ParameterList",
+                "src": "583:0:38"
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "attributes": {
+                          "argumentTypes": null,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "isStructConstructorCall": false,
+                          "lValueRequested": false,
+                          "names": [
+                            null
+                          ],
+                          "type": "tuple()",
+                          "type_conversion": false
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "argumentTypes": [
+                                {
+                                  "typeIdentifier": "t_bool",
+                                  "typeString": "bool"
+                                },
+                                {
+                                  "typeIdentifier": "t_stringliteral_a73b3a1743b8d0d21f64ae16d7bb5e749b8fd278e12e169399f559f3a5b7acad",
+                                  "typeString": "literal_string \"Not a registered vault!\""
+                                }
+                              ],
+                              "overloadedDeclarations": [
+                                9687,
+                                9688
+                              ],
+                              "referencedDeclaration": 9688,
+                              "type": "function (bool,string memory) pure",
+                              "value": "require"
+                            },
+                            "id": 7045,
+                            "name": "Identifier",
+                            "src": "593:7:38"
+                          },
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "isConstant": false,
+                              "isLValue": false,
+                              "isPure": false,
+                              "isStructConstructorCall": false,
+                              "lValueRequested": false,
+                              "names": [
+                                null
+                              ],
+                              "type": "bool",
+                              "type_conversion": false
+                            },
+                            "children": [
+                              {
+                                "attributes": {
+                                  "argumentTypes": [
+                                    {
+                                      "typeIdentifier": "t_address_payable",
+                                      "typeString": "address payable"
+                                    }
+                                  ],
+                                  "isConstant": false,
+                                  "isLValue": false,
+                                  "isPure": false,
+                                  "lValueRequested": false,
+                                  "member_name": "isVault",
+                                  "referencedDeclaration": 3482,
+                                  "type": "function (address) view external returns (bool)"
+                                },
+                                "children": [
+                                  {
+                                    "attributes": {
+                                      "argumentTypes": null,
+                                      "isConstant": false,
+                                      "isLValue": false,
+                                      "isPure": false,
+                                      "isStructConstructorCall": false,
+                                      "lValueRequested": false,
+                                      "names": [
+                                        null
+                                      ],
+                                      "type": "contract IAPContract",
+                                      "type_conversion": true
+                                    },
+                                    "children": [
+                                      {
+                                        "attributes": {
+                                          "argumentTypes": [
+                                            {
+                                              "typeIdentifier": "t_address",
+                                              "typeString": "address"
+                                            }
+                                          ],
+                                          "overloadedDeclarations": [
+                                            null
+                                          ],
+                                          "referencedDeclaration": 3483,
+                                          "type": "type(contract IAPContract)",
+                                          "value": "IAPContract"
+                                        },
+                                        "id": 7046,
+                                        "name": "Identifier",
+                                        "src": "614:11:38"
+                                      },
+                                      {
+                                        "attributes": {
+                                          "argumentTypes": null,
+                                          "overloadedDeclarations": [
+                                            null
+                                          ],
+                                          "referencedDeclaration": 7026,
+                                          "type": "address",
+                                          "value": "APContract"
+                                        },
+                                        "id": 7047,
+                                        "name": "Identifier",
+                                        "src": "626:10:38"
+                                      }
+                                    ],
+                                    "id": 7048,
+                                    "name": "FunctionCall",
+                                    "src": "614:23:38"
+                                  }
+                                ],
+                                "id": 7049,
+                                "name": "MemberAccess",
+                                "src": "614:31:38"
+                              },
+                              {
+                                "attributes": {
+                                  "argumentTypes": null,
+                                  "isConstant": false,
+                                  "isLValue": false,
+                                  "isPure": false,
+                                  "lValueRequested": false,
+                                  "member_name": "sender",
+                                  "referencedDeclaration": null,
+                                  "type": "address payable"
+                                },
+                                "children": [
+                                  {
+                                    "attributes": {
+                                      "argumentTypes": null,
+                                      "overloadedDeclarations": [
+                                        null
+                                      ],
+                                      "referencedDeclaration": 9684,
+                                      "type": "msg",
+                                      "value": "msg"
+                                    },
+                                    "id": 7050,
+                                    "name": "Identifier",
+                                    "src": "646:3:38"
+                                  }
+                                ],
+                                "id": 7051,
+                                "name": "MemberAccess",
+                                "src": "646:10:38"
+                              }
+                            ],
+                            "id": 7052,
+                            "name": "FunctionCall",
+                            "src": "614:43:38"
+                          },
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "hexvalue": "4e6f7420612072656769737465726564207661756c7421",
+                              "isConstant": false,
+                              "isLValue": false,
+                              "isPure": true,
+                              "lValueRequested": false,
+                              "subdenomination": null,
+                              "token": "string",
+                              "type": "literal_string \"Not a registered vault!\"",
+                              "value": "Not a registered vault!"
+                            },
+                            "id": 7053,
+                            "name": "Literal",
+                            "src": "671:25:38"
+                          }
+                        ],
+                        "id": 7054,
+                        "name": "FunctionCall",
+                        "src": "593:113:38"
+                      }
+                    ],
+                    "id": 7055,
+                    "name": "ExpressionStatement",
+                    "src": "593:113:38"
+                  },
+                  {
+                    "children": [
+                      {
+                        "attributes": {
+                          "argumentTypes": null,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "isStructConstructorCall": false,
+                          "lValueRequested": false,
+                          "names": [
+                            null
+                          ],
+                          "type": "uint256",
+                          "type_conversion": false
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "argumentTypes": [
+                                {
+                                  "typeIdentifier": "t_address",
+                                  "typeString": "address"
+                                }
+                              ],
+                              "isConstant": false,
+                              "isLValue": false,
+                              "isPure": false,
+                              "lValueRequested": false,
+                              "member_name": "push",
+                              "referencedDeclaration": null,
+                              "type": "function (address) returns (uint256)"
+                            },
+                            "children": [
+                              {
+                                "attributes": {
+                                  "argumentTypes": null,
+                                  "isConstant": false,
+                                  "isLValue": true,
+                                  "isPure": false,
+                                  "lValueRequested": false,
+                                  "member_name": "requestedAddresses",
+                                  "referencedDeclaration": 7013,
+                                  "type": "address[] storage ref"
+                                },
+                                "children": [
+                                  {
+                                    "attributes": {
+                                      "argumentTypes": null,
+                                      "isConstant": false,
+                                      "isLValue": true,
+                                      "isPure": false,
+                                      "lValueRequested": false,
+                                      "type": "struct LockStorage.WithdrawalStorage storage ref"
+                                    },
+                                    "children": [
+                                      {
+                                        "attributes": {
+                                          "argumentTypes": null,
+                                          "overloadedDeclarations": [
+                                            null
+                                          ],
+                                          "referencedDeclaration": 7024,
+                                          "type": "mapping(address => struct LockStorage.WithdrawalStorage storage ref)",
+                                          "value": "vaultWithdrawalRequests"
+                                        },
+                                        "id": 7056,
+                                        "name": "Identifier",
+                                        "src": "716:23:38"
+                                      },
+                                      {
+                                        "attributes": {
+                                          "argumentTypes": null,
+                                          "isConstant": false,
+                                          "isLValue": false,
+                                          "isPure": false,
+                                          "lValueRequested": false,
+                                          "member_name": "sender",
+                                          "referencedDeclaration": null,
+                                          "type": "address payable"
+                                        },
+                                        "children": [
+                                          {
+                                            "attributes": {
+                                              "argumentTypes": null,
+                                              "overloadedDeclarations": [
+                                                null
+                                              ],
+                                              "referencedDeclaration": 9684,
+                                              "type": "msg",
+                                              "value": "msg"
+                                            },
+                                            "id": 7057,
+                                            "name": "Identifier",
+                                            "src": "740:3:38"
+                                          }
+                                        ],
+                                        "id": 7058,
+                                        "name": "MemberAccess",
+                                        "src": "740:10:38"
+                                      }
+                                    ],
+                                    "id": 7059,
+                                    "name": "IndexAccess",
+                                    "src": "716:35:38"
+                                  }
+                                ],
+                                "id": 7060,
+                                "name": "MemberAccess",
+                                "src": "716:54:38"
+                              }
+                            ],
+                            "id": 7061,
+                            "name": "MemberAccess",
+                            "src": "716:59:38"
+                          },
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "overloadedDeclarations": [
+                                null
+                              ],
+                              "referencedDeclaration": 7038,
+                              "type": "address",
+                              "value": "_withdrawer"
+                            },
+                            "id": 7062,
+                            "name": "Identifier",
+                            "src": "789:11:38"
+                          }
+                        ],
+                        "id": 7063,
+                        "name": "FunctionCall",
+                        "src": "716:94:38"
+                      }
+                    ],
+                    "id": 7064,
+                    "name": "ExpressionStatement",
+                    "src": "716:94:38"
+                  },
+                  {
+                    "children": [
+                      {
+                        "attributes": {
+                          "argumentTypes": null,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "isStructConstructorCall": false,
+                          "lValueRequested": false,
+                          "names": [
+                            null
+                          ],
+                          "type": "uint256",
+                          "type_conversion": false
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "argumentTypes": [
+                                {
+                                  "typeIdentifier": "t_address",
+                                  "typeString": "address"
+                                }
+                              ],
+                              "isConstant": false,
+                              "isLValue": false,
+                              "isPure": false,
+                              "lValueRequested": false,
+                              "member_name": "push",
+                              "referencedDeclaration": null,
+                              "type": "function (address) returns (uint256)"
+                            },
+                            "children": [
+                              {
+                                "attributes": {
+                                  "argumentTypes": null,
+                                  "isConstant": false,
+                                  "isLValue": true,
+                                  "isPure": false,
+                                  "lValueRequested": false,
+                                  "member_name": "withdrawalAsset",
+                                  "referencedDeclaration": 7016,
+                                  "type": "address[] storage ref"
+                                },
+                                "children": [
+                                  {
+                                    "attributes": {
+                                      "argumentTypes": null,
+                                      "isConstant": false,
+                                      "isLValue": true,
+                                      "isPure": false,
+                                      "lValueRequested": false,
+                                      "type": "struct LockStorage.WithdrawalStorage storage ref"
+                                    },
+                                    "children": [
+                                      {
+                                        "attributes": {
+                                          "argumentTypes": null,
+                                          "overloadedDeclarations": [
+                                            null
+                                          ],
+                                          "referencedDeclaration": 7024,
+                                          "type": "mapping(address => struct LockStorage.WithdrawalStorage storage ref)",
+                                          "value": "vaultWithdrawalRequests"
+                                        },
+                                        "id": 7065,
+                                        "name": "Identifier",
+                                        "src": "820:23:38"
+                                      },
+                                      {
+                                        "attributes": {
+                                          "argumentTypes": null,
+                                          "isConstant": false,
+                                          "isLValue": false,
+                                          "isPure": false,
+                                          "lValueRequested": false,
+                                          "member_name": "sender",
+                                          "referencedDeclaration": null,
+                                          "type": "address payable"
+                                        },
+                                        "children": [
+                                          {
+                                            "attributes": {
+                                              "argumentTypes": null,
+                                              "overloadedDeclarations": [
+                                                null
+                                              ],
+                                              "referencedDeclaration": 9684,
+                                              "type": "msg",
+                                              "value": "msg"
+                                            },
+                                            "id": 7066,
+                                            "name": "Identifier",
+                                            "src": "844:3:38"
+                                          }
+                                        ],
+                                        "id": 7067,
+                                        "name": "MemberAccess",
+                                        "src": "844:10:38"
+                                      }
+                                    ],
+                                    "id": 7068,
+                                    "name": "IndexAccess",
+                                    "src": "820:35:38"
+                                  }
+                                ],
+                                "id": 7069,
+                                "name": "MemberAccess",
+                                "src": "820:51:38"
+                              }
+                            ],
+                            "id": 7070,
+                            "name": "MemberAccess",
+                            "src": "820:56:38"
+                          },
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "overloadedDeclarations": [
+                                null
+                              ],
+                              "referencedDeclaration": 7040,
+                              "type": "address",
+                              "value": "_asset"
+                            },
+                            "id": 7071,
+                            "name": "Identifier",
+                            "src": "877:6:38"
+                          }
+                        ],
+                        "id": 7072,
+                        "name": "FunctionCall",
+                        "src": "820:64:38"
+                      }
+                    ],
+                    "id": 7073,
+                    "name": "ExpressionStatement",
+                    "src": "820:64:38"
+                  },
+                  {
+                    "children": [
+                      {
+                        "attributes": {
+                          "argumentTypes": null,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "isStructConstructorCall": false,
+                          "lValueRequested": false,
+                          "names": [
+                            null
+                          ],
+                          "type": "uint256",
+                          "type_conversion": false
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "argumentTypes": [
+                                {
+                                  "typeIdentifier": "t_uint256",
+                                  "typeString": "uint256"
+                                }
+                              ],
+                              "isConstant": false,
+                              "isLValue": false,
+                              "isPure": false,
+                              "lValueRequested": false,
+                              "member_name": "push",
+                              "referencedDeclaration": null,
+                              "type": "function (uint256) returns (uint256)"
+                            },
+                            "children": [
+                              {
+                                "attributes": {
+                                  "argumentTypes": null,
+                                  "isConstant": false,
+                                  "isLValue": true,
+                                  "isPure": false,
+                                  "lValueRequested": false,
+                                  "member_name": "amounts",
+                                  "referencedDeclaration": 7019,
+                                  "type": "uint256[] storage ref"
+                                },
+                                "children": [
+                                  {
+                                    "attributes": {
+                                      "argumentTypes": null,
+                                      "isConstant": false,
+                                      "isLValue": true,
+                                      "isPure": false,
+                                      "lValueRequested": false,
+                                      "type": "struct LockStorage.WithdrawalStorage storage ref"
+                                    },
+                                    "children": [
+                                      {
+                                        "attributes": {
+                                          "argumentTypes": null,
+                                          "overloadedDeclarations": [
+                                            null
+                                          ],
+                                          "referencedDeclaration": 7024,
+                                          "type": "mapping(address => struct LockStorage.WithdrawalStorage storage ref)",
+                                          "value": "vaultWithdrawalRequests"
+                                        },
+                                        "id": 7074,
+                                        "name": "Identifier",
+                                        "src": "894:23:38"
+                                      },
+                                      {
+                                        "attributes": {
+                                          "argumentTypes": null,
+                                          "isConstant": false,
+                                          "isLValue": false,
+                                          "isPure": false,
+                                          "lValueRequested": false,
+                                          "member_name": "sender",
+                                          "referencedDeclaration": null,
+                                          "type": "address payable"
+                                        },
+                                        "children": [
+                                          {
+                                            "attributes": {
+                                              "argumentTypes": null,
+                                              "overloadedDeclarations": [
+                                                null
+                                              ],
+                                              "referencedDeclaration": 9684,
+                                              "type": "msg",
+                                              "value": "msg"
+                                            },
+                                            "id": 7075,
+                                            "name": "Identifier",
+                                            "src": "918:3:38"
+                                          }
+                                        ],
+                                        "id": 7076,
+                                        "name": "MemberAccess",
+                                        "src": "918:10:38"
+                                      }
+                                    ],
+                                    "id": 7077,
+                                    "name": "IndexAccess",
+                                    "src": "894:35:38"
+                                  }
+                                ],
+                                "id": 7078,
+                                "name": "MemberAccess",
+                                "src": "894:43:38"
+                              }
+                            ],
+                            "id": 7079,
+                            "name": "MemberAccess",
+                            "src": "894:48:38"
+                          },
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "overloadedDeclarations": [
+                                null
+                              ],
+                              "referencedDeclaration": 7042,
+                              "type": "uint256",
+                              "value": "_amount"
+                            },
+                            "id": 7080,
+                            "name": "Identifier",
+                            "src": "943:7:38"
+                          }
+                        ],
+                        "id": 7081,
+                        "name": "FunctionCall",
+                        "src": "894:57:38"
+                      }
+                    ],
+                    "id": 7082,
+                    "name": "ExpressionStatement",
+                    "src": "894:57:38"
+                  }
+                ],
+                "id": 7083,
+                "name": "Block",
+                "src": "583:375:38"
+              }
+            ],
+            "id": 7084,
+            "name": "FunctionDefinition",
+            "src": "470:488:38"
+          },
+          {
+            "attributes": {
+              "documentation": null,
+              "implemented": true,
+              "isConstructor": false,
+              "kind": "function",
+              "modifiers": [
+                null
+              ],
+              "name": "clearWithdrawals",
+              "scope": 7152,
+              "stateMutability": "nonpayable",
+              "superFunction": null,
+              "visibility": "external"
+            },
+            "children": [
+              {
+                "attributes": {
+                  "parameters": [
+                    null
+                  ]
+                },
+                "children": [],
+                "id": 7085,
+                "name": "ParameterList",
+                "src": "989:2:38"
+              },
+              {
+                "attributes": {
+                  "parameters": [
+                    null
+                  ]
+                },
+                "children": [],
+                "id": 7086,
+                "name": "ParameterList",
+                "src": "1001:0:38"
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "attributes": {
+                          "argumentTypes": null,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "isStructConstructorCall": false,
+                          "lValueRequested": false,
+                          "names": [
+                            null
+                          ],
+                          "type": "tuple()",
+                          "type_conversion": false
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "argumentTypes": [
+                                {
+                                  "typeIdentifier": "t_bool",
+                                  "typeString": "bool"
+                                },
+                                {
+                                  "typeIdentifier": "t_stringliteral_a73b3a1743b8d0d21f64ae16d7bb5e749b8fd278e12e169399f559f3a5b7acad",
+                                  "typeString": "literal_string \"Not a registered vault!\""
+                                }
+                              ],
+                              "overloadedDeclarations": [
+                                9687,
+                                9688
+                              ],
+                              "referencedDeclaration": 9688,
+                              "type": "function (bool,string memory) pure",
+                              "value": "require"
+                            },
+                            "id": 7087,
+                            "name": "Identifier",
+                            "src": "1011:7:38"
+                          },
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "isConstant": false,
+                              "isLValue": false,
+                              "isPure": false,
+                              "isStructConstructorCall": false,
+                              "lValueRequested": false,
+                              "names": [
+                                null
+                              ],
+                              "type": "bool",
+                              "type_conversion": false
+                            },
+                            "children": [
+                              {
+                                "attributes": {
+                                  "argumentTypes": [
+                                    {
+                                      "typeIdentifier": "t_address_payable",
+                                      "typeString": "address payable"
+                                    }
+                                  ],
+                                  "isConstant": false,
+                                  "isLValue": false,
+                                  "isPure": false,
+                                  "lValueRequested": false,
+                                  "member_name": "isVault",
+                                  "referencedDeclaration": 3482,
+                                  "type": "function (address) view external returns (bool)"
+                                },
+                                "children": [
+                                  {
+                                    "attributes": {
+                                      "argumentTypes": null,
+                                      "isConstant": false,
+                                      "isLValue": false,
+                                      "isPure": false,
+                                      "isStructConstructorCall": false,
+                                      "lValueRequested": false,
+                                      "names": [
+                                        null
+                                      ],
+                                      "type": "contract IAPContract",
+                                      "type_conversion": true
+                                    },
+                                    "children": [
+                                      {
+                                        "attributes": {
+                                          "argumentTypes": [
+                                            {
+                                              "typeIdentifier": "t_address",
+                                              "typeString": "address"
+                                            }
+                                          ],
+                                          "overloadedDeclarations": [
+                                            null
+                                          ],
+                                          "referencedDeclaration": 3483,
+                                          "type": "type(contract IAPContract)",
+                                          "value": "IAPContract"
+                                        },
+                                        "id": 7088,
+                                        "name": "Identifier",
+                                        "src": "1032:11:38"
+                                      },
+                                      {
+                                        "attributes": {
+                                          "argumentTypes": null,
+                                          "overloadedDeclarations": [
+                                            null
+                                          ],
+                                          "referencedDeclaration": 7026,
+                                          "type": "address",
+                                          "value": "APContract"
+                                        },
+                                        "id": 7089,
+                                        "name": "Identifier",
+                                        "src": "1044:10:38"
+                                      }
+                                    ],
+                                    "id": 7090,
+                                    "name": "FunctionCall",
+                                    "src": "1032:23:38"
+                                  }
+                                ],
+                                "id": 7091,
+                                "name": "MemberAccess",
+                                "src": "1032:31:38"
+                              },
+                              {
+                                "attributes": {
+                                  "argumentTypes": null,
+                                  "isConstant": false,
+                                  "isLValue": false,
+                                  "isPure": false,
+                                  "lValueRequested": false,
+                                  "member_name": "sender",
+                                  "referencedDeclaration": null,
+                                  "type": "address payable"
+                                },
+                                "children": [
+                                  {
+                                    "attributes": {
+                                      "argumentTypes": null,
+                                      "overloadedDeclarations": [
+                                        null
+                                      ],
+                                      "referencedDeclaration": 9684,
+                                      "type": "msg",
+                                      "value": "msg"
+                                    },
+                                    "id": 7092,
+                                    "name": "Identifier",
+                                    "src": "1064:3:38"
+                                  }
+                                ],
+                                "id": 7093,
+                                "name": "MemberAccess",
+                                "src": "1064:10:38"
+                              }
+                            ],
+                            "id": 7094,
+                            "name": "FunctionCall",
+                            "src": "1032:43:38"
+                          },
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "hexvalue": "4e6f7420612072656769737465726564207661756c7421",
+                              "isConstant": false,
+                              "isLValue": false,
+                              "isPure": true,
+                              "lValueRequested": false,
+                              "subdenomination": null,
+                              "token": "string",
+                              "type": "literal_string \"Not a registered vault!\"",
+                              "value": "Not a registered vault!"
+                            },
+                            "id": 7095,
+                            "name": "Literal",
+                            "src": "1089:25:38"
+                          }
+                        ],
+                        "id": 7096,
+                        "name": "FunctionCall",
+                        "src": "1011:113:38"
+                      }
+                    ],
+                    "id": 7097,
+                    "name": "ExpressionStatement",
+                    "src": "1011:113:38"
+                  },
+                  {
+                    "children": [
+                      {
+                        "attributes": {
+                          "argumentTypes": null,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "operator": "=",
+                          "type": "struct LockStorage.WithdrawalStorage storage ref"
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "isConstant": false,
+                              "isLValue": true,
+                              "isPure": false,
+                              "lValueRequested": true,
+                              "type": "struct LockStorage.WithdrawalStorage storage ref"
+                            },
+                            "children": [
+                              {
+                                "attributes": {
+                                  "argumentTypes": null,
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
+                                  "referencedDeclaration": 7024,
+                                  "type": "mapping(address => struct LockStorage.WithdrawalStorage storage ref)",
+                                  "value": "vaultWithdrawalRequests"
+                                },
+                                "id": 7098,
+                                "name": "Identifier",
+                                "src": "1134:23:38"
+                              },
+                              {
+                                "attributes": {
+                                  "argumentTypes": null,
+                                  "isConstant": false,
+                                  "isLValue": false,
+                                  "isPure": false,
+                                  "lValueRequested": false,
+                                  "member_name": "sender",
+                                  "referencedDeclaration": null,
+                                  "type": "address payable"
+                                },
+                                "children": [
+                                  {
+                                    "attributes": {
+                                      "argumentTypes": null,
+                                      "overloadedDeclarations": [
+                                        null
+                                      ],
+                                      "referencedDeclaration": 9684,
+                                      "type": "msg",
+                                      "value": "msg"
+                                    },
+                                    "id": 7099,
+                                    "name": "Identifier",
+                                    "src": "1158:3:38"
+                                  }
+                                ],
+                                "id": 7100,
+                                "name": "MemberAccess",
+                                "src": "1158:10:38"
+                              }
+                            ],
+                            "id": 7101,
+                            "name": "IndexAccess",
+                            "src": "1134:35:38"
+                          },
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "isConstant": false,
+                              "isLValue": false,
+                              "isPure": true,
+                              "isStructConstructorCall": true,
+                              "lValueRequested": false,
+                              "names": [
+                                null
+                              ],
+                              "type": "struct LockStorage.WithdrawalStorage memory",
+                              "type_conversion": false
+                            },
+                            "children": [
+                              {
+                                "attributes": {
+                                  "argumentTypes": [
+                                    {
+                                      "typeIdentifier": "t_array$_t_address_$dyn_memory",
+                                      "typeString": "address[] memory"
+                                    },
+                                    {
+                                      "typeIdentifier": "t_array$_t_address_$dyn_memory",
+                                      "typeString": "address[] memory"
+                                    },
+                                    {
+                                      "typeIdentifier": "t_array$_t_uint256_$dyn_memory",
+                                      "typeString": "uint256[] memory"
+                                    }
+                                  ],
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
+                                  "referencedDeclaration": 7020,
+                                  "type": "type(struct LockStorage.WithdrawalStorage storage pointer)",
+                                  "value": "WithdrawalStorage"
+                                },
+                                "id": 7102,
+                                "name": "Identifier",
+                                "src": "1172:17:38"
+                              },
+                              {
+                                "attributes": {
+                                  "argumentTypes": null,
+                                  "isConstant": false,
+                                  "isLValue": false,
+                                  "isPure": true,
+                                  "isStructConstructorCall": false,
+                                  "lValueRequested": false,
+                                  "names": [
+                                    null
+                                  ],
+                                  "type": "address[] memory",
+                                  "type_conversion": false
+                                },
+                                "children": [
+                                  {
+                                    "attributes": {
+                                      "argumentTypes": [
+                                        {
+                                          "typeIdentifier": "t_rational_0_by_1",
+                                          "typeString": "int_const 0"
+                                        }
+                                      ],
+                                      "isConstant": false,
+                                      "isLValue": false,
+                                      "isPure": true,
+                                      "lValueRequested": false,
+                                      "type": "function (uint256) pure returns (address[] memory)"
+                                    },
+                                    "children": [
+                                      {
+                                        "attributes": {
+                                          "length": null,
+                                          "type": "address[]"
+                                        },
+                                        "children": [
+                                          {
+                                            "attributes": {
+                                              "name": "address",
+                                              "stateMutability": "nonpayable",
+                                              "type": "address"
+                                            },
+                                            "id": 7103,
+                                            "name": "ElementaryTypeName",
+                                            "src": "1207:7:38"
+                                          }
+                                        ],
+                                        "id": 7104,
+                                        "name": "ArrayTypeName",
+                                        "src": "1207:9:38"
+                                      }
+                                    ],
+                                    "id": 7105,
+                                    "name": "NewExpression",
+                                    "src": "1203:13:38"
+                                  },
+                                  {
+                                    "attributes": {
+                                      "argumentTypes": null,
+                                      "hexvalue": "30",
+                                      "isConstant": false,
+                                      "isLValue": false,
+                                      "isPure": true,
+                                      "lValueRequested": false,
+                                      "subdenomination": null,
+                                      "token": "number",
+                                      "type": "int_const 0",
+                                      "value": "0"
+                                    },
+                                    "id": 7106,
+                                    "name": "Literal",
+                                    "src": "1217:1:38"
+                                  }
+                                ],
+                                "id": 7107,
+                                "name": "FunctionCall",
+                                "src": "1203:16:38"
+                              },
+                              {
+                                "attributes": {
+                                  "argumentTypes": null,
+                                  "isConstant": false,
+                                  "isLValue": false,
+                                  "isPure": true,
+                                  "isStructConstructorCall": false,
+                                  "lValueRequested": false,
+                                  "names": [
+                                    null
+                                  ],
+                                  "type": "address[] memory",
+                                  "type_conversion": false
+                                },
+                                "children": [
+                                  {
+                                    "attributes": {
+                                      "argumentTypes": [
+                                        {
+                                          "typeIdentifier": "t_rational_0_by_1",
+                                          "typeString": "int_const 0"
+                                        }
+                                      ],
+                                      "isConstant": false,
+                                      "isLValue": false,
+                                      "isPure": true,
+                                      "lValueRequested": false,
+                                      "type": "function (uint256) pure returns (address[] memory)"
+                                    },
+                                    "children": [
+                                      {
+                                        "attributes": {
+                                          "length": null,
+                                          "type": "address[]"
+                                        },
+                                        "children": [
+                                          {
+                                            "attributes": {
+                                              "name": "address",
+                                              "stateMutability": "nonpayable",
+                                              "type": "address"
+                                            },
+                                            "id": 7108,
+                                            "name": "ElementaryTypeName",
+                                            "src": "1237:7:38"
+                                          }
+                                        ],
+                                        "id": 7109,
+                                        "name": "ArrayTypeName",
+                                        "src": "1237:9:38"
+                                      }
+                                    ],
+                                    "id": 7110,
+                                    "name": "NewExpression",
+                                    "src": "1233:13:38"
+                                  },
+                                  {
+                                    "attributes": {
+                                      "argumentTypes": null,
+                                      "hexvalue": "30",
+                                      "isConstant": false,
+                                      "isLValue": false,
+                                      "isPure": true,
+                                      "lValueRequested": false,
+                                      "subdenomination": null,
+                                      "token": "number",
+                                      "type": "int_const 0",
+                                      "value": "0"
+                                    },
+                                    "id": 7111,
+                                    "name": "Literal",
+                                    "src": "1247:1:38"
+                                  }
+                                ],
+                                "id": 7112,
+                                "name": "FunctionCall",
+                                "src": "1233:16:38"
+                              },
+                              {
+                                "attributes": {
+                                  "argumentTypes": null,
+                                  "isConstant": false,
+                                  "isLValue": false,
+                                  "isPure": true,
+                                  "isStructConstructorCall": false,
+                                  "lValueRequested": false,
+                                  "names": [
+                                    null
+                                  ],
+                                  "type": "uint256[] memory",
+                                  "type_conversion": false
+                                },
+                                "children": [
+                                  {
+                                    "attributes": {
+                                      "argumentTypes": [
+                                        {
+                                          "typeIdentifier": "t_rational_0_by_1",
+                                          "typeString": "int_const 0"
+                                        }
+                                      ],
+                                      "isConstant": false,
+                                      "isLValue": false,
+                                      "isPure": true,
+                                      "lValueRequested": false,
+                                      "type": "function (uint256) pure returns (uint256[] memory)"
+                                    },
+                                    "children": [
+                                      {
+                                        "attributes": {
+                                          "length": null,
+                                          "type": "uint256[]"
+                                        },
+                                        "children": [
+                                          {
+                                            "attributes": {
+                                              "name": "uint256",
+                                              "type": "uint256"
+                                            },
+                                            "id": 7113,
+                                            "name": "ElementaryTypeName",
+                                            "src": "1267:7:38"
+                                          }
+                                        ],
+                                        "id": 7114,
+                                        "name": "ArrayTypeName",
+                                        "src": "1267:9:38"
+                                      }
+                                    ],
+                                    "id": 7115,
+                                    "name": "NewExpression",
+                                    "src": "1263:13:38"
+                                  },
+                                  {
+                                    "attributes": {
+                                      "argumentTypes": null,
+                                      "hexvalue": "30",
+                                      "isConstant": false,
+                                      "isLValue": false,
+                                      "isPure": true,
+                                      "lValueRequested": false,
+                                      "subdenomination": null,
+                                      "token": "number",
+                                      "type": "int_const 0",
+                                      "value": "0"
+                                    },
+                                    "id": 7116,
+                                    "name": "Literal",
+                                    "src": "1277:1:38"
+                                  }
+                                ],
+                                "id": 7117,
+                                "name": "FunctionCall",
+                                "src": "1263:16:38"
+                              }
+                            ],
+                            "id": 7118,
+                            "name": "FunctionCall",
+                            "src": "1172:117:38"
+                          }
+                        ],
+                        "id": 7119,
+                        "name": "Assignment",
+                        "src": "1134:155:38"
+                      }
+                    ],
+                    "id": 7120,
+                    "name": "ExpressionStatement",
+                    "src": "1134:155:38"
+                  }
+                ],
+                "id": 7121,
+                "name": "Block",
+                "src": "1001:295:38"
+              }
+            ],
+            "id": 7122,
+            "name": "FunctionDefinition",
+            "src": "964:332:38"
+          },
+          {
+            "attributes": {
+              "documentation": null,
+              "implemented": true,
+              "isConstructor": false,
+              "kind": "function",
+              "modifiers": [
+                null
+              ],
+              "name": "getWithdrawalList",
+              "scope": 7152,
+              "stateMutability": "view",
+              "superFunction": null,
+              "visibility": "external"
+            },
+            "children": [
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "_vaultAddress",
+                      "scope": 7151,
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "type": "address",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "address",
+                          "stateMutability": "nonpayable",
+                          "type": "address"
+                        },
+                        "id": 7123,
+                        "name": "ElementaryTypeName",
+                        "src": "1329:7:38"
+                      }
+                    ],
+                    "id": 7124,
+                    "name": "VariableDeclaration",
+                    "src": "1329:21:38"
+                  }
+                ],
+                "id": 7125,
+                "name": "ParameterList",
+                "src": "1328:23:38"
+              },
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "",
+                      "scope": 7151,
+                      "stateVariable": false,
+                      "storageLocation": "memory",
+                      "type": "address[]",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "length": null,
+                          "type": "address[]"
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "name": "address",
+                              "stateMutability": "nonpayable",
+                              "type": "address"
+                            },
+                            "id": 7126,
+                            "name": "ElementaryTypeName",
+                            "src": "1412:7:38"
+                          }
+                        ],
+                        "id": 7127,
+                        "name": "ArrayTypeName",
+                        "src": "1412:9:38"
+                      }
+                    ],
+                    "id": 7128,
+                    "name": "VariableDeclaration",
+                    "src": "1412:16:38"
+                  },
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "",
+                      "scope": 7151,
+                      "stateVariable": false,
+                      "storageLocation": "memory",
+                      "type": "address[]",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "length": null,
+                          "type": "address[]"
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "name": "address",
+                              "stateMutability": "nonpayable",
+                              "type": "address"
+                            },
+                            "id": 7129,
+                            "name": "ElementaryTypeName",
+                            "src": "1442:7:38"
+                          }
+                        ],
+                        "id": 7130,
+                        "name": "ArrayTypeName",
+                        "src": "1442:9:38"
+                      }
+                    ],
+                    "id": 7131,
+                    "name": "VariableDeclaration",
+                    "src": "1442:16:38"
+                  },
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "",
+                      "scope": 7151,
+                      "stateVariable": false,
+                      "storageLocation": "memory",
+                      "type": "uint256[]",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "length": null,
+                          "type": "uint256[]"
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "name": "uint256",
+                              "type": "uint256"
+                            },
+                            "id": 7132,
+                            "name": "ElementaryTypeName",
+                            "src": "1472:7:38"
+                          }
+                        ],
+                        "id": 7133,
+                        "name": "ArrayTypeName",
+                        "src": "1472:9:38"
+                      }
+                    ],
+                    "id": 7134,
+                    "name": "VariableDeclaration",
+                    "src": "1472:16:38"
+                  }
+                ],
+                "id": 7135,
+                "name": "ParameterList",
+                "src": "1398:100:38"
+              },
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "functionReturnParameters": 7135
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "argumentTypes": null,
+                          "isConstant": false,
+                          "isInlineArray": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "type": "tuple(address[] storage ref,address[] storage ref,uint256[] storage ref)"
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "isConstant": false,
+                              "isLValue": true,
+                              "isPure": false,
+                              "lValueRequested": false,
+                              "member_name": "requestedAddresses",
+                              "referencedDeclaration": 7013,
+                              "type": "address[] storage ref"
+                            },
+                            "children": [
+                              {
+                                "attributes": {
+                                  "argumentTypes": null,
+                                  "isConstant": false,
+                                  "isLValue": true,
+                                  "isPure": false,
+                                  "lValueRequested": false,
+                                  "type": "struct LockStorage.WithdrawalStorage storage ref"
+                                },
+                                "children": [
+                                  {
+                                    "attributes": {
+                                      "argumentTypes": null,
+                                      "overloadedDeclarations": [
+                                        null
+                                      ],
+                                      "referencedDeclaration": 7024,
+                                      "type": "mapping(address => struct LockStorage.WithdrawalStorage storage ref)",
+                                      "value": "vaultWithdrawalRequests"
+                                    },
+                                    "id": 7136,
+                                    "name": "Identifier",
+                                    "src": "1534:23:38"
+                                  },
+                                  {
+                                    "attributes": {
+                                      "argumentTypes": null,
+                                      "overloadedDeclarations": [
+                                        null
+                                      ],
+                                      "referencedDeclaration": 7124,
+                                      "type": "address",
+                                      "value": "_vaultAddress"
+                                    },
+                                    "id": 7137,
+                                    "name": "Identifier",
+                                    "src": "1558:13:38"
+                                  }
+                                ],
+                                "id": 7138,
+                                "name": "IndexAccess",
+                                "src": "1534:38:38"
+                              }
+                            ],
+                            "id": 7139,
+                            "name": "MemberAccess",
+                            "src": "1534:57:38"
+                          },
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "isConstant": false,
+                              "isLValue": true,
+                              "isPure": false,
+                              "lValueRequested": false,
+                              "member_name": "withdrawalAsset",
+                              "referencedDeclaration": 7016,
+                              "type": "address[] storage ref"
+                            },
+                            "children": [
+                              {
+                                "attributes": {
+                                  "argumentTypes": null,
+                                  "isConstant": false,
+                                  "isLValue": true,
+                                  "isPure": false,
+                                  "lValueRequested": false,
+                                  "type": "struct LockStorage.WithdrawalStorage storage ref"
+                                },
+                                "children": [
+                                  {
+                                    "attributes": {
+                                      "argumentTypes": null,
+                                      "overloadedDeclarations": [
+                                        null
+                                      ],
+                                      "referencedDeclaration": 7024,
+                                      "type": "mapping(address => struct LockStorage.WithdrawalStorage storage ref)",
+                                      "value": "vaultWithdrawalRequests"
+                                    },
+                                    "id": 7140,
+                                    "name": "Identifier",
+                                    "src": "1605:23:38"
+                                  },
+                                  {
+                                    "attributes": {
+                                      "argumentTypes": null,
+                                      "overloadedDeclarations": [
+                                        null
+                                      ],
+                                      "referencedDeclaration": 7124,
+                                      "type": "address",
+                                      "value": "_vaultAddress"
+                                    },
+                                    "id": 7141,
+                                    "name": "Identifier",
+                                    "src": "1629:13:38"
+                                  }
+                                ],
+                                "id": 7142,
+                                "name": "IndexAccess",
+                                "src": "1605:38:38"
+                              }
+                            ],
+                            "id": 7143,
+                            "name": "MemberAccess",
+                            "src": "1605:54:38"
+                          },
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "isConstant": false,
+                              "isLValue": true,
+                              "isPure": false,
+                              "lValueRequested": false,
+                              "member_name": "amounts",
+                              "referencedDeclaration": 7019,
+                              "type": "uint256[] storage ref"
+                            },
+                            "children": [
+                              {
+                                "attributes": {
+                                  "argumentTypes": null,
+                                  "isConstant": false,
+                                  "isLValue": true,
+                                  "isPure": false,
+                                  "lValueRequested": false,
+                                  "type": "struct LockStorage.WithdrawalStorage storage ref"
+                                },
+                                "children": [
+                                  {
+                                    "attributes": {
+                                      "argumentTypes": null,
+                                      "overloadedDeclarations": [
+                                        null
+                                      ],
+                                      "referencedDeclaration": 7024,
+                                      "type": "mapping(address => struct LockStorage.WithdrawalStorage storage ref)",
+                                      "value": "vaultWithdrawalRequests"
+                                    },
+                                    "id": 7144,
+                                    "name": "Identifier",
+                                    "src": "1673:23:38"
+                                  },
+                                  {
+                                    "attributes": {
+                                      "argumentTypes": null,
+                                      "overloadedDeclarations": [
+                                        null
+                                      ],
+                                      "referencedDeclaration": 7124,
+                                      "type": "address",
+                                      "value": "_vaultAddress"
+                                    },
+                                    "id": 7145,
+                                    "name": "Identifier",
+                                    "src": "1697:13:38"
+                                  }
+                                ],
+                                "id": 7146,
+                                "name": "IndexAccess",
+                                "src": "1673:38:38"
+                              }
+                            ],
+                            "id": 7147,
+                            "name": "MemberAccess",
+                            "src": "1673:46:38"
+                          }
+                        ],
+                        "id": 7148,
+                        "name": "TupleExpression",
+                        "src": "1520:209:38"
+                      }
+                    ],
+                    "id": 7149,
+                    "name": "Return",
+                    "src": "1513:216:38"
+                  }
+                ],
+                "id": 7150,
+                "name": "Block",
+                "src": "1503:233:38"
+              }
+            ],
+            "id": 7151,
+            "name": "FunctionDefinition",
+            "src": "1302:434:38"
+          }
+        ],
+        "id": 7152,
+        "name": "ContractDefinition",
+        "src": "79:1659:38"
+      }
+    ],
+    "id": 7153,
+    "name": "SourceUnit",
+    "src": "0:1739:38"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.5.17+commit.d19bba13.Emscripten.clang"
+  },
+  "networks": {},
+  "schemaVersion": "3.4.4",
+  "updatedAt": "2022-02-04T04:47:14.842Z",
+  "devdoc": {
+    "methods": {}
+  },
+  "userdoc": {
+    "methods": {}
+  }
+}

@@ -1,0 +1,3661 @@
+{
+  "contractName": "YieldsterVaultProxyFactory",
+  "abi": [
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_mastercopy",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "_APContract",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "contract YieldsterVaultProxy",
+          "name": "proxy",
+          "type": "address"
+        }
+      ],
+      "name": "ProxyCreation",
+      "type": "event"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_mastercopy",
+          "type": "address"
+        }
+      ],
+      "name": "setMasterCopy",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_APContract",
+          "type": "address"
+        }
+      ],
+      "name": "setAPContract",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "internalType": "bytes",
+          "name": "data",
+          "type": "bytes"
+        }
+      ],
+      "name": "createProxy",
+      "outputs": [
+        {
+          "internalType": "contract YieldsterVaultProxy",
+          "name": "proxy",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "proxyRuntimeCode",
+      "outputs": [
+        {
+          "internalType": "bytes",
+          "name": "",
+          "type": "bytes"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "pure",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "proxyCreationCode",
+      "outputs": [
+        {
+          "internalType": "bytes",
+          "name": "",
+          "type": "bytes"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "pure",
+      "type": "function"
+    }
+  ],
+  "metadata": "{\"compiler\":{\"version\":\"0.5.17+commit.d19bba13\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_mastercopy\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"_APContract\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"contract YieldsterVaultProxy\",\"name\":\"proxy\",\"type\":\"address\"}],\"name\":\"ProxyCreation\",\"type\":\"event\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"bytes\",\"name\":\"data\",\"type\":\"bytes\"}],\"name\":\"createProxy\",\"outputs\":[{\"internalType\":\"contract YieldsterVaultProxy\",\"name\":\"proxy\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"proxyCreationCode\",\"outputs\":[{\"internalType\":\"bytes\",\"name\":\"\",\"type\":\"bytes\"}],\"payable\":false,\"stateMutability\":\"pure\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"proxyRuntimeCode\",\"outputs\":[{\"internalType\":\"bytes\",\"name\":\"\",\"type\":\"bytes\"}],\"payable\":false,\"stateMutability\":\"pure\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"_APContract\",\"type\":\"address\"}],\"name\":\"setAPContract\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"_mastercopy\",\"type\":\"address\"}],\"name\":\"setMasterCopy\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"methods\":{\"createProxy(bytes)\":{\"details\":\"Allows to create new proxy contact and execute a message call to the new proxy within one transaction.\",\"params\":{\"data\":\"Payload for message call sent to new proxy contract.\"}},\"proxyCreationCode()\":{\"details\":\"Allows to retrieve the creation code used for the Proxy deployment. With this it is easily possible to calculate predicted address.\"},\"proxyRuntimeCode()\":{\"details\":\"Allows to retrieve the runtime code of a deployed Proxy. This can be used to check that the expected Proxy was deployed.\"}}},\"userdoc\":{\"methods\":{}}},\"settings\":{\"compilationTarget\":{\"project:/contracts/proxies/YieldsterVaultProxyFactory.sol\":\"YieldsterVaultProxyFactory\"},\"evmVersion\":\"petersburg\",\"libraries\":{},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"project:/contracts/interfaces/IAPContract.sol\":{\"keccak256\":\"0x760e15c052831dc0d33bb82b0595f860fddb6b1f1fe8232bdfc3ae56f2ea7024\",\"urls\":[\"bzz-raw://95de4716f094dfae90e9c4ddab80ad6832dff868fc4a44507279983387b0567a\",\"dweb:/ipfs/QmSMuiv9fgHGo7czszx8Sinkoc5Npt9RKxd3c6G3y8Joib\"]},\"project:/contracts/proxies/IProxyCreationCallback.sol\":{\"keccak256\":\"0xc6431458847987f36a2953e30f7046f28cef803504ef0df89b2f79757178fc20\",\"urls\":[\"bzz-raw://aa6d52ad7019a291d58b2fd318f3e692ecccd3f12bd7a34f05059d10759e08b0\",\"dweb:/ipfs/QmcuidnSAb4ctzibovpvCxPu3yN94dFAuyza7mae3yC9FL\"]},\"project:/contracts/proxies/YieldsterVaultProxy.sol\":{\"keccak256\":\"0xc10e7cdc4fbc4d221f5cbc8b184e1988a0430ee3b0bc20755566df4ffcc4bce3\",\"urls\":[\"bzz-raw://9edc5a29a449c0604d26412c1ce2805f10c0f911aef829248df12e1bc57f1c51\",\"dweb:/ipfs/QmZLfj1eDohyw8dkqeLZx59b8ig7E17L8sMG2r8jajF4pM\"]},\"project:/contracts/proxies/YieldsterVaultProxyFactory.sol\":{\"keccak256\":\"0xd3f39a5380e13909d7b7b47f2c994feeec1408ba001d540138a76dab942dd8c0\",\"urls\":[\"bzz-raw://96c243b713c8aae5458be5b0e9102f56ad8d77716bd148bc4c7563c530746b74\",\"dweb:/ipfs/QmU5GEVwzmbMmU86SAXLSPrVzg75ge4KouRhkRMfeUiP1f\"]}},\"version\":1}",
+  "bytecode": "0x608060405234801561001057600080fd5b506040516106e33803806106e38339818101604052604081101561003357600080fd5b508051602090910151600080546001600160a01b039384166001600160a01b0319918216179091556001805493909216928116929092179055600280549091163317905561065d806100866000396000f3fe608060405234801561001057600080fd5b50600436106100575760003560e01c806353e5d9351461005c5780638f295d59146100d95780639a8eff901461019b578063addacc0f146101c3578063cf497e6c146101cb575b600080fd5b6100646101f1565b6040805160208082528351818301528351919283929083019185019080838360005b8381101561009e578181015183820152602001610086565b50505050905090810190601f1680156100cb5780820380516001836020036101000a031916815260200191505b509250505060405180910390f35b61017f600480360360208110156100ef57600080fd5b81019060208101813564010000000081111561010a57600080fd5b82018360208201111561011c57600080fd5b8035906020019184600183028401116401000000008311171561013e57600080fd5b91908080601f01602080910402602001604051908101604052809392919081815260200183838082843760009201919091525092955061021b945050505050565b604080516001600160a01b039092168252519081900360200190f35b6101c1600480360360208110156101b157600080fd5b50356001600160a01b0316610332565b005b6100646103a4565b6101c1600480360360208110156101e157600080fd5b50356001600160a01b03166103b6565b60606040518060200161020390610428565b601f1982820381018352601f90910116604052905090565b600080546040516001600160a01b039091169061023790610428565b6001600160a01b03909116815260405190819003602001906000f080158015610264573d6000803e3d6000fd5b5082519091501561028a5760008060008451602086016000865af1141561028a57600080fd5b60015460408051635a5eb7a360e11b81526001600160a01b0384811660048301529151919092169163b4bd6f4691602480830192600092919082900301818387803b1580156102d857600080fd5b505af11580156102ec573d6000803e3d6000fd5b5050604080516001600160a01b038516815290517fa38789425dbeee0239e16ff2d2567e31720127fbc6430758c1a4efc6aef29f809350908190036020019150a1919050565b6002546001600160a01b03163314610382576040805162461bcd60e51b815260206004820152600e60248201526d139bdd08105d5d1a1bdc9a5e995960921b604482015290519081900360640190fd5b600180546001600160a01b0319166001600160a01b0392909216919091179055565b60606040518060200161020390610435565b6002546001600160a01b03163314610406576040805162461bcd60e51b815260206004820152600e60248201526d139bdd08105d5d1a1bdc9a5e995960921b604482015290519081900360640190fd5b600080546001600160a01b0319166001600160a01b0392909216919091179055565b6101678061044283390190565b6080806105a98339019056fe608060405234801561001057600080fd5b506040516101673803806101678339818101604052602081101561003357600080fd5b50516001600160a01b038116610094576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004018080602001828103825260248152602001806101436024913960400191505060405180910390fd5b600080546001600160a01b039092166001600160a01b03199092169190911790556080806100c36000396000f3fe60806040526001600160a01b036000541663530ca43760e11b6000351415602a578060005260206000f35b3660008037600080366000845af43d6000803e806046573d6000fd5b3d6000f3fea265627a7a72315820c00c416e654d8fe2d93e31864d8c3e2b8d9b48c1d4e01cb8b8bb68d15e60a8d964736f6c63430005110032496e76616c6964206d617374657220636f707920616464726573732070726f766964656460806040526001600160a01b036000541663530ca43760e11b6000351415602a578060005260206000f35b3660008037600080366000845af43d6000803e806046573d6000fd5b3d6000f3fea265627a7a72315820c00c416e654d8fe2d93e31864d8c3e2b8d9b48c1d4e01cb8b8bb68d15e60a8d964736f6c63430005110032a265627a7a72315820d4d92027268caeaa2bdd6d843703f15c02389f567c04fb15968c87674786b1d664736f6c63430005110032",
+  "deployedBytecode": "0x608060405234801561001057600080fd5b50600436106100575760003560e01c806353e5d9351461005c5780638f295d59146100d95780639a8eff901461019b578063addacc0f146101c3578063cf497e6c146101cb575b600080fd5b6100646101f1565b6040805160208082528351818301528351919283929083019185019080838360005b8381101561009e578181015183820152602001610086565b50505050905090810190601f1680156100cb5780820380516001836020036101000a031916815260200191505b509250505060405180910390f35b61017f600480360360208110156100ef57600080fd5b81019060208101813564010000000081111561010a57600080fd5b82018360208201111561011c57600080fd5b8035906020019184600183028401116401000000008311171561013e57600080fd5b91908080601f01602080910402602001604051908101604052809392919081815260200183838082843760009201919091525092955061021b945050505050565b604080516001600160a01b039092168252519081900360200190f35b6101c1600480360360208110156101b157600080fd5b50356001600160a01b0316610332565b005b6100646103a4565b6101c1600480360360208110156101e157600080fd5b50356001600160a01b03166103b6565b60606040518060200161020390610428565b601f1982820381018352601f90910116604052905090565b600080546040516001600160a01b039091169061023790610428565b6001600160a01b03909116815260405190819003602001906000f080158015610264573d6000803e3d6000fd5b5082519091501561028a5760008060008451602086016000865af1141561028a57600080fd5b60015460408051635a5eb7a360e11b81526001600160a01b0384811660048301529151919092169163b4bd6f4691602480830192600092919082900301818387803b1580156102d857600080fd5b505af11580156102ec573d6000803e3d6000fd5b5050604080516001600160a01b038516815290517fa38789425dbeee0239e16ff2d2567e31720127fbc6430758c1a4efc6aef29f809350908190036020019150a1919050565b6002546001600160a01b03163314610382576040805162461bcd60e51b815260206004820152600e60248201526d139bdd08105d5d1a1bdc9a5e995960921b604482015290519081900360640190fd5b600180546001600160a01b0319166001600160a01b0392909216919091179055565b60606040518060200161020390610435565b6002546001600160a01b03163314610406576040805162461bcd60e51b815260206004820152600e60248201526d139bdd08105d5d1a1bdc9a5e995960921b604482015290519081900360640190fd5b600080546001600160a01b0319166001600160a01b0392909216919091179055565b6101678061044283390190565b6080806105a98339019056fe608060405234801561001057600080fd5b506040516101673803806101678339818101604052602081101561003357600080fd5b50516001600160a01b038116610094576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004018080602001828103825260248152602001806101436024913960400191505060405180910390fd5b600080546001600160a01b039092166001600160a01b03199092169190911790556080806100c36000396000f3fe60806040526001600160a01b036000541663530ca43760e11b6000351415602a578060005260206000f35b3660008037600080366000845af43d6000803e806046573d6000fd5b3d6000f3fea265627a7a72315820c00c416e654d8fe2d93e31864d8c3e2b8d9b48c1d4e01cb8b8bb68d15e60a8d964736f6c63430005110032496e76616c6964206d617374657220636f707920616464726573732070726f766964656460806040526001600160a01b036000541663530ca43760e11b6000351415602a578060005260206000f35b3660008037600080366000845af43d6000803e806046573d6000fd5b3d6000f3fea265627a7a72315820c00c416e654d8fe2d93e31864d8c3e2b8d9b48c1d4e01cb8b8bb68d15e60a8d964736f6c63430005110032a265627a7a72315820d4d92027268caeaa2bdd6d843703f15c02389f567c04fb15968c87674786b1d664736f6c63430005110032",
+  "sourceMap": "140:1983:31:-;;;327:164;8:9:-1;5:2;;;30:1;27;20:12;5:2;327:164:31;;;;;;;;;;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;-1:-1;327:164:31;;;;;;;398:10;:24;;-1:-1:-1;;;;;398:24:31;;;-1:-1:-1;;;;;;398:24:31;;;;;;;;432;;;;;;;;;;;;;;;466:5;:18;;;;;474:10;466:18;;;140:1983;;;;;;",
+  "deployedSourceMap": "140:1983:31:-;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;140:1983:31;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;1995:126;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;8:100:-1;33:3;30:1;27:10;8:100;;;90:11;;;84:18;71:11;;;64:39;52:2;45:10;8:100;;;12:14;1995:126:31;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;994:586;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;994:586:31;;;;;;;;21:11:-1;5:28;;2:2;;;46:1;43;36:12;2:2;994:586:31;;35:9:-1;28:4;12:14;8:25;5:40;2:2;;;58:1;55;48:12;2:2;994:586:31;;;;;;100:9:-1;95:1;81:12;77:20;67:8;63:35;60:50;39:11;25:12;22:29;11:107;8:2;;;131:1;128;121:12;8:2;994:586:31;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;30:3:-1;22:6;14;1:33;99:1;81:16;;74:27;;;;-1:-1;994:586:31;;-1:-1:-1;994:586:31;;-1:-1:-1;;;;;994:586:31:i;:::-;;;;-1:-1:-1;;;;;994:586:31;;;;;;;;;;;;;;651:148;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;-1:-1;651:148:31;-1:-1:-1;;;;;651:148:31;;:::i;:::-;;1720:124;;;:::i;497:148::-;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;-1:-1;497:148:31;-1:-1:-1;;;;;497:148:31;;:::i;1995:126::-;2045:12;2076:38;;;;;;;;:::i;:::-;-1:-1:-1;;21:26;;;;;7:41;;87:2;69:12;;;65:26;61:2;54:38;34:5;-1:-1;1995:126:31;:::o;994:586::-;1066:25;1139:10;;1115:35;;-1:-1:-1;;;;;1139:10:31;;;;1115:35;;;:::i;:::-;-1:-1:-1;;;;;1115:35:31;;;;;;;;;;;;;;;;;;8:9:-1;5:2;;;45:16;42:1;39;24:38;77:16;74:1;67:27;5:2;-1:-1;1164:11:31;;1107:43;;-1:-1:-1;1164:15:31;1160:318;;1392:1;1368;1365;1358:4;1352:11;1345:4;1339;1335:15;1332:1;1325:5;1320:3;1315:55;1291:120;1288:2;;;1444:1;1441;1434:12;1288:2;1499:10;;1487:51;;;-1:-1:-1;;;1487:51:31;;-1:-1:-1;;;;;1487:51:31;;;;;;;;;1499:10;;;;;1487:35;;:51;;;;;1499:10;;1487:51;;;;;;;1499:10;;1487:51;;;5:2:-1;;;;30:1;27;20:12;5:2;1487:51:31;;;;8:9:-1;5:2;;;45:16;42:1;39;24:38;77:16;74:1;67:27;5:2;-1:-1;;1553:20:31;;;-1:-1:-1;;;;;1553:20:31;;;;;;;;-1:-1:-1;1553:20:31;;;;;;;-1:-1:-1;1553:20:31;994:586;;;:::o;651:148::-;734:5;;-1:-1:-1;;;;;734:5:31;720:10;:19;712:46;;;;;-1:-1:-1;;;712:46:31;;;;;;;;;;;;-1:-1:-1;;;712:46:31;;;;;;;;;;;;;;;768:10;:24;;-1:-1:-1;;;;;;768:24:31;-1:-1:-1;;;;;768:24:31;;;;;;;;;;651:148::o;1720:124::-;1769:12;1800:37;;;;;;;;:::i;497:148::-;580:5;;-1:-1:-1;;;;;580:5:31;566:10;:19;558:46;;;;;-1:-1:-1;;;558:46:31;;;;;;;;;;;;-1:-1:-1;;;558:46:31;;;;;;;;;;;;;;;614:10;:24;;-1:-1:-1;;;;;;614:24:31;-1:-1:-1;;;;;614:24:31;;;;;;;;;;497:148::o;140:1983::-;;;;;;;;:::o;:::-;;;;;;;;:::o",
+  "source": "pragma solidity ^0.5.3;\nimport \"./YieldsterVaultProxy.sol\";\nimport \"./IProxyCreationCallback.sol\";\nimport \"../interfaces/IAPContract.sol\";\n\ncontract YieldsterVaultProxyFactory {\n    address private mastercopy;\n    address private APContract;\n    address private owner;\n\n    event ProxyCreation(YieldsterVaultProxy proxy);\n\n    constructor(address _mastercopy, address _APContract) public {\n        mastercopy = _mastercopy;\n        APContract = _APContract;\n        owner = msg.sender;\n    }\n\n    function setMasterCopy(address _mastercopy) public {\n        require(msg.sender == owner, \"Not Authorized\");\n        mastercopy = _mastercopy;\n    }\n\n    function setAPContract(address _APContract) public {\n        require(msg.sender == owner, \"Not Authorized\");\n        APContract = _APContract;\n    }\n\n    /// @dev Allows to create new proxy contact and execute a message call to the new proxy within one transaction.\n    /// @param data Payload for message call sent to new proxy contract.\n    function createProxy(bytes memory data)\n        public\n        returns (YieldsterVaultProxy proxy)\n    {\n        proxy = new YieldsterVaultProxy(mastercopy);\n        if (data.length > 0)\n            // solium-disable-next-line security/no-inline-assembly\n            assembly {\n                if eq(\n                    call(gas, proxy, 0, add(data, 0x20), mload(data), 0, 0),\n                    0\n                ) {\n                    revert(0, 0)\n                }\n            }\n        IAPContract(APContract).createVault(address(proxy));\n        emit ProxyCreation(proxy);\n    }\n\n    /// @dev Allows to retrieve the runtime code of a deployed Proxy. This can be used to check that the expected Proxy was deployed.\n    function proxyRuntimeCode() public pure returns (bytes memory) {\n        return type(YieldsterVaultProxy).runtimeCode;\n    }\n\n    /// @dev Allows to retrieve the creation code used for the Proxy deployment. With this it is easily possible to calculate predicted address.\n    function proxyCreationCode() public pure returns (bytes memory) {\n        return type(YieldsterVaultProxy).creationCode;\n    }\n}\n",
+  "sourcePath": "/home/dxuser/Documents/scode/yieldster-vault/contracts/proxies/YieldsterVaultProxyFactory.sol",
+  "ast": {
+    "absolutePath": "project:/contracts/proxies/YieldsterVaultProxyFactory.sol",
+    "exportedSymbols": {
+      "YieldsterVaultProxyFactory": [
+        4410
+      ]
+    },
+    "id": 4411,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 4283,
+        "literals": [
+          "solidity",
+          "^",
+          "0.5",
+          ".3"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "0:23:31"
+      },
+      {
+        "absolutePath": "project:/contracts/proxies/YieldsterVaultProxy.sol",
+        "file": "./YieldsterVaultProxy.sol",
+        "id": 4284,
+        "nodeType": "ImportDirective",
+        "scope": 4411,
+        "sourceUnit": 4282,
+        "src": "24:35:31",
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "absolutePath": "project:/contracts/proxies/IProxyCreationCallback.sol",
+        "file": "./IProxyCreationCallback.sol",
+        "id": 4285,
+        "nodeType": "ImportDirective",
+        "scope": 4411,
+        "sourceUnit": 4247,
+        "src": "60:38:31",
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "absolutePath": "project:/contracts/interfaces/IAPContract.sol",
+        "file": "../interfaces/IAPContract.sol",
+        "id": 4286,
+        "nodeType": "ImportDirective",
+        "scope": 4411,
+        "sourceUnit": 3484,
+        "src": "99:39:31",
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "baseContracts": [],
+        "contractDependencies": [
+          4281
+        ],
+        "contractKind": "contract",
+        "documentation": null,
+        "fullyImplemented": true,
+        "id": 4410,
+        "linearizedBaseContracts": [
+          4410
+        ],
+        "name": "YieldsterVaultProxyFactory",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "constant": false,
+            "id": 4288,
+            "name": "mastercopy",
+            "nodeType": "VariableDeclaration",
+            "scope": 4410,
+            "src": "182:26:31",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_address",
+              "typeString": "address"
+            },
+            "typeName": {
+              "id": 4287,
+              "name": "address",
+              "nodeType": "ElementaryTypeName",
+              "src": "182:7:31",
+              "stateMutability": "nonpayable",
+              "typeDescriptions": {
+                "typeIdentifier": "t_address",
+                "typeString": "address"
+              }
+            },
+            "value": null,
+            "visibility": "private"
+          },
+          {
+            "constant": false,
+            "id": 4290,
+            "name": "APContract",
+            "nodeType": "VariableDeclaration",
+            "scope": 4410,
+            "src": "214:26:31",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_address",
+              "typeString": "address"
+            },
+            "typeName": {
+              "id": 4289,
+              "name": "address",
+              "nodeType": "ElementaryTypeName",
+              "src": "214:7:31",
+              "stateMutability": "nonpayable",
+              "typeDescriptions": {
+                "typeIdentifier": "t_address",
+                "typeString": "address"
+              }
+            },
+            "value": null,
+            "visibility": "private"
+          },
+          {
+            "constant": false,
+            "id": 4292,
+            "name": "owner",
+            "nodeType": "VariableDeclaration",
+            "scope": 4410,
+            "src": "246:21:31",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_address",
+              "typeString": "address"
+            },
+            "typeName": {
+              "id": 4291,
+              "name": "address",
+              "nodeType": "ElementaryTypeName",
+              "src": "246:7:31",
+              "stateMutability": "nonpayable",
+              "typeDescriptions": {
+                "typeIdentifier": "t_address",
+                "typeString": "address"
+              }
+            },
+            "value": null,
+            "visibility": "private"
+          },
+          {
+            "anonymous": false,
+            "documentation": null,
+            "id": 4296,
+            "name": "ProxyCreation",
+            "nodeType": "EventDefinition",
+            "parameters": {
+              "id": 4295,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 4294,
+                  "indexed": false,
+                  "name": "proxy",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 4296,
+                  "src": "294:25:31",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_contract$_YieldsterVaultProxy_$4281",
+                    "typeString": "contract YieldsterVaultProxy"
+                  },
+                  "typeName": {
+                    "contractScope": null,
+                    "id": 4293,
+                    "name": "YieldsterVaultProxy",
+                    "nodeType": "UserDefinedTypeName",
+                    "referencedDeclaration": 4281,
+                    "src": "294:19:31",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_contract$_YieldsterVaultProxy_$4281",
+                      "typeString": "contract YieldsterVaultProxy"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "293:27:31"
+            },
+            "src": "274:47:31"
+          },
+          {
+            "body": {
+              "id": 4316,
+              "nodeType": "Block",
+              "src": "388:103:31",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "id": 4305,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "argumentTypes": null,
+                      "id": 4303,
+                      "name": "mastercopy",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 4288,
+                      "src": "398:10:31",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_address",
+                        "typeString": "address"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "argumentTypes": null,
+                      "id": 4304,
+                      "name": "_mastercopy",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 4298,
+                      "src": "411:11:31",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_address",
+                        "typeString": "address"
+                      }
+                    },
+                    "src": "398:24:31",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "id": 4306,
+                  "nodeType": "ExpressionStatement",
+                  "src": "398:24:31"
+                },
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "id": 4309,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "argumentTypes": null,
+                      "id": 4307,
+                      "name": "APContract",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 4290,
+                      "src": "432:10:31",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_address",
+                        "typeString": "address"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "argumentTypes": null,
+                      "id": 4308,
+                      "name": "_APContract",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 4300,
+                      "src": "445:11:31",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_address",
+                        "typeString": "address"
+                      }
+                    },
+                    "src": "432:24:31",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "id": 4310,
+                  "nodeType": "ExpressionStatement",
+                  "src": "432:24:31"
+                },
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "id": 4314,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "argumentTypes": null,
+                      "id": 4311,
+                      "name": "owner",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 4292,
+                      "src": "466:5:31",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_address",
+                        "typeString": "address"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "argumentTypes": null,
+                      "expression": {
+                        "argumentTypes": null,
+                        "id": 4312,
+                        "name": "msg",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 9684,
+                        "src": "474:3:31",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_magic_message",
+                          "typeString": "msg"
+                        }
+                      },
+                      "id": 4313,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberName": "sender",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": null,
+                      "src": "474:10:31",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_address_payable",
+                        "typeString": "address payable"
+                      }
+                    },
+                    "src": "466:18:31",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "id": 4315,
+                  "nodeType": "ExpressionStatement",
+                  "src": "466:18:31"
+                }
+              ]
+            },
+            "documentation": null,
+            "id": 4317,
+            "implemented": true,
+            "kind": "constructor",
+            "modifiers": [],
+            "name": "",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 4301,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 4298,
+                  "name": "_mastercopy",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 4317,
+                  "src": "339:19:31",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 4297,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "339:7:31",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 4300,
+                  "name": "_APContract",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 4317,
+                  "src": "360:19:31",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 4299,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "360:7:31",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "338:42:31"
+            },
+            "returnParameters": {
+              "id": 4302,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "388:0:31"
+            },
+            "scope": 4410,
+            "src": "327:164:31",
+            "stateMutability": "nonpayable",
+            "superFunction": null,
+            "visibility": "public"
+          },
+          {
+            "body": {
+              "id": 4334,
+              "nodeType": "Block",
+              "src": "548:97:31",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "arguments": [
+                      {
+                        "argumentTypes": null,
+                        "commonType": {
+                          "typeIdentifier": "t_address",
+                          "typeString": "address"
+                        },
+                        "id": 4326,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "leftExpression": {
+                          "argumentTypes": null,
+                          "expression": {
+                            "argumentTypes": null,
+                            "id": 4323,
+                            "name": "msg",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 9684,
+                            "src": "566:3:31",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_magic_message",
+                              "typeString": "msg"
+                            }
+                          },
+                          "id": 4324,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "memberName": "sender",
+                          "nodeType": "MemberAccess",
+                          "referencedDeclaration": null,
+                          "src": "566:10:31",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_address_payable",
+                            "typeString": "address payable"
+                          }
+                        },
+                        "nodeType": "BinaryOperation",
+                        "operator": "==",
+                        "rightExpression": {
+                          "argumentTypes": null,
+                          "id": 4325,
+                          "name": "owner",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 4292,
+                          "src": "580:5:31",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_address",
+                            "typeString": "address"
+                          }
+                        },
+                        "src": "566:19:31",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_bool",
+                          "typeString": "bool"
+                        }
+                      },
+                      {
+                        "argumentTypes": null,
+                        "hexValue": "4e6f7420417574686f72697a6564",
+                        "id": 4327,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": true,
+                        "kind": "string",
+                        "lValueRequested": false,
+                        "nodeType": "Literal",
+                        "src": "587:16:31",
+                        "subdenomination": null,
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_stringliteral_593fd4f5418ae095969b093812245f49eb950b9775e5afd767614f342e26d4f2",
+                          "typeString": "literal_string \"Not Authorized\""
+                        },
+                        "value": "Not Authorized"
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_bool",
+                          "typeString": "bool"
+                        },
+                        {
+                          "typeIdentifier": "t_stringliteral_593fd4f5418ae095969b093812245f49eb950b9775e5afd767614f342e26d4f2",
+                          "typeString": "literal_string \"Not Authorized\""
+                        }
+                      ],
+                      "id": 4322,
+                      "name": "require",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [
+                        9687,
+                        9688
+                      ],
+                      "referencedDeclaration": 9688,
+                      "src": "558:7:31",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
+                        "typeString": "function (bool,string memory) pure"
+                      }
+                    },
+                    "id": 4328,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "558:46:31",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_tuple$__$",
+                      "typeString": "tuple()"
+                    }
+                  },
+                  "id": 4329,
+                  "nodeType": "ExpressionStatement",
+                  "src": "558:46:31"
+                },
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "id": 4332,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "argumentTypes": null,
+                      "id": 4330,
+                      "name": "mastercopy",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 4288,
+                      "src": "614:10:31",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_address",
+                        "typeString": "address"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "argumentTypes": null,
+                      "id": 4331,
+                      "name": "_mastercopy",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 4319,
+                      "src": "627:11:31",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_address",
+                        "typeString": "address"
+                      }
+                    },
+                    "src": "614:24:31",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "id": 4333,
+                  "nodeType": "ExpressionStatement",
+                  "src": "614:24:31"
+                }
+              ]
+            },
+            "documentation": null,
+            "id": 4335,
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "setMasterCopy",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 4320,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 4319,
+                  "name": "_mastercopy",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 4335,
+                  "src": "520:19:31",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 4318,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "520:7:31",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "519:21:31"
+            },
+            "returnParameters": {
+              "id": 4321,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "548:0:31"
+            },
+            "scope": 4410,
+            "src": "497:148:31",
+            "stateMutability": "nonpayable",
+            "superFunction": null,
+            "visibility": "public"
+          },
+          {
+            "body": {
+              "id": 4352,
+              "nodeType": "Block",
+              "src": "702:97:31",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "arguments": [
+                      {
+                        "argumentTypes": null,
+                        "commonType": {
+                          "typeIdentifier": "t_address",
+                          "typeString": "address"
+                        },
+                        "id": 4344,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "leftExpression": {
+                          "argumentTypes": null,
+                          "expression": {
+                            "argumentTypes": null,
+                            "id": 4341,
+                            "name": "msg",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 9684,
+                            "src": "720:3:31",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_magic_message",
+                              "typeString": "msg"
+                            }
+                          },
+                          "id": 4342,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "memberName": "sender",
+                          "nodeType": "MemberAccess",
+                          "referencedDeclaration": null,
+                          "src": "720:10:31",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_address_payable",
+                            "typeString": "address payable"
+                          }
+                        },
+                        "nodeType": "BinaryOperation",
+                        "operator": "==",
+                        "rightExpression": {
+                          "argumentTypes": null,
+                          "id": 4343,
+                          "name": "owner",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 4292,
+                          "src": "734:5:31",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_address",
+                            "typeString": "address"
+                          }
+                        },
+                        "src": "720:19:31",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_bool",
+                          "typeString": "bool"
+                        }
+                      },
+                      {
+                        "argumentTypes": null,
+                        "hexValue": "4e6f7420417574686f72697a6564",
+                        "id": 4345,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": true,
+                        "kind": "string",
+                        "lValueRequested": false,
+                        "nodeType": "Literal",
+                        "src": "741:16:31",
+                        "subdenomination": null,
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_stringliteral_593fd4f5418ae095969b093812245f49eb950b9775e5afd767614f342e26d4f2",
+                          "typeString": "literal_string \"Not Authorized\""
+                        },
+                        "value": "Not Authorized"
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_bool",
+                          "typeString": "bool"
+                        },
+                        {
+                          "typeIdentifier": "t_stringliteral_593fd4f5418ae095969b093812245f49eb950b9775e5afd767614f342e26d4f2",
+                          "typeString": "literal_string \"Not Authorized\""
+                        }
+                      ],
+                      "id": 4340,
+                      "name": "require",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [
+                        9687,
+                        9688
+                      ],
+                      "referencedDeclaration": 9688,
+                      "src": "712:7:31",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
+                        "typeString": "function (bool,string memory) pure"
+                      }
+                    },
+                    "id": 4346,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "712:46:31",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_tuple$__$",
+                      "typeString": "tuple()"
+                    }
+                  },
+                  "id": 4347,
+                  "nodeType": "ExpressionStatement",
+                  "src": "712:46:31"
+                },
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "id": 4350,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "argumentTypes": null,
+                      "id": 4348,
+                      "name": "APContract",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 4290,
+                      "src": "768:10:31",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_address",
+                        "typeString": "address"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "argumentTypes": null,
+                      "id": 4349,
+                      "name": "_APContract",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 4337,
+                      "src": "781:11:31",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_address",
+                        "typeString": "address"
+                      }
+                    },
+                    "src": "768:24:31",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "id": 4351,
+                  "nodeType": "ExpressionStatement",
+                  "src": "768:24:31"
+                }
+              ]
+            },
+            "documentation": null,
+            "id": 4353,
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "setAPContract",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 4338,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 4337,
+                  "name": "_APContract",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 4353,
+                  "src": "674:19:31",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 4336,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "674:7:31",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "673:21:31"
+            },
+            "returnParameters": {
+              "id": 4339,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "702:0:31"
+            },
+            "scope": 4410,
+            "src": "651:148:31",
+            "stateMutability": "nonpayable",
+            "superFunction": null,
+            "visibility": "public"
+          },
+          {
+            "body": {
+              "id": 4386,
+              "nodeType": "Block",
+              "src": "1097:483:31",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "id": 4365,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "argumentTypes": null,
+                      "id": 4360,
+                      "name": "proxy",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 4358,
+                      "src": "1107:5:31",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_contract$_YieldsterVaultProxy_$4281",
+                        "typeString": "contract YieldsterVaultProxy"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "argumentTypes": null,
+                      "arguments": [
+                        {
+                          "argumentTypes": null,
+                          "id": 4363,
+                          "name": "mastercopy",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 4288,
+                          "src": "1139:10:31",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_address",
+                            "typeString": "address"
+                          }
+                        }
+                      ],
+                      "expression": {
+                        "argumentTypes": [
+                          {
+                            "typeIdentifier": "t_address",
+                            "typeString": "address"
+                          }
+                        ],
+                        "id": 4362,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "nodeType": "NewExpression",
+                        "src": "1115:23:31",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_function_creation_nonpayable$_t_address_$returns$_t_contract$_YieldsterVaultProxy_$4281_$",
+                          "typeString": "function (address) returns (contract YieldsterVaultProxy)"
+                        },
+                        "typeName": {
+                          "contractScope": null,
+                          "id": 4361,
+                          "name": "YieldsterVaultProxy",
+                          "nodeType": "UserDefinedTypeName",
+                          "referencedDeclaration": 4281,
+                          "src": "1119:19:31",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_contract$_YieldsterVaultProxy_$4281",
+                            "typeString": "contract YieldsterVaultProxy"
+                          }
+                        }
+                      },
+                      "id": 4364,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "kind": "functionCall",
+                      "lValueRequested": false,
+                      "names": [],
+                      "nodeType": "FunctionCall",
+                      "src": "1115:35:31",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_contract$_YieldsterVaultProxy_$4281",
+                        "typeString": "contract YieldsterVaultProxy"
+                      }
+                    },
+                    "src": "1107:43:31",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_contract$_YieldsterVaultProxy_$4281",
+                      "typeString": "contract YieldsterVaultProxy"
+                    }
+                  },
+                  "id": 4366,
+                  "nodeType": "ExpressionStatement",
+                  "src": "1107:43:31"
+                },
+                {
+                  "condition": {
+                    "argumentTypes": null,
+                    "commonType": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    },
+                    "id": 4370,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftExpression": {
+                      "argumentTypes": null,
+                      "expression": {
+                        "argumentTypes": null,
+                        "id": 4367,
+                        "name": "data",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 4355,
+                        "src": "1164:4:31",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_bytes_memory_ptr",
+                          "typeString": "bytes memory"
+                        }
+                      },
+                      "id": 4368,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberName": "length",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": null,
+                      "src": "1164:11:31",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      }
+                    },
+                    "nodeType": "BinaryOperation",
+                    "operator": ">",
+                    "rightExpression": {
+                      "argumentTypes": null,
+                      "hexValue": "30",
+                      "id": 4369,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": true,
+                      "kind": "number",
+                      "lValueRequested": false,
+                      "nodeType": "Literal",
+                      "src": "1178:1:31",
+                      "subdenomination": null,
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_rational_0_by_1",
+                        "typeString": "int_const 0"
+                      },
+                      "value": "0"
+                    },
+                    "src": "1164:15:31",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "falseBody": null,
+                  "id": 4372,
+                  "nodeType": "IfStatement",
+                  "src": "1160:318:31",
+                  "trueBody": {
+                    "externalReferences": [
+                      {
+                        "data": {
+                          "declaration": 4355,
+                          "isOffset": false,
+                          "isSlot": false,
+                          "src": "1358:4:31",
+                          "valueSize": 1
+                        }
+                      },
+                      {
+                        "data": {
+                          "declaration": 4355,
+                          "isOffset": false,
+                          "isSlot": false,
+                          "src": "1339:4:31",
+                          "valueSize": 1
+                        }
+                      },
+                      {
+                        "proxy": {
+                          "declaration": 4358,
+                          "isOffset": false,
+                          "isSlot": false,
+                          "src": "1325:5:31",
+                          "valueSize": 1
+                        }
+                      }
+                    ],
+                    "id": 4371,
+                    "nodeType": "InlineAssembly",
+                    "operations": "{\n    if eq(call(gas(), proxy, 0, add(data, 0x20), mload(data), 0, 0), 0) { revert(0, 0) }\n}",
+                    "src": "1261:217:31"
+                  }
+                },
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "arguments": [
+                      {
+                        "argumentTypes": null,
+                        "arguments": [
+                          {
+                            "argumentTypes": null,
+                            "id": 4378,
+                            "name": "proxy",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 4358,
+                            "src": "1531:5:31",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_contract$_YieldsterVaultProxy_$4281",
+                              "typeString": "contract YieldsterVaultProxy"
+                            }
+                          }
+                        ],
+                        "expression": {
+                          "argumentTypes": [
+                            {
+                              "typeIdentifier": "t_contract$_YieldsterVaultProxy_$4281",
+                              "typeString": "contract YieldsterVaultProxy"
+                            }
+                          ],
+                          "id": 4377,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": true,
+                          "lValueRequested": false,
+                          "nodeType": "ElementaryTypeNameExpression",
+                          "src": "1523:7:31",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_type$_t_address_$",
+                            "typeString": "type(address)"
+                          },
+                          "typeName": "address"
+                        },
+                        "id": 4379,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": false,
+                        "kind": "typeConversion",
+                        "lValueRequested": false,
+                        "names": [],
+                        "nodeType": "FunctionCall",
+                        "src": "1523:14:31",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_address_payable",
+                          "typeString": "address payable"
+                        }
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_address_payable",
+                          "typeString": "address payable"
+                        }
+                      ],
+                      "expression": {
+                        "argumentTypes": null,
+                        "arguments": [
+                          {
+                            "argumentTypes": null,
+                            "id": 4374,
+                            "name": "APContract",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 4290,
+                            "src": "1499:10:31",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_address",
+                              "typeString": "address"
+                            }
+                          }
+                        ],
+                        "expression": {
+                          "argumentTypes": [
+                            {
+                              "typeIdentifier": "t_address",
+                              "typeString": "address"
+                            }
+                          ],
+                          "id": 4373,
+                          "name": "IAPContract",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 3483,
+                          "src": "1487:11:31",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_type$_t_contract$_IAPContract_$3483_$",
+                            "typeString": "type(contract IAPContract)"
+                          }
+                        },
+                        "id": 4375,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": false,
+                        "kind": "typeConversion",
+                        "lValueRequested": false,
+                        "names": [],
+                        "nodeType": "FunctionCall",
+                        "src": "1487:23:31",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_contract$_IAPContract_$3483",
+                          "typeString": "contract IAPContract"
+                        }
+                      },
+                      "id": 4376,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberName": "createVault",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 3259,
+                      "src": "1487:35:31",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_external_nonpayable$_t_address_$returns$__$",
+                        "typeString": "function (address) external"
+                      }
+                    },
+                    "id": 4380,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "1487:51:31",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_tuple$__$",
+                      "typeString": "tuple()"
+                    }
+                  },
+                  "id": 4381,
+                  "nodeType": "ExpressionStatement",
+                  "src": "1487:51:31"
+                },
+                {
+                  "eventCall": {
+                    "argumentTypes": null,
+                    "arguments": [
+                      {
+                        "argumentTypes": null,
+                        "id": 4383,
+                        "name": "proxy",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 4358,
+                        "src": "1567:5:31",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_contract$_YieldsterVaultProxy_$4281",
+                          "typeString": "contract YieldsterVaultProxy"
+                        }
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_contract$_YieldsterVaultProxy_$4281",
+                          "typeString": "contract YieldsterVaultProxy"
+                        }
+                      ],
+                      "id": 4382,
+                      "name": "ProxyCreation",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 4296,
+                      "src": "1553:13:31",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_event_nonpayable$_t_contract$_YieldsterVaultProxy_$4281_$returns$__$",
+                        "typeString": "function (contract YieldsterVaultProxy)"
+                      }
+                    },
+                    "id": 4384,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "1553:20:31",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_tuple$__$",
+                      "typeString": "tuple()"
+                    }
+                  },
+                  "id": 4385,
+                  "nodeType": "EmitStatement",
+                  "src": "1548:25:31"
+                }
+              ]
+            },
+            "documentation": "@dev Allows to create new proxy contact and execute a message call to the new proxy within one transaction.\n @param data Payload for message call sent to new proxy contract.",
+            "id": 4387,
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "createProxy",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 4356,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 4355,
+                  "name": "data",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 4387,
+                  "src": "1015:17:31",
+                  "stateVariable": false,
+                  "storageLocation": "memory",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes_memory_ptr",
+                    "typeString": "bytes"
+                  },
+                  "typeName": {
+                    "id": 4354,
+                    "name": "bytes",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1015:5:31",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes_storage_ptr",
+                      "typeString": "bytes"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1014:19:31"
+            },
+            "returnParameters": {
+              "id": 4359,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 4358,
+                  "name": "proxy",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 4387,
+                  "src": "1066:25:31",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_contract$_YieldsterVaultProxy_$4281",
+                    "typeString": "contract YieldsterVaultProxy"
+                  },
+                  "typeName": {
+                    "contractScope": null,
+                    "id": 4357,
+                    "name": "YieldsterVaultProxy",
+                    "nodeType": "UserDefinedTypeName",
+                    "referencedDeclaration": 4281,
+                    "src": "1066:19:31",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_contract$_YieldsterVaultProxy_$4281",
+                      "typeString": "contract YieldsterVaultProxy"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1065:27:31"
+            },
+            "scope": 4410,
+            "src": "994:586:31",
+            "stateMutability": "nonpayable",
+            "superFunction": null,
+            "visibility": "public"
+          },
+          {
+            "body": {
+              "id": 4397,
+              "nodeType": "Block",
+              "src": "1783:61:31",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "expression": {
+                      "argumentTypes": null,
+                      "arguments": [
+                        {
+                          "argumentTypes": null,
+                          "id": 4393,
+                          "name": "YieldsterVaultProxy",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 4281,
+                          "src": "1805:19:31",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_type$_t_contract$_YieldsterVaultProxy_$4281_$",
+                            "typeString": "type(contract YieldsterVaultProxy)"
+                          }
+                        }
+                      ],
+                      "expression": {
+                        "argumentTypes": [
+                          {
+                            "typeIdentifier": "t_type$_t_contract$_YieldsterVaultProxy_$4281_$",
+                            "typeString": "type(contract YieldsterVaultProxy)"
+                          }
+                        ],
+                        "id": 4392,
+                        "name": "type",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 9697,
+                        "src": "1800:4:31",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_function_metatype_pure$_t_address_$returns$__$",
+                          "typeString": "function (address) pure"
+                        }
+                      },
+                      "id": 4394,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": true,
+                      "kind": "functionCall",
+                      "lValueRequested": false,
+                      "names": [],
+                      "nodeType": "FunctionCall",
+                      "src": "1800:25:31",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_magic_meta_type_t_contract$_YieldsterVaultProxy_$4281",
+                        "typeString": "type(contract YieldsterVaultProxy)"
+                      }
+                    },
+                    "id": 4395,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": true,
+                    "lValueRequested": false,
+                    "memberName": "runtimeCode",
+                    "nodeType": "MemberAccess",
+                    "referencedDeclaration": null,
+                    "src": "1800:37:31",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes_memory_ptr",
+                      "typeString": "bytes memory"
+                    }
+                  },
+                  "functionReturnParameters": 4391,
+                  "id": 4396,
+                  "nodeType": "Return",
+                  "src": "1793:44:31"
+                }
+              ]
+            },
+            "documentation": "@dev Allows to retrieve the runtime code of a deployed Proxy. This can be used to check that the expected Proxy was deployed.",
+            "id": 4398,
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "proxyRuntimeCode",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 4388,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "1745:2:31"
+            },
+            "returnParameters": {
+              "id": 4391,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 4390,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 4398,
+                  "src": "1769:12:31",
+                  "stateVariable": false,
+                  "storageLocation": "memory",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes_memory_ptr",
+                    "typeString": "bytes"
+                  },
+                  "typeName": {
+                    "id": 4389,
+                    "name": "bytes",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1769:5:31",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes_storage_ptr",
+                      "typeString": "bytes"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1768:14:31"
+            },
+            "scope": 4410,
+            "src": "1720:124:31",
+            "stateMutability": "pure",
+            "superFunction": null,
+            "visibility": "public"
+          },
+          {
+            "body": {
+              "id": 4408,
+              "nodeType": "Block",
+              "src": "2059:62:31",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "expression": {
+                      "argumentTypes": null,
+                      "arguments": [
+                        {
+                          "argumentTypes": null,
+                          "id": 4404,
+                          "name": "YieldsterVaultProxy",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 4281,
+                          "src": "2081:19:31",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_type$_t_contract$_YieldsterVaultProxy_$4281_$",
+                            "typeString": "type(contract YieldsterVaultProxy)"
+                          }
+                        }
+                      ],
+                      "expression": {
+                        "argumentTypes": [
+                          {
+                            "typeIdentifier": "t_type$_t_contract$_YieldsterVaultProxy_$4281_$",
+                            "typeString": "type(contract YieldsterVaultProxy)"
+                          }
+                        ],
+                        "id": 4403,
+                        "name": "type",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 9697,
+                        "src": "2076:4:31",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_function_metatype_pure$_t_address_$returns$__$",
+                          "typeString": "function (address) pure"
+                        }
+                      },
+                      "id": 4405,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": true,
+                      "kind": "functionCall",
+                      "lValueRequested": false,
+                      "names": [],
+                      "nodeType": "FunctionCall",
+                      "src": "2076:25:31",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_magic_meta_type_t_contract$_YieldsterVaultProxy_$4281",
+                        "typeString": "type(contract YieldsterVaultProxy)"
+                      }
+                    },
+                    "id": 4406,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": true,
+                    "lValueRequested": false,
+                    "memberName": "creationCode",
+                    "nodeType": "MemberAccess",
+                    "referencedDeclaration": null,
+                    "src": "2076:38:31",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes_memory_ptr",
+                      "typeString": "bytes memory"
+                    }
+                  },
+                  "functionReturnParameters": 4402,
+                  "id": 4407,
+                  "nodeType": "Return",
+                  "src": "2069:45:31"
+                }
+              ]
+            },
+            "documentation": "@dev Allows to retrieve the creation code used for the Proxy deployment. With this it is easily possible to calculate predicted address.",
+            "id": 4409,
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "proxyCreationCode",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 4399,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "2021:2:31"
+            },
+            "returnParameters": {
+              "id": 4402,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 4401,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 4409,
+                  "src": "2045:12:31",
+                  "stateVariable": false,
+                  "storageLocation": "memory",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes_memory_ptr",
+                    "typeString": "bytes"
+                  },
+                  "typeName": {
+                    "id": 4400,
+                    "name": "bytes",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "2045:5:31",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes_storage_ptr",
+                      "typeString": "bytes"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "2044:14:31"
+            },
+            "scope": 4410,
+            "src": "1995:126:31",
+            "stateMutability": "pure",
+            "superFunction": null,
+            "visibility": "public"
+          }
+        ],
+        "scope": 4411,
+        "src": "140:1983:31"
+      }
+    ],
+    "src": "0:2124:31"
+  },
+  "legacyAST": {
+    "attributes": {
+      "absolutePath": "project:/contracts/proxies/YieldsterVaultProxyFactory.sol",
+      "exportedSymbols": {
+        "YieldsterVaultProxyFactory": [
+          4410
+        ]
+      }
+    },
+    "children": [
+      {
+        "attributes": {
+          "literals": [
+            "solidity",
+            "^",
+            "0.5",
+            ".3"
+          ]
+        },
+        "id": 4283,
+        "name": "PragmaDirective",
+        "src": "0:23:31"
+      },
+      {
+        "attributes": {
+          "SourceUnit": 4282,
+          "absolutePath": "project:/contracts/proxies/YieldsterVaultProxy.sol",
+          "file": "./YieldsterVaultProxy.sol",
+          "scope": 4411,
+          "symbolAliases": [
+            null
+          ],
+          "unitAlias": ""
+        },
+        "id": 4284,
+        "name": "ImportDirective",
+        "src": "24:35:31"
+      },
+      {
+        "attributes": {
+          "SourceUnit": 4247,
+          "absolutePath": "project:/contracts/proxies/IProxyCreationCallback.sol",
+          "file": "./IProxyCreationCallback.sol",
+          "scope": 4411,
+          "symbolAliases": [
+            null
+          ],
+          "unitAlias": ""
+        },
+        "id": 4285,
+        "name": "ImportDirective",
+        "src": "60:38:31"
+      },
+      {
+        "attributes": {
+          "SourceUnit": 3484,
+          "absolutePath": "project:/contracts/interfaces/IAPContract.sol",
+          "file": "../interfaces/IAPContract.sol",
+          "scope": 4411,
+          "symbolAliases": [
+            null
+          ],
+          "unitAlias": ""
+        },
+        "id": 4286,
+        "name": "ImportDirective",
+        "src": "99:39:31"
+      },
+      {
+        "attributes": {
+          "baseContracts": [
+            null
+          ],
+          "contractDependencies": [
+            4281
+          ],
+          "contractKind": "contract",
+          "documentation": null,
+          "fullyImplemented": true,
+          "linearizedBaseContracts": [
+            4410
+          ],
+          "name": "YieldsterVaultProxyFactory",
+          "scope": 4411
+        },
+        "children": [
+          {
+            "attributes": {
+              "constant": false,
+              "name": "mastercopy",
+              "scope": 4410,
+              "stateVariable": true,
+              "storageLocation": "default",
+              "type": "address",
+              "value": null,
+              "visibility": "private"
+            },
+            "children": [
+              {
+                "attributes": {
+                  "name": "address",
+                  "stateMutability": "nonpayable",
+                  "type": "address"
+                },
+                "id": 4287,
+                "name": "ElementaryTypeName",
+                "src": "182:7:31"
+              }
+            ],
+            "id": 4288,
+            "name": "VariableDeclaration",
+            "src": "182:26:31"
+          },
+          {
+            "attributes": {
+              "constant": false,
+              "name": "APContract",
+              "scope": 4410,
+              "stateVariable": true,
+              "storageLocation": "default",
+              "type": "address",
+              "value": null,
+              "visibility": "private"
+            },
+            "children": [
+              {
+                "attributes": {
+                  "name": "address",
+                  "stateMutability": "nonpayable",
+                  "type": "address"
+                },
+                "id": 4289,
+                "name": "ElementaryTypeName",
+                "src": "214:7:31"
+              }
+            ],
+            "id": 4290,
+            "name": "VariableDeclaration",
+            "src": "214:26:31"
+          },
+          {
+            "attributes": {
+              "constant": false,
+              "name": "owner",
+              "scope": 4410,
+              "stateVariable": true,
+              "storageLocation": "default",
+              "type": "address",
+              "value": null,
+              "visibility": "private"
+            },
+            "children": [
+              {
+                "attributes": {
+                  "name": "address",
+                  "stateMutability": "nonpayable",
+                  "type": "address"
+                },
+                "id": 4291,
+                "name": "ElementaryTypeName",
+                "src": "246:7:31"
+              }
+            ],
+            "id": 4292,
+            "name": "VariableDeclaration",
+            "src": "246:21:31"
+          },
+          {
+            "attributes": {
+              "anonymous": false,
+              "documentation": null,
+              "name": "ProxyCreation"
+            },
+            "children": [
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "indexed": false,
+                      "name": "proxy",
+                      "scope": 4296,
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "type": "contract YieldsterVaultProxy",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "contractScope": null,
+                          "name": "YieldsterVaultProxy",
+                          "referencedDeclaration": 4281,
+                          "type": "contract YieldsterVaultProxy"
+                        },
+                        "id": 4293,
+                        "name": "UserDefinedTypeName",
+                        "src": "294:19:31"
+                      }
+                    ],
+                    "id": 4294,
+                    "name": "VariableDeclaration",
+                    "src": "294:25:31"
+                  }
+                ],
+                "id": 4295,
+                "name": "ParameterList",
+                "src": "293:27:31"
+              }
+            ],
+            "id": 4296,
+            "name": "EventDefinition",
+            "src": "274:47:31"
+          },
+          {
+            "attributes": {
+              "documentation": null,
+              "implemented": true,
+              "isConstructor": true,
+              "kind": "constructor",
+              "modifiers": [
+                null
+              ],
+              "name": "",
+              "scope": 4410,
+              "stateMutability": "nonpayable",
+              "superFunction": null,
+              "visibility": "public"
+            },
+            "children": [
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "_mastercopy",
+                      "scope": 4317,
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "type": "address",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "address",
+                          "stateMutability": "nonpayable",
+                          "type": "address"
+                        },
+                        "id": 4297,
+                        "name": "ElementaryTypeName",
+                        "src": "339:7:31"
+                      }
+                    ],
+                    "id": 4298,
+                    "name": "VariableDeclaration",
+                    "src": "339:19:31"
+                  },
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "_APContract",
+                      "scope": 4317,
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "type": "address",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "address",
+                          "stateMutability": "nonpayable",
+                          "type": "address"
+                        },
+                        "id": 4299,
+                        "name": "ElementaryTypeName",
+                        "src": "360:7:31"
+                      }
+                    ],
+                    "id": 4300,
+                    "name": "VariableDeclaration",
+                    "src": "360:19:31"
+                  }
+                ],
+                "id": 4301,
+                "name": "ParameterList",
+                "src": "338:42:31"
+              },
+              {
+                "attributes": {
+                  "parameters": [
+                    null
+                  ]
+                },
+                "children": [],
+                "id": 4302,
+                "name": "ParameterList",
+                "src": "388:0:31"
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "attributes": {
+                          "argumentTypes": null,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "operator": "=",
+                          "type": "address"
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "overloadedDeclarations": [
+                                null
+                              ],
+                              "referencedDeclaration": 4288,
+                              "type": "address",
+                              "value": "mastercopy"
+                            },
+                            "id": 4303,
+                            "name": "Identifier",
+                            "src": "398:10:31"
+                          },
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "overloadedDeclarations": [
+                                null
+                              ],
+                              "referencedDeclaration": 4298,
+                              "type": "address",
+                              "value": "_mastercopy"
+                            },
+                            "id": 4304,
+                            "name": "Identifier",
+                            "src": "411:11:31"
+                          }
+                        ],
+                        "id": 4305,
+                        "name": "Assignment",
+                        "src": "398:24:31"
+                      }
+                    ],
+                    "id": 4306,
+                    "name": "ExpressionStatement",
+                    "src": "398:24:31"
+                  },
+                  {
+                    "children": [
+                      {
+                        "attributes": {
+                          "argumentTypes": null,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "operator": "=",
+                          "type": "address"
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "overloadedDeclarations": [
+                                null
+                              ],
+                              "referencedDeclaration": 4290,
+                              "type": "address",
+                              "value": "APContract"
+                            },
+                            "id": 4307,
+                            "name": "Identifier",
+                            "src": "432:10:31"
+                          },
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "overloadedDeclarations": [
+                                null
+                              ],
+                              "referencedDeclaration": 4300,
+                              "type": "address",
+                              "value": "_APContract"
+                            },
+                            "id": 4308,
+                            "name": "Identifier",
+                            "src": "445:11:31"
+                          }
+                        ],
+                        "id": 4309,
+                        "name": "Assignment",
+                        "src": "432:24:31"
+                      }
+                    ],
+                    "id": 4310,
+                    "name": "ExpressionStatement",
+                    "src": "432:24:31"
+                  },
+                  {
+                    "children": [
+                      {
+                        "attributes": {
+                          "argumentTypes": null,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "operator": "=",
+                          "type": "address"
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "overloadedDeclarations": [
+                                null
+                              ],
+                              "referencedDeclaration": 4292,
+                              "type": "address",
+                              "value": "owner"
+                            },
+                            "id": 4311,
+                            "name": "Identifier",
+                            "src": "466:5:31"
+                          },
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "isConstant": false,
+                              "isLValue": false,
+                              "isPure": false,
+                              "lValueRequested": false,
+                              "member_name": "sender",
+                              "referencedDeclaration": null,
+                              "type": "address payable"
+                            },
+                            "children": [
+                              {
+                                "attributes": {
+                                  "argumentTypes": null,
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
+                                  "referencedDeclaration": 9684,
+                                  "type": "msg",
+                                  "value": "msg"
+                                },
+                                "id": 4312,
+                                "name": "Identifier",
+                                "src": "474:3:31"
+                              }
+                            ],
+                            "id": 4313,
+                            "name": "MemberAccess",
+                            "src": "474:10:31"
+                          }
+                        ],
+                        "id": 4314,
+                        "name": "Assignment",
+                        "src": "466:18:31"
+                      }
+                    ],
+                    "id": 4315,
+                    "name": "ExpressionStatement",
+                    "src": "466:18:31"
+                  }
+                ],
+                "id": 4316,
+                "name": "Block",
+                "src": "388:103:31"
+              }
+            ],
+            "id": 4317,
+            "name": "FunctionDefinition",
+            "src": "327:164:31"
+          },
+          {
+            "attributes": {
+              "documentation": null,
+              "implemented": true,
+              "isConstructor": false,
+              "kind": "function",
+              "modifiers": [
+                null
+              ],
+              "name": "setMasterCopy",
+              "scope": 4410,
+              "stateMutability": "nonpayable",
+              "superFunction": null,
+              "visibility": "public"
+            },
+            "children": [
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "_mastercopy",
+                      "scope": 4335,
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "type": "address",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "address",
+                          "stateMutability": "nonpayable",
+                          "type": "address"
+                        },
+                        "id": 4318,
+                        "name": "ElementaryTypeName",
+                        "src": "520:7:31"
+                      }
+                    ],
+                    "id": 4319,
+                    "name": "VariableDeclaration",
+                    "src": "520:19:31"
+                  }
+                ],
+                "id": 4320,
+                "name": "ParameterList",
+                "src": "519:21:31"
+              },
+              {
+                "attributes": {
+                  "parameters": [
+                    null
+                  ]
+                },
+                "children": [],
+                "id": 4321,
+                "name": "ParameterList",
+                "src": "548:0:31"
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "attributes": {
+                          "argumentTypes": null,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "isStructConstructorCall": false,
+                          "lValueRequested": false,
+                          "names": [
+                            null
+                          ],
+                          "type": "tuple()",
+                          "type_conversion": false
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "argumentTypes": [
+                                {
+                                  "typeIdentifier": "t_bool",
+                                  "typeString": "bool"
+                                },
+                                {
+                                  "typeIdentifier": "t_stringliteral_593fd4f5418ae095969b093812245f49eb950b9775e5afd767614f342e26d4f2",
+                                  "typeString": "literal_string \"Not Authorized\""
+                                }
+                              ],
+                              "overloadedDeclarations": [
+                                9687,
+                                9688
+                              ],
+                              "referencedDeclaration": 9688,
+                              "type": "function (bool,string memory) pure",
+                              "value": "require"
+                            },
+                            "id": 4322,
+                            "name": "Identifier",
+                            "src": "558:7:31"
+                          },
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "commonType": {
+                                "typeIdentifier": "t_address",
+                                "typeString": "address"
+                              },
+                              "isConstant": false,
+                              "isLValue": false,
+                              "isPure": false,
+                              "lValueRequested": false,
+                              "operator": "==",
+                              "type": "bool"
+                            },
+                            "children": [
+                              {
+                                "attributes": {
+                                  "argumentTypes": null,
+                                  "isConstant": false,
+                                  "isLValue": false,
+                                  "isPure": false,
+                                  "lValueRequested": false,
+                                  "member_name": "sender",
+                                  "referencedDeclaration": null,
+                                  "type": "address payable"
+                                },
+                                "children": [
+                                  {
+                                    "attributes": {
+                                      "argumentTypes": null,
+                                      "overloadedDeclarations": [
+                                        null
+                                      ],
+                                      "referencedDeclaration": 9684,
+                                      "type": "msg",
+                                      "value": "msg"
+                                    },
+                                    "id": 4323,
+                                    "name": "Identifier",
+                                    "src": "566:3:31"
+                                  }
+                                ],
+                                "id": 4324,
+                                "name": "MemberAccess",
+                                "src": "566:10:31"
+                              },
+                              {
+                                "attributes": {
+                                  "argumentTypes": null,
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
+                                  "referencedDeclaration": 4292,
+                                  "type": "address",
+                                  "value": "owner"
+                                },
+                                "id": 4325,
+                                "name": "Identifier",
+                                "src": "580:5:31"
+                              }
+                            ],
+                            "id": 4326,
+                            "name": "BinaryOperation",
+                            "src": "566:19:31"
+                          },
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "hexvalue": "4e6f7420417574686f72697a6564",
+                              "isConstant": false,
+                              "isLValue": false,
+                              "isPure": true,
+                              "lValueRequested": false,
+                              "subdenomination": null,
+                              "token": "string",
+                              "type": "literal_string \"Not Authorized\"",
+                              "value": "Not Authorized"
+                            },
+                            "id": 4327,
+                            "name": "Literal",
+                            "src": "587:16:31"
+                          }
+                        ],
+                        "id": 4328,
+                        "name": "FunctionCall",
+                        "src": "558:46:31"
+                      }
+                    ],
+                    "id": 4329,
+                    "name": "ExpressionStatement",
+                    "src": "558:46:31"
+                  },
+                  {
+                    "children": [
+                      {
+                        "attributes": {
+                          "argumentTypes": null,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "operator": "=",
+                          "type": "address"
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "overloadedDeclarations": [
+                                null
+                              ],
+                              "referencedDeclaration": 4288,
+                              "type": "address",
+                              "value": "mastercopy"
+                            },
+                            "id": 4330,
+                            "name": "Identifier",
+                            "src": "614:10:31"
+                          },
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "overloadedDeclarations": [
+                                null
+                              ],
+                              "referencedDeclaration": 4319,
+                              "type": "address",
+                              "value": "_mastercopy"
+                            },
+                            "id": 4331,
+                            "name": "Identifier",
+                            "src": "627:11:31"
+                          }
+                        ],
+                        "id": 4332,
+                        "name": "Assignment",
+                        "src": "614:24:31"
+                      }
+                    ],
+                    "id": 4333,
+                    "name": "ExpressionStatement",
+                    "src": "614:24:31"
+                  }
+                ],
+                "id": 4334,
+                "name": "Block",
+                "src": "548:97:31"
+              }
+            ],
+            "id": 4335,
+            "name": "FunctionDefinition",
+            "src": "497:148:31"
+          },
+          {
+            "attributes": {
+              "documentation": null,
+              "implemented": true,
+              "isConstructor": false,
+              "kind": "function",
+              "modifiers": [
+                null
+              ],
+              "name": "setAPContract",
+              "scope": 4410,
+              "stateMutability": "nonpayable",
+              "superFunction": null,
+              "visibility": "public"
+            },
+            "children": [
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "_APContract",
+                      "scope": 4353,
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "type": "address",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "address",
+                          "stateMutability": "nonpayable",
+                          "type": "address"
+                        },
+                        "id": 4336,
+                        "name": "ElementaryTypeName",
+                        "src": "674:7:31"
+                      }
+                    ],
+                    "id": 4337,
+                    "name": "VariableDeclaration",
+                    "src": "674:19:31"
+                  }
+                ],
+                "id": 4338,
+                "name": "ParameterList",
+                "src": "673:21:31"
+              },
+              {
+                "attributes": {
+                  "parameters": [
+                    null
+                  ]
+                },
+                "children": [],
+                "id": 4339,
+                "name": "ParameterList",
+                "src": "702:0:31"
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "attributes": {
+                          "argumentTypes": null,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "isStructConstructorCall": false,
+                          "lValueRequested": false,
+                          "names": [
+                            null
+                          ],
+                          "type": "tuple()",
+                          "type_conversion": false
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "argumentTypes": [
+                                {
+                                  "typeIdentifier": "t_bool",
+                                  "typeString": "bool"
+                                },
+                                {
+                                  "typeIdentifier": "t_stringliteral_593fd4f5418ae095969b093812245f49eb950b9775e5afd767614f342e26d4f2",
+                                  "typeString": "literal_string \"Not Authorized\""
+                                }
+                              ],
+                              "overloadedDeclarations": [
+                                9687,
+                                9688
+                              ],
+                              "referencedDeclaration": 9688,
+                              "type": "function (bool,string memory) pure",
+                              "value": "require"
+                            },
+                            "id": 4340,
+                            "name": "Identifier",
+                            "src": "712:7:31"
+                          },
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "commonType": {
+                                "typeIdentifier": "t_address",
+                                "typeString": "address"
+                              },
+                              "isConstant": false,
+                              "isLValue": false,
+                              "isPure": false,
+                              "lValueRequested": false,
+                              "operator": "==",
+                              "type": "bool"
+                            },
+                            "children": [
+                              {
+                                "attributes": {
+                                  "argumentTypes": null,
+                                  "isConstant": false,
+                                  "isLValue": false,
+                                  "isPure": false,
+                                  "lValueRequested": false,
+                                  "member_name": "sender",
+                                  "referencedDeclaration": null,
+                                  "type": "address payable"
+                                },
+                                "children": [
+                                  {
+                                    "attributes": {
+                                      "argumentTypes": null,
+                                      "overloadedDeclarations": [
+                                        null
+                                      ],
+                                      "referencedDeclaration": 9684,
+                                      "type": "msg",
+                                      "value": "msg"
+                                    },
+                                    "id": 4341,
+                                    "name": "Identifier",
+                                    "src": "720:3:31"
+                                  }
+                                ],
+                                "id": 4342,
+                                "name": "MemberAccess",
+                                "src": "720:10:31"
+                              },
+                              {
+                                "attributes": {
+                                  "argumentTypes": null,
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
+                                  "referencedDeclaration": 4292,
+                                  "type": "address",
+                                  "value": "owner"
+                                },
+                                "id": 4343,
+                                "name": "Identifier",
+                                "src": "734:5:31"
+                              }
+                            ],
+                            "id": 4344,
+                            "name": "BinaryOperation",
+                            "src": "720:19:31"
+                          },
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "hexvalue": "4e6f7420417574686f72697a6564",
+                              "isConstant": false,
+                              "isLValue": false,
+                              "isPure": true,
+                              "lValueRequested": false,
+                              "subdenomination": null,
+                              "token": "string",
+                              "type": "literal_string \"Not Authorized\"",
+                              "value": "Not Authorized"
+                            },
+                            "id": 4345,
+                            "name": "Literal",
+                            "src": "741:16:31"
+                          }
+                        ],
+                        "id": 4346,
+                        "name": "FunctionCall",
+                        "src": "712:46:31"
+                      }
+                    ],
+                    "id": 4347,
+                    "name": "ExpressionStatement",
+                    "src": "712:46:31"
+                  },
+                  {
+                    "children": [
+                      {
+                        "attributes": {
+                          "argumentTypes": null,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "operator": "=",
+                          "type": "address"
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "overloadedDeclarations": [
+                                null
+                              ],
+                              "referencedDeclaration": 4290,
+                              "type": "address",
+                              "value": "APContract"
+                            },
+                            "id": 4348,
+                            "name": "Identifier",
+                            "src": "768:10:31"
+                          },
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "overloadedDeclarations": [
+                                null
+                              ],
+                              "referencedDeclaration": 4337,
+                              "type": "address",
+                              "value": "_APContract"
+                            },
+                            "id": 4349,
+                            "name": "Identifier",
+                            "src": "781:11:31"
+                          }
+                        ],
+                        "id": 4350,
+                        "name": "Assignment",
+                        "src": "768:24:31"
+                      }
+                    ],
+                    "id": 4351,
+                    "name": "ExpressionStatement",
+                    "src": "768:24:31"
+                  }
+                ],
+                "id": 4352,
+                "name": "Block",
+                "src": "702:97:31"
+              }
+            ],
+            "id": 4353,
+            "name": "FunctionDefinition",
+            "src": "651:148:31"
+          },
+          {
+            "attributes": {
+              "documentation": "@dev Allows to create new proxy contact and execute a message call to the new proxy within one transaction.\n @param data Payload for message call sent to new proxy contract.",
+              "implemented": true,
+              "isConstructor": false,
+              "kind": "function",
+              "modifiers": [
+                null
+              ],
+              "name": "createProxy",
+              "scope": 4410,
+              "stateMutability": "nonpayable",
+              "superFunction": null,
+              "visibility": "public"
+            },
+            "children": [
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "data",
+                      "scope": 4387,
+                      "stateVariable": false,
+                      "storageLocation": "memory",
+                      "type": "bytes",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "bytes",
+                          "type": "bytes"
+                        },
+                        "id": 4354,
+                        "name": "ElementaryTypeName",
+                        "src": "1015:5:31"
+                      }
+                    ],
+                    "id": 4355,
+                    "name": "VariableDeclaration",
+                    "src": "1015:17:31"
+                  }
+                ],
+                "id": 4356,
+                "name": "ParameterList",
+                "src": "1014:19:31"
+              },
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "proxy",
+                      "scope": 4387,
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "type": "contract YieldsterVaultProxy",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "contractScope": null,
+                          "name": "YieldsterVaultProxy",
+                          "referencedDeclaration": 4281,
+                          "type": "contract YieldsterVaultProxy"
+                        },
+                        "id": 4357,
+                        "name": "UserDefinedTypeName",
+                        "src": "1066:19:31"
+                      }
+                    ],
+                    "id": 4358,
+                    "name": "VariableDeclaration",
+                    "src": "1066:25:31"
+                  }
+                ],
+                "id": 4359,
+                "name": "ParameterList",
+                "src": "1065:27:31"
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "attributes": {
+                          "argumentTypes": null,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "operator": "=",
+                          "type": "contract YieldsterVaultProxy"
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "overloadedDeclarations": [
+                                null
+                              ],
+                              "referencedDeclaration": 4358,
+                              "type": "contract YieldsterVaultProxy",
+                              "value": "proxy"
+                            },
+                            "id": 4360,
+                            "name": "Identifier",
+                            "src": "1107:5:31"
+                          },
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "isConstant": false,
+                              "isLValue": false,
+                              "isPure": false,
+                              "isStructConstructorCall": false,
+                              "lValueRequested": false,
+                              "names": [
+                                null
+                              ],
+                              "type": "contract YieldsterVaultProxy",
+                              "type_conversion": false
+                            },
+                            "children": [
+                              {
+                                "attributes": {
+                                  "argumentTypes": [
+                                    {
+                                      "typeIdentifier": "t_address",
+                                      "typeString": "address"
+                                    }
+                                  ],
+                                  "isConstant": false,
+                                  "isLValue": false,
+                                  "isPure": false,
+                                  "lValueRequested": false,
+                                  "type": "function (address) returns (contract YieldsterVaultProxy)"
+                                },
+                                "children": [
+                                  {
+                                    "attributes": {
+                                      "contractScope": null,
+                                      "name": "YieldsterVaultProxy",
+                                      "referencedDeclaration": 4281,
+                                      "type": "contract YieldsterVaultProxy"
+                                    },
+                                    "id": 4361,
+                                    "name": "UserDefinedTypeName",
+                                    "src": "1119:19:31"
+                                  }
+                                ],
+                                "id": 4362,
+                                "name": "NewExpression",
+                                "src": "1115:23:31"
+                              },
+                              {
+                                "attributes": {
+                                  "argumentTypes": null,
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
+                                  "referencedDeclaration": 4288,
+                                  "type": "address",
+                                  "value": "mastercopy"
+                                },
+                                "id": 4363,
+                                "name": "Identifier",
+                                "src": "1139:10:31"
+                              }
+                            ],
+                            "id": 4364,
+                            "name": "FunctionCall",
+                            "src": "1115:35:31"
+                          }
+                        ],
+                        "id": 4365,
+                        "name": "Assignment",
+                        "src": "1107:43:31"
+                      }
+                    ],
+                    "id": 4366,
+                    "name": "ExpressionStatement",
+                    "src": "1107:43:31"
+                  },
+                  {
+                    "attributes": {
+                      "falseBody": null
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "argumentTypes": null,
+                          "commonType": {
+                            "typeIdentifier": "t_uint256",
+                            "typeString": "uint256"
+                          },
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "operator": ">",
+                          "type": "bool"
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "isConstant": false,
+                              "isLValue": false,
+                              "isPure": false,
+                              "lValueRequested": false,
+                              "member_name": "length",
+                              "referencedDeclaration": null,
+                              "type": "uint256"
+                            },
+                            "children": [
+                              {
+                                "attributes": {
+                                  "argumentTypes": null,
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
+                                  "referencedDeclaration": 4355,
+                                  "type": "bytes memory",
+                                  "value": "data"
+                                },
+                                "id": 4367,
+                                "name": "Identifier",
+                                "src": "1164:4:31"
+                              }
+                            ],
+                            "id": 4368,
+                            "name": "MemberAccess",
+                            "src": "1164:11:31"
+                          },
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "hexvalue": "30",
+                              "isConstant": false,
+                              "isLValue": false,
+                              "isPure": true,
+                              "lValueRequested": false,
+                              "subdenomination": null,
+                              "token": "number",
+                              "type": "int_const 0",
+                              "value": "0"
+                            },
+                            "id": 4369,
+                            "name": "Literal",
+                            "src": "1178:1:31"
+                          }
+                        ],
+                        "id": 4370,
+                        "name": "BinaryOperation",
+                        "src": "1164:15:31"
+                      },
+                      {
+                        "attributes": {
+                          "externalReferences": [
+                            {
+                              "data": {
+                                "declaration": 4355,
+                                "isOffset": false,
+                                "isSlot": false,
+                                "src": "1358:4:31",
+                                "valueSize": 1
+                              }
+                            },
+                            {
+                              "data": {
+                                "declaration": 4355,
+                                "isOffset": false,
+                                "isSlot": false,
+                                "src": "1339:4:31",
+                                "valueSize": 1
+                              }
+                            },
+                            {
+                              "proxy": {
+                                "declaration": 4358,
+                                "isOffset": false,
+                                "isSlot": false,
+                                "src": "1325:5:31",
+                                "valueSize": 1
+                              }
+                            }
+                          ],
+                          "operations": "{\n    if eq(call(gas(), proxy, 0, add(data, 0x20), mload(data), 0, 0), 0) { revert(0, 0) }\n}"
+                        },
+                        "children": [],
+                        "id": 4371,
+                        "name": "InlineAssembly",
+                        "src": "1261:217:31"
+                      }
+                    ],
+                    "id": 4372,
+                    "name": "IfStatement",
+                    "src": "1160:318:31"
+                  },
+                  {
+                    "children": [
+                      {
+                        "attributes": {
+                          "argumentTypes": null,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "isStructConstructorCall": false,
+                          "lValueRequested": false,
+                          "names": [
+                            null
+                          ],
+                          "type": "tuple()",
+                          "type_conversion": false
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "argumentTypes": [
+                                {
+                                  "typeIdentifier": "t_address_payable",
+                                  "typeString": "address payable"
+                                }
+                              ],
+                              "isConstant": false,
+                              "isLValue": false,
+                              "isPure": false,
+                              "lValueRequested": false,
+                              "member_name": "createVault",
+                              "referencedDeclaration": 3259,
+                              "type": "function (address) external"
+                            },
+                            "children": [
+                              {
+                                "attributes": {
+                                  "argumentTypes": null,
+                                  "isConstant": false,
+                                  "isLValue": false,
+                                  "isPure": false,
+                                  "isStructConstructorCall": false,
+                                  "lValueRequested": false,
+                                  "names": [
+                                    null
+                                  ],
+                                  "type": "contract IAPContract",
+                                  "type_conversion": true
+                                },
+                                "children": [
+                                  {
+                                    "attributes": {
+                                      "argumentTypes": [
+                                        {
+                                          "typeIdentifier": "t_address",
+                                          "typeString": "address"
+                                        }
+                                      ],
+                                      "overloadedDeclarations": [
+                                        null
+                                      ],
+                                      "referencedDeclaration": 3483,
+                                      "type": "type(contract IAPContract)",
+                                      "value": "IAPContract"
+                                    },
+                                    "id": 4373,
+                                    "name": "Identifier",
+                                    "src": "1487:11:31"
+                                  },
+                                  {
+                                    "attributes": {
+                                      "argumentTypes": null,
+                                      "overloadedDeclarations": [
+                                        null
+                                      ],
+                                      "referencedDeclaration": 4290,
+                                      "type": "address",
+                                      "value": "APContract"
+                                    },
+                                    "id": 4374,
+                                    "name": "Identifier",
+                                    "src": "1499:10:31"
+                                  }
+                                ],
+                                "id": 4375,
+                                "name": "FunctionCall",
+                                "src": "1487:23:31"
+                              }
+                            ],
+                            "id": 4376,
+                            "name": "MemberAccess",
+                            "src": "1487:35:31"
+                          },
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "isConstant": false,
+                              "isLValue": false,
+                              "isPure": false,
+                              "isStructConstructorCall": false,
+                              "lValueRequested": false,
+                              "names": [
+                                null
+                              ],
+                              "type": "address payable",
+                              "type_conversion": true
+                            },
+                            "children": [
+                              {
+                                "attributes": {
+                                  "argumentTypes": [
+                                    {
+                                      "typeIdentifier": "t_contract$_YieldsterVaultProxy_$4281",
+                                      "typeString": "contract YieldsterVaultProxy"
+                                    }
+                                  ],
+                                  "isConstant": false,
+                                  "isLValue": false,
+                                  "isPure": true,
+                                  "lValueRequested": false,
+                                  "type": "type(address)",
+                                  "value": "address"
+                                },
+                                "id": 4377,
+                                "name": "ElementaryTypeNameExpression",
+                                "src": "1523:7:31"
+                              },
+                              {
+                                "attributes": {
+                                  "argumentTypes": null,
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
+                                  "referencedDeclaration": 4358,
+                                  "type": "contract YieldsterVaultProxy",
+                                  "value": "proxy"
+                                },
+                                "id": 4378,
+                                "name": "Identifier",
+                                "src": "1531:5:31"
+                              }
+                            ],
+                            "id": 4379,
+                            "name": "FunctionCall",
+                            "src": "1523:14:31"
+                          }
+                        ],
+                        "id": 4380,
+                        "name": "FunctionCall",
+                        "src": "1487:51:31"
+                      }
+                    ],
+                    "id": 4381,
+                    "name": "ExpressionStatement",
+                    "src": "1487:51:31"
+                  },
+                  {
+                    "children": [
+                      {
+                        "attributes": {
+                          "argumentTypes": null,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "isStructConstructorCall": false,
+                          "lValueRequested": false,
+                          "names": [
+                            null
+                          ],
+                          "type": "tuple()",
+                          "type_conversion": false
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "argumentTypes": [
+                                {
+                                  "typeIdentifier": "t_contract$_YieldsterVaultProxy_$4281",
+                                  "typeString": "contract YieldsterVaultProxy"
+                                }
+                              ],
+                              "overloadedDeclarations": [
+                                null
+                              ],
+                              "referencedDeclaration": 4296,
+                              "type": "function (contract YieldsterVaultProxy)",
+                              "value": "ProxyCreation"
+                            },
+                            "id": 4382,
+                            "name": "Identifier",
+                            "src": "1553:13:31"
+                          },
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "overloadedDeclarations": [
+                                null
+                              ],
+                              "referencedDeclaration": 4358,
+                              "type": "contract YieldsterVaultProxy",
+                              "value": "proxy"
+                            },
+                            "id": 4383,
+                            "name": "Identifier",
+                            "src": "1567:5:31"
+                          }
+                        ],
+                        "id": 4384,
+                        "name": "FunctionCall",
+                        "src": "1553:20:31"
+                      }
+                    ],
+                    "id": 4385,
+                    "name": "EmitStatement",
+                    "src": "1548:25:31"
+                  }
+                ],
+                "id": 4386,
+                "name": "Block",
+                "src": "1097:483:31"
+              }
+            ],
+            "id": 4387,
+            "name": "FunctionDefinition",
+            "src": "994:586:31"
+          },
+          {
+            "attributes": {
+              "documentation": "@dev Allows to retrieve the runtime code of a deployed Proxy. This can be used to check that the expected Proxy was deployed.",
+              "implemented": true,
+              "isConstructor": false,
+              "kind": "function",
+              "modifiers": [
+                null
+              ],
+              "name": "proxyRuntimeCode",
+              "scope": 4410,
+              "stateMutability": "pure",
+              "superFunction": null,
+              "visibility": "public"
+            },
+            "children": [
+              {
+                "attributes": {
+                  "parameters": [
+                    null
+                  ]
+                },
+                "children": [],
+                "id": 4388,
+                "name": "ParameterList",
+                "src": "1745:2:31"
+              },
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "",
+                      "scope": 4398,
+                      "stateVariable": false,
+                      "storageLocation": "memory",
+                      "type": "bytes",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "bytes",
+                          "type": "bytes"
+                        },
+                        "id": 4389,
+                        "name": "ElementaryTypeName",
+                        "src": "1769:5:31"
+                      }
+                    ],
+                    "id": 4390,
+                    "name": "VariableDeclaration",
+                    "src": "1769:12:31"
+                  }
+                ],
+                "id": 4391,
+                "name": "ParameterList",
+                "src": "1768:14:31"
+              },
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "functionReturnParameters": 4391
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "argumentTypes": null,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": true,
+                          "lValueRequested": false,
+                          "member_name": "runtimeCode",
+                          "referencedDeclaration": null,
+                          "type": "bytes memory"
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "isConstant": false,
+                              "isLValue": false,
+                              "isPure": true,
+                              "isStructConstructorCall": false,
+                              "lValueRequested": false,
+                              "names": [
+                                null
+                              ],
+                              "type": "type(contract YieldsterVaultProxy)",
+                              "type_conversion": false
+                            },
+                            "children": [
+                              {
+                                "attributes": {
+                                  "argumentTypes": [
+                                    {
+                                      "typeIdentifier": "t_type$_t_contract$_YieldsterVaultProxy_$4281_$",
+                                      "typeString": "type(contract YieldsterVaultProxy)"
+                                    }
+                                  ],
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
+                                  "referencedDeclaration": 9697,
+                                  "type": "function (address) pure",
+                                  "value": "type"
+                                },
+                                "id": 4392,
+                                "name": "Identifier",
+                                "src": "1800:4:31"
+                              },
+                              {
+                                "attributes": {
+                                  "argumentTypes": null,
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
+                                  "referencedDeclaration": 4281,
+                                  "type": "type(contract YieldsterVaultProxy)",
+                                  "value": "YieldsterVaultProxy"
+                                },
+                                "id": 4393,
+                                "name": "Identifier",
+                                "src": "1805:19:31"
+                              }
+                            ],
+                            "id": 4394,
+                            "name": "FunctionCall",
+                            "src": "1800:25:31"
+                          }
+                        ],
+                        "id": 4395,
+                        "name": "MemberAccess",
+                        "src": "1800:37:31"
+                      }
+                    ],
+                    "id": 4396,
+                    "name": "Return",
+                    "src": "1793:44:31"
+                  }
+                ],
+                "id": 4397,
+                "name": "Block",
+                "src": "1783:61:31"
+              }
+            ],
+            "id": 4398,
+            "name": "FunctionDefinition",
+            "src": "1720:124:31"
+          },
+          {
+            "attributes": {
+              "documentation": "@dev Allows to retrieve the creation code used for the Proxy deployment. With this it is easily possible to calculate predicted address.",
+              "implemented": true,
+              "isConstructor": false,
+              "kind": "function",
+              "modifiers": [
+                null
+              ],
+              "name": "proxyCreationCode",
+              "scope": 4410,
+              "stateMutability": "pure",
+              "superFunction": null,
+              "visibility": "public"
+            },
+            "children": [
+              {
+                "attributes": {
+                  "parameters": [
+                    null
+                  ]
+                },
+                "children": [],
+                "id": 4399,
+                "name": "ParameterList",
+                "src": "2021:2:31"
+              },
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "",
+                      "scope": 4409,
+                      "stateVariable": false,
+                      "storageLocation": "memory",
+                      "type": "bytes",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "bytes",
+                          "type": "bytes"
+                        },
+                        "id": 4400,
+                        "name": "ElementaryTypeName",
+                        "src": "2045:5:31"
+                      }
+                    ],
+                    "id": 4401,
+                    "name": "VariableDeclaration",
+                    "src": "2045:12:31"
+                  }
+                ],
+                "id": 4402,
+                "name": "ParameterList",
+                "src": "2044:14:31"
+              },
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "functionReturnParameters": 4402
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "argumentTypes": null,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": true,
+                          "lValueRequested": false,
+                          "member_name": "creationCode",
+                          "referencedDeclaration": null,
+                          "type": "bytes memory"
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "isConstant": false,
+                              "isLValue": false,
+                              "isPure": true,
+                              "isStructConstructorCall": false,
+                              "lValueRequested": false,
+                              "names": [
+                                null
+                              ],
+                              "type": "type(contract YieldsterVaultProxy)",
+                              "type_conversion": false
+                            },
+                            "children": [
+                              {
+                                "attributes": {
+                                  "argumentTypes": [
+                                    {
+                                      "typeIdentifier": "t_type$_t_contract$_YieldsterVaultProxy_$4281_$",
+                                      "typeString": "type(contract YieldsterVaultProxy)"
+                                    }
+                                  ],
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
+                                  "referencedDeclaration": 9697,
+                                  "type": "function (address) pure",
+                                  "value": "type"
+                                },
+                                "id": 4403,
+                                "name": "Identifier",
+                                "src": "2076:4:31"
+                              },
+                              {
+                                "attributes": {
+                                  "argumentTypes": null,
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
+                                  "referencedDeclaration": 4281,
+                                  "type": "type(contract YieldsterVaultProxy)",
+                                  "value": "YieldsterVaultProxy"
+                                },
+                                "id": 4404,
+                                "name": "Identifier",
+                                "src": "2081:19:31"
+                              }
+                            ],
+                            "id": 4405,
+                            "name": "FunctionCall",
+                            "src": "2076:25:31"
+                          }
+                        ],
+                        "id": 4406,
+                        "name": "MemberAccess",
+                        "src": "2076:38:31"
+                      }
+                    ],
+                    "id": 4407,
+                    "name": "Return",
+                    "src": "2069:45:31"
+                  }
+                ],
+                "id": 4408,
+                "name": "Block",
+                "src": "2059:62:31"
+              }
+            ],
+            "id": 4409,
+            "name": "FunctionDefinition",
+            "src": "1995:126:31"
+          }
+        ],
+        "id": 4410,
+        "name": "ContractDefinition",
+        "src": "140:1983:31"
+      }
+    ],
+    "id": 4411,
+    "name": "SourceUnit",
+    "src": "0:2124:31"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.5.17+commit.d19bba13.Emscripten.clang"
+  },
+  "networks": {
+    "1": {
+      "events": {},
+      "links": {},
+      "address": "0x3e0cC6334CA5d5756909F06708Ccdc95680c9070",
+      "transactionHash": "0xfac8c05bf48f020f6e2eec476d7c2c8e6f679eb426e0ce9cee73367e4fbfcb62"
+    }
+  },
+  "schemaVersion": "3.4.4",
+  "updatedAt": "2022-02-04T04:48:38.882Z",
+  "networkType": "ethereum",
+  "devdoc": {
+    "methods": {
+      "createProxy(bytes)": {
+        "details": "Allows to create new proxy contact and execute a message call to the new proxy within one transaction.",
+        "params": {
+          "data": "Payload for message call sent to new proxy contract."
+        }
+      },
+      "proxyCreationCode()": {
+        "details": "Allows to retrieve the creation code used for the Proxy deployment. With this it is easily possible to calculate predicted address."
+      },
+      "proxyRuntimeCode()": {
+        "details": "Allows to retrieve the runtime code of a deployed Proxy. This can be used to check that the expected Proxy was deployed."
+      }
+    }
+  },
+  "userdoc": {
+    "methods": {}
+  }
+}

@@ -1,0 +1,372 @@
+{
+  "contractName": "IWhitelist",
+  "abi": [
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        },
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "name": "isMember",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ],
+  "metadata": "{\"compiler\":{\"version\":\"0.5.17+commit.d19bba13\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"isMember\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"methods\":{}},\"userdoc\":{\"methods\":{}}},\"settings\":{\"compilationTarget\":{\"project:/contracts/interfaces/IWhitelist.sol\":\"IWhitelist\"},\"evmVersion\":\"petersburg\",\"libraries\":{},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"project:/contracts/interfaces/IWhitelist.sol\":{\"keccak256\":\"0x40ded8dca5c6b13a72997414ed4a0ec7fa1c92f51860fa265bc62313bf85874b\",\"urls\":[\"bzz-raw://e3c10d94f7a6e586b7e47e81ba46b6b4f98e743d3551a3b36db8d661486c799d\",\"dweb:/ipfs/QmVydSbLRVeoxBUxCbfHW2p519y2PkxWBHJ2s2E8ZvPjoL\"]}},\"version\":1}",
+  "bytecode": "0x",
+  "deployedBytecode": "0x",
+  "sourceMap": "",
+  "deployedSourceMap": "",
+  "source": "pragma solidity >=0.5.0 <0.7.0;\n\ninterface IWhitelist {\n    function isMember(uint256, address) external view returns (bool);\n}\n",
+  "sourcePath": "/home/dxuser/Documents/scode/yieldster-vault/contracts/interfaces/IWhitelist.sol",
+  "ast": {
+    "absolutePath": "project:/contracts/interfaces/IWhitelist.sol",
+    "exportedSymbols": {
+      "IWhitelist": [
+        6239
+      ]
+    },
+    "id": 6240,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 6229,
+        "literals": [
+          "solidity",
+          ">=",
+          "0.5",
+          ".0",
+          "<",
+          "0.7",
+          ".0"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "0:31:28"
+      },
+      {
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "interface",
+        "documentation": null,
+        "fullyImplemented": false,
+        "id": 6239,
+        "linearizedBaseContracts": [
+          6239
+        ],
+        "name": "IWhitelist",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "body": null,
+            "documentation": null,
+            "id": 6238,
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "isMember",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 6234,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 6231,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 6238,
+                  "src": "78:7:28",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 6230,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "78:7:28",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 6233,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 6238,
+                  "src": "87:7:28",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 6232,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "87:7:28",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "77:18:28"
+            },
+            "returnParameters": {
+              "id": 6237,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 6236,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 6238,
+                  "src": "119:4:28",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bool",
+                    "typeString": "bool"
+                  },
+                  "typeName": {
+                    "id": 6235,
+                    "name": "bool",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "119:4:28",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "118:6:28"
+            },
+            "scope": 6239,
+            "src": "60:65:28",
+            "stateMutability": "view",
+            "superFunction": null,
+            "visibility": "external"
+          }
+        ],
+        "scope": 6240,
+        "src": "33:94:28"
+      }
+    ],
+    "src": "0:128:28"
+  },
+  "legacyAST": {
+    "attributes": {
+      "absolutePath": "project:/contracts/interfaces/IWhitelist.sol",
+      "exportedSymbols": {
+        "IWhitelist": [
+          6239
+        ]
+      }
+    },
+    "children": [
+      {
+        "attributes": {
+          "literals": [
+            "solidity",
+            ">=",
+            "0.5",
+            ".0",
+            "<",
+            "0.7",
+            ".0"
+          ]
+        },
+        "id": 6229,
+        "name": "PragmaDirective",
+        "src": "0:31:28"
+      },
+      {
+        "attributes": {
+          "baseContracts": [
+            null
+          ],
+          "contractDependencies": [
+            null
+          ],
+          "contractKind": "interface",
+          "documentation": null,
+          "fullyImplemented": false,
+          "linearizedBaseContracts": [
+            6239
+          ],
+          "name": "IWhitelist",
+          "scope": 6240
+        },
+        "children": [
+          {
+            "attributes": {
+              "body": null,
+              "documentation": null,
+              "implemented": false,
+              "isConstructor": false,
+              "kind": "function",
+              "modifiers": [
+                null
+              ],
+              "name": "isMember",
+              "scope": 6239,
+              "stateMutability": "view",
+              "superFunction": null,
+              "visibility": "external"
+            },
+            "children": [
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "",
+                      "scope": 6238,
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "type": "uint256",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "uint256",
+                          "type": "uint256"
+                        },
+                        "id": 6230,
+                        "name": "ElementaryTypeName",
+                        "src": "78:7:28"
+                      }
+                    ],
+                    "id": 6231,
+                    "name": "VariableDeclaration",
+                    "src": "78:7:28"
+                  },
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "",
+                      "scope": 6238,
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "type": "address",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "address",
+                          "stateMutability": "nonpayable",
+                          "type": "address"
+                        },
+                        "id": 6232,
+                        "name": "ElementaryTypeName",
+                        "src": "87:7:28"
+                      }
+                    ],
+                    "id": 6233,
+                    "name": "VariableDeclaration",
+                    "src": "87:7:28"
+                  }
+                ],
+                "id": 6234,
+                "name": "ParameterList",
+                "src": "77:18:28"
+              },
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "",
+                      "scope": 6238,
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "type": "bool",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "bool",
+                          "type": "bool"
+                        },
+                        "id": 6235,
+                        "name": "ElementaryTypeName",
+                        "src": "119:4:28"
+                      }
+                    ],
+                    "id": 6236,
+                    "name": "VariableDeclaration",
+                    "src": "119:4:28"
+                  }
+                ],
+                "id": 6237,
+                "name": "ParameterList",
+                "src": "118:6:28"
+              }
+            ],
+            "id": 6238,
+            "name": "FunctionDefinition",
+            "src": "60:65:28"
+          }
+        ],
+        "id": 6239,
+        "name": "ContractDefinition",
+        "src": "33:94:28"
+      }
+    ],
+    "id": 6240,
+    "name": "SourceUnit",
+    "src": "0:128:28"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.5.17+commit.d19bba13.Emscripten.clang"
+  },
+  "networks": {},
+  "schemaVersion": "3.4.4",
+  "updatedAt": "2022-02-01T11:12:09.301Z",
+  "devdoc": {
+    "methods": {}
+  },
+  "userdoc": {
+    "methods": {}
+  }
+}

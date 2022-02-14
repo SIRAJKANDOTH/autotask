@@ -1,0 +1,368 @@
+{
+  "contractName": "ICRVDepositor",
+  "abi": [
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        },
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        },
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "name": "deposit",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "metadata": "{\"compiler\":{\"version\":\"0.5.17+commit.d19bba13\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"},{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"deposit\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"methods\":{}},\"userdoc\":{\"methods\":{}}},\"settings\":{\"compilationTarget\":{\"project:/contracts/strategies/ConvexSingleAsset/interfaces/convex/ICRVDepositor.sol\":\"ICRVDepositor\"},\"evmVersion\":\"petersburg\",\"libraries\":{},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"project:/contracts/strategies/ConvexSingleAsset/interfaces/convex/ICRVDepositor.sol\":{\"keccak256\":\"0xab5bfa67ed04c96171b44754860023d2c7127440f54e46ecda216b3f26ce3b2c\",\"urls\":[\"bzz-raw://9fb3e943c242524525d69bcc6c6593f580dfa47569d8ed238c1a4ed1c83b6c79\",\"dweb:/ipfs/QmQ9TfSKq7y8mEBSpv9eYwXhQ5Ci7Zr17k12KvfTPLQoRb\"]}},\"version\":1}",
+  "bytecode": "0x",
+  "deployedBytecode": "0x",
+  "sourceMap": "",
+  "deployedSourceMap": "",
+  "source": "pragma solidity ^0.5.0;\n\ninterface ICRVDepositor{\n    function deposit(uint256 , bool , address ) external;\n}",
+  "sourcePath": "/home/dxuser/Documents/scode/yieldster-vault/contracts/strategies/ConvexSingleAsset/interfaces/convex/ICRVDepositor.sol",
+  "ast": {
+    "absolutePath": "project:/contracts/strategies/ConvexSingleAsset/interfaces/convex/ICRVDepositor.sol",
+    "exportedSymbols": {
+      "ICRVDepositor": [
+        13222
+      ]
+    },
+    "id": 13223,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 13212,
+        "literals": [
+          "solidity",
+          "^",
+          "0.5",
+          ".0"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "0:23:48"
+      },
+      {
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "interface",
+        "documentation": null,
+        "fullyImplemented": false,
+        "id": 13222,
+        "linearizedBaseContracts": [
+          13222
+        ],
+        "name": "ICRVDepositor",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "body": null,
+            "documentation": null,
+            "id": 13221,
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "deposit",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 13219,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 13214,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 13221,
+                  "src": "71:7:48",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 13213,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "71:7:48",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 13216,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 13221,
+                  "src": "81:4:48",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bool",
+                    "typeString": "bool"
+                  },
+                  "typeName": {
+                    "id": 13215,
+                    "name": "bool",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "81:4:48",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 13218,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 13221,
+                  "src": "88:7:48",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 13217,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "88:7:48",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "70:27:48"
+            },
+            "returnParameters": {
+              "id": 13220,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "106:0:48"
+            },
+            "scope": 13222,
+            "src": "54:53:48",
+            "stateMutability": "nonpayable",
+            "superFunction": null,
+            "visibility": "external"
+          }
+        ],
+        "scope": 13223,
+        "src": "25:84:48"
+      }
+    ],
+    "src": "0:109:48"
+  },
+  "legacyAST": {
+    "attributes": {
+      "absolutePath": "project:/contracts/strategies/ConvexSingleAsset/interfaces/convex/ICRVDepositor.sol",
+      "exportedSymbols": {
+        "ICRVDepositor": [
+          13222
+        ]
+      }
+    },
+    "children": [
+      {
+        "attributes": {
+          "literals": [
+            "solidity",
+            "^",
+            "0.5",
+            ".0"
+          ]
+        },
+        "id": 13212,
+        "name": "PragmaDirective",
+        "src": "0:23:48"
+      },
+      {
+        "attributes": {
+          "baseContracts": [
+            null
+          ],
+          "contractDependencies": [
+            null
+          ],
+          "contractKind": "interface",
+          "documentation": null,
+          "fullyImplemented": false,
+          "linearizedBaseContracts": [
+            13222
+          ],
+          "name": "ICRVDepositor",
+          "scope": 13223
+        },
+        "children": [
+          {
+            "attributes": {
+              "body": null,
+              "documentation": null,
+              "implemented": false,
+              "isConstructor": false,
+              "kind": "function",
+              "modifiers": [
+                null
+              ],
+              "name": "deposit",
+              "scope": 13222,
+              "stateMutability": "nonpayable",
+              "superFunction": null,
+              "visibility": "external"
+            },
+            "children": [
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "",
+                      "scope": 13221,
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "type": "uint256",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "uint256",
+                          "type": "uint256"
+                        },
+                        "id": 13213,
+                        "name": "ElementaryTypeName",
+                        "src": "71:7:48"
+                      }
+                    ],
+                    "id": 13214,
+                    "name": "VariableDeclaration",
+                    "src": "71:7:48"
+                  },
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "",
+                      "scope": 13221,
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "type": "bool",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "bool",
+                          "type": "bool"
+                        },
+                        "id": 13215,
+                        "name": "ElementaryTypeName",
+                        "src": "81:4:48"
+                      }
+                    ],
+                    "id": 13216,
+                    "name": "VariableDeclaration",
+                    "src": "81:4:48"
+                  },
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "",
+                      "scope": 13221,
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "type": "address",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "address",
+                          "stateMutability": "nonpayable",
+                          "type": "address"
+                        },
+                        "id": 13217,
+                        "name": "ElementaryTypeName",
+                        "src": "88:7:48"
+                      }
+                    ],
+                    "id": 13218,
+                    "name": "VariableDeclaration",
+                    "src": "88:7:48"
+                  }
+                ],
+                "id": 13219,
+                "name": "ParameterList",
+                "src": "70:27:48"
+              },
+              {
+                "attributes": {
+                  "parameters": [
+                    null
+                  ]
+                },
+                "children": [],
+                "id": 13220,
+                "name": "ParameterList",
+                "src": "106:0:48"
+              }
+            ],
+            "id": 13221,
+            "name": "FunctionDefinition",
+            "src": "54:53:48"
+          }
+        ],
+        "id": 13222,
+        "name": "ContractDefinition",
+        "src": "25:84:48"
+      }
+    ],
+    "id": 13223,
+    "name": "SourceUnit",
+    "src": "0:109:48"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.5.17+commit.d19bba13.Emscripten.clang"
+  },
+  "networks": {},
+  "schemaVersion": "3.4.4",
+  "updatedAt": "2022-02-01T11:12:09.369Z",
+  "devdoc": {
+    "methods": {}
+  },
+  "userdoc": {
+    "methods": {}
+  }
+}

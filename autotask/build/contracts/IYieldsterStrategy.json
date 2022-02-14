@@ -1,0 +1,258 @@
+{
+  "contractName": "IYieldsterStrategy",
+  "abi": [
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "tokenValueInUSD",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ],
+  "metadata": "{\"compiler\":{\"version\":\"0.5.17+commit.d19bba13\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"constant\":true,\"inputs\":[],\"name\":\"tokenValueInUSD\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"methods\":{}},\"userdoc\":{\"methods\":{}}},\"settings\":{\"compilationTarget\":{\"project:/contracts/interfaces/IYieldsterStrategy.sol\":\"IYieldsterStrategy\"},\"evmVersion\":\"petersburg\",\"libraries\":{},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"project:/contracts/interfaces/IYieldsterStrategy.sol\":{\"keccak256\":\"0xb0bbdf06d7e9a53b7baa01626096d35a73246a7bac5777704b678d9786ed0189\",\"urls\":[\"bzz-raw://9de35431ee02daf3058a247fa0b94fca7ddb29386ea53553a1bdb21b306eb3c9\",\"dweb:/ipfs/QmXCvneo8KyPEq4eDK1Po4Sfp9Z6JCwWAbRJFV9n4BLnkZ\"]}},\"version\":1}",
+  "bytecode": "0x",
+  "deployedBytecode": "0x",
+  "sourceMap": "",
+  "deployedSourceMap": "",
+  "source": "pragma solidity >=0.5.0 <0.7.0;\n\ninterface IYieldsterStrategy {\n    \n    function tokenValueInUSD() external view returns(uint256);\n\n}\n",
+  "sourcePath": "/home/dxuser/Documents/scode/yieldster-vault/contracts/interfaces/IYieldsterStrategy.sol",
+  "ast": {
+    "absolutePath": "project:/contracts/interfaces/IYieldsterStrategy.sol",
+    "exportedSymbols": {
+      "IYieldsterStrategy": [
+        6247
+      ]
+    },
+    "id": 6248,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 6241,
+        "literals": [
+          "solidity",
+          ">=",
+          "0.5",
+          ".0",
+          "<",
+          "0.7",
+          ".0"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "0:31:29"
+      },
+      {
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "interface",
+        "documentation": null,
+        "fullyImplemented": false,
+        "id": 6247,
+        "linearizedBaseContracts": [
+          6247
+        ],
+        "name": "IYieldsterStrategy",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "body": null,
+            "documentation": null,
+            "id": 6246,
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "tokenValueInUSD",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 6242,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "97:2:29"
+            },
+            "returnParameters": {
+              "id": 6245,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 6244,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 6246,
+                  "src": "122:7:29",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 6243,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "122:7:29",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "121:9:29"
+            },
+            "scope": 6247,
+            "src": "73:58:29",
+            "stateMutability": "view",
+            "superFunction": null,
+            "visibility": "external"
+          }
+        ],
+        "scope": 6248,
+        "src": "33:101:29"
+      }
+    ],
+    "src": "0:135:29"
+  },
+  "legacyAST": {
+    "attributes": {
+      "absolutePath": "project:/contracts/interfaces/IYieldsterStrategy.sol",
+      "exportedSymbols": {
+        "IYieldsterStrategy": [
+          6247
+        ]
+      }
+    },
+    "children": [
+      {
+        "attributes": {
+          "literals": [
+            "solidity",
+            ">=",
+            "0.5",
+            ".0",
+            "<",
+            "0.7",
+            ".0"
+          ]
+        },
+        "id": 6241,
+        "name": "PragmaDirective",
+        "src": "0:31:29"
+      },
+      {
+        "attributes": {
+          "baseContracts": [
+            null
+          ],
+          "contractDependencies": [
+            null
+          ],
+          "contractKind": "interface",
+          "documentation": null,
+          "fullyImplemented": false,
+          "linearizedBaseContracts": [
+            6247
+          ],
+          "name": "IYieldsterStrategy",
+          "scope": 6248
+        },
+        "children": [
+          {
+            "attributes": {
+              "body": null,
+              "documentation": null,
+              "implemented": false,
+              "isConstructor": false,
+              "kind": "function",
+              "modifiers": [
+                null
+              ],
+              "name": "tokenValueInUSD",
+              "scope": 6247,
+              "stateMutability": "view",
+              "superFunction": null,
+              "visibility": "external"
+            },
+            "children": [
+              {
+                "attributes": {
+                  "parameters": [
+                    null
+                  ]
+                },
+                "children": [],
+                "id": 6242,
+                "name": "ParameterList",
+                "src": "97:2:29"
+              },
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "",
+                      "scope": 6246,
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "type": "uint256",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "uint256",
+                          "type": "uint256"
+                        },
+                        "id": 6243,
+                        "name": "ElementaryTypeName",
+                        "src": "122:7:29"
+                      }
+                    ],
+                    "id": 6244,
+                    "name": "VariableDeclaration",
+                    "src": "122:7:29"
+                  }
+                ],
+                "id": 6245,
+                "name": "ParameterList",
+                "src": "121:9:29"
+              }
+            ],
+            "id": 6246,
+            "name": "FunctionDefinition",
+            "src": "73:58:29"
+          }
+        ],
+        "id": 6247,
+        "name": "ContractDefinition",
+        "src": "33:101:29"
+      }
+    ],
+    "id": 6248,
+    "name": "SourceUnit",
+    "src": "0:135:29"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.5.17+commit.d19bba13.Emscripten.clang"
+  },
+  "networks": {},
+  "schemaVersion": "3.4.4",
+  "updatedAt": "2022-02-01T11:12:09.301Z",
+  "devdoc": {
+    "methods": {}
+  },
+  "userdoc": {
+    "methods": {}
+  }
+}

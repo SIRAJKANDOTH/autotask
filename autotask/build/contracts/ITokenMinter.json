@@ -1,0 +1,657 @@
+{
+  "contractName": "ITokenMinter",
+  "abi": [
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "totalSupply",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "reductionPerCliff",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "totalCliffs",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "maxSupply",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ],
+  "metadata": "{\"compiler\":{\"version\":\"0.5.17+commit.d19bba13\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"constant\":true,\"inputs\":[],\"name\":\"maxSupply\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"reductionPerCliff\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"totalCliffs\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"totalSupply\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"methods\":{}},\"userdoc\":{\"methods\":{}}},\"settings\":{\"compilationTarget\":{\"project:/contracts/strategies/ConvexSingleAsset/interfaces/convex/ITokenMinter.sol\":\"ITokenMinter\"},\"evmVersion\":\"petersburg\",\"libraries\":{},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"project:/contracts/strategies/ConvexSingleAsset/interfaces/convex/ITokenMinter.sol\":{\"keccak256\":\"0x200970c7e3641083449ac7ae20305b27a12d8f1960e23dd496d2cd22f44af557\",\"urls\":[\"bzz-raw://bfaeba26cb167d3cb2112576857fa17bd3bad668e48e99a524f2aa442e095c29\",\"dweb:/ipfs/QmQFzWEWSg5NJpNwcHZ1MjbFGYWgNDDNTZXBBqiWBD56WJ\"]}},\"version\":1}",
+  "bytecode": "0x",
+  "deployedBytecode": "0x",
+  "sourceMap": "",
+  "deployedSourceMap": "",
+  "source": "pragma solidity ^0.5.0;\n\ninterface ITokenMinter{\n   \n    function totalSupply() external view returns(uint256);\n    function reductionPerCliff() external view returns(uint256);\n    function totalCliffs() external view returns(uint256);\n    function maxSupply() external view returns(uint256);\n    \n}",
+  "sourcePath": "/home/dxuser/Documents/scode/yieldster-vault/contracts/strategies/ConvexSingleAsset/interfaces/convex/ITokenMinter.sol",
+  "ast": {
+    "absolutePath": "project:/contracts/strategies/ConvexSingleAsset/interfaces/convex/ITokenMinter.sol",
+    "exportedSymbols": {
+      "ITokenMinter": [
+        13419
+      ]
+    },
+    "id": 13420,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 13398,
+        "literals": [
+          "solidity",
+          "^",
+          "0.5",
+          ".0"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "0:23:53"
+      },
+      {
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "interface",
+        "documentation": null,
+        "fullyImplemented": false,
+        "id": 13419,
+        "linearizedBaseContracts": [
+          13419
+        ],
+        "name": "ITokenMinter",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "body": null,
+            "documentation": null,
+            "id": 13403,
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "totalSupply",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 13399,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "77:2:53"
+            },
+            "returnParameters": {
+              "id": 13402,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 13401,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 13403,
+                  "src": "102:7:53",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 13400,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "102:7:53",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "101:9:53"
+            },
+            "scope": 13419,
+            "src": "57:54:53",
+            "stateMutability": "view",
+            "superFunction": null,
+            "visibility": "external"
+          },
+          {
+            "body": null,
+            "documentation": null,
+            "id": 13408,
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "reductionPerCliff",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 13404,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "142:2:53"
+            },
+            "returnParameters": {
+              "id": 13407,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 13406,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 13408,
+                  "src": "167:7:53",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 13405,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "167:7:53",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "166:9:53"
+            },
+            "scope": 13419,
+            "src": "116:60:53",
+            "stateMutability": "view",
+            "superFunction": null,
+            "visibility": "external"
+          },
+          {
+            "body": null,
+            "documentation": null,
+            "id": 13413,
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "totalCliffs",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 13409,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "201:2:53"
+            },
+            "returnParameters": {
+              "id": 13412,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 13411,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 13413,
+                  "src": "226:7:53",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 13410,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "226:7:53",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "225:9:53"
+            },
+            "scope": 13419,
+            "src": "181:54:53",
+            "stateMutability": "view",
+            "superFunction": null,
+            "visibility": "external"
+          },
+          {
+            "body": null,
+            "documentation": null,
+            "id": 13418,
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "maxSupply",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 13414,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "258:2:53"
+            },
+            "returnParameters": {
+              "id": 13417,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 13416,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 13418,
+                  "src": "283:7:53",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 13415,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "283:7:53",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "282:9:53"
+            },
+            "scope": 13419,
+            "src": "240:52:53",
+            "stateMutability": "view",
+            "superFunction": null,
+            "visibility": "external"
+          }
+        ],
+        "scope": 13420,
+        "src": "25:274:53"
+      }
+    ],
+    "src": "0:299:53"
+  },
+  "legacyAST": {
+    "attributes": {
+      "absolutePath": "project:/contracts/strategies/ConvexSingleAsset/interfaces/convex/ITokenMinter.sol",
+      "exportedSymbols": {
+        "ITokenMinter": [
+          13419
+        ]
+      }
+    },
+    "children": [
+      {
+        "attributes": {
+          "literals": [
+            "solidity",
+            "^",
+            "0.5",
+            ".0"
+          ]
+        },
+        "id": 13398,
+        "name": "PragmaDirective",
+        "src": "0:23:53"
+      },
+      {
+        "attributes": {
+          "baseContracts": [
+            null
+          ],
+          "contractDependencies": [
+            null
+          ],
+          "contractKind": "interface",
+          "documentation": null,
+          "fullyImplemented": false,
+          "linearizedBaseContracts": [
+            13419
+          ],
+          "name": "ITokenMinter",
+          "scope": 13420
+        },
+        "children": [
+          {
+            "attributes": {
+              "body": null,
+              "documentation": null,
+              "implemented": false,
+              "isConstructor": false,
+              "kind": "function",
+              "modifiers": [
+                null
+              ],
+              "name": "totalSupply",
+              "scope": 13419,
+              "stateMutability": "view",
+              "superFunction": null,
+              "visibility": "external"
+            },
+            "children": [
+              {
+                "attributes": {
+                  "parameters": [
+                    null
+                  ]
+                },
+                "children": [],
+                "id": 13399,
+                "name": "ParameterList",
+                "src": "77:2:53"
+              },
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "",
+                      "scope": 13403,
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "type": "uint256",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "uint256",
+                          "type": "uint256"
+                        },
+                        "id": 13400,
+                        "name": "ElementaryTypeName",
+                        "src": "102:7:53"
+                      }
+                    ],
+                    "id": 13401,
+                    "name": "VariableDeclaration",
+                    "src": "102:7:53"
+                  }
+                ],
+                "id": 13402,
+                "name": "ParameterList",
+                "src": "101:9:53"
+              }
+            ],
+            "id": 13403,
+            "name": "FunctionDefinition",
+            "src": "57:54:53"
+          },
+          {
+            "attributes": {
+              "body": null,
+              "documentation": null,
+              "implemented": false,
+              "isConstructor": false,
+              "kind": "function",
+              "modifiers": [
+                null
+              ],
+              "name": "reductionPerCliff",
+              "scope": 13419,
+              "stateMutability": "view",
+              "superFunction": null,
+              "visibility": "external"
+            },
+            "children": [
+              {
+                "attributes": {
+                  "parameters": [
+                    null
+                  ]
+                },
+                "children": [],
+                "id": 13404,
+                "name": "ParameterList",
+                "src": "142:2:53"
+              },
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "",
+                      "scope": 13408,
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "type": "uint256",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "uint256",
+                          "type": "uint256"
+                        },
+                        "id": 13405,
+                        "name": "ElementaryTypeName",
+                        "src": "167:7:53"
+                      }
+                    ],
+                    "id": 13406,
+                    "name": "VariableDeclaration",
+                    "src": "167:7:53"
+                  }
+                ],
+                "id": 13407,
+                "name": "ParameterList",
+                "src": "166:9:53"
+              }
+            ],
+            "id": 13408,
+            "name": "FunctionDefinition",
+            "src": "116:60:53"
+          },
+          {
+            "attributes": {
+              "body": null,
+              "documentation": null,
+              "implemented": false,
+              "isConstructor": false,
+              "kind": "function",
+              "modifiers": [
+                null
+              ],
+              "name": "totalCliffs",
+              "scope": 13419,
+              "stateMutability": "view",
+              "superFunction": null,
+              "visibility": "external"
+            },
+            "children": [
+              {
+                "attributes": {
+                  "parameters": [
+                    null
+                  ]
+                },
+                "children": [],
+                "id": 13409,
+                "name": "ParameterList",
+                "src": "201:2:53"
+              },
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "",
+                      "scope": 13413,
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "type": "uint256",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "uint256",
+                          "type": "uint256"
+                        },
+                        "id": 13410,
+                        "name": "ElementaryTypeName",
+                        "src": "226:7:53"
+                      }
+                    ],
+                    "id": 13411,
+                    "name": "VariableDeclaration",
+                    "src": "226:7:53"
+                  }
+                ],
+                "id": 13412,
+                "name": "ParameterList",
+                "src": "225:9:53"
+              }
+            ],
+            "id": 13413,
+            "name": "FunctionDefinition",
+            "src": "181:54:53"
+          },
+          {
+            "attributes": {
+              "body": null,
+              "documentation": null,
+              "implemented": false,
+              "isConstructor": false,
+              "kind": "function",
+              "modifiers": [
+                null
+              ],
+              "name": "maxSupply",
+              "scope": 13419,
+              "stateMutability": "view",
+              "superFunction": null,
+              "visibility": "external"
+            },
+            "children": [
+              {
+                "attributes": {
+                  "parameters": [
+                    null
+                  ]
+                },
+                "children": [],
+                "id": 13414,
+                "name": "ParameterList",
+                "src": "258:2:53"
+              },
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "",
+                      "scope": 13418,
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "type": "uint256",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "uint256",
+                          "type": "uint256"
+                        },
+                        "id": 13415,
+                        "name": "ElementaryTypeName",
+                        "src": "283:7:53"
+                      }
+                    ],
+                    "id": 13416,
+                    "name": "VariableDeclaration",
+                    "src": "283:7:53"
+                  }
+                ],
+                "id": 13417,
+                "name": "ParameterList",
+                "src": "282:9:53"
+              }
+            ],
+            "id": 13418,
+            "name": "FunctionDefinition",
+            "src": "240:52:53"
+          }
+        ],
+        "id": 13419,
+        "name": "ContractDefinition",
+        "src": "25:274:53"
+      }
+    ],
+    "id": 13420,
+    "name": "SourceUnit",
+    "src": "0:299:53"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.5.17+commit.d19bba13.Emscripten.clang"
+  },
+  "networks": {},
+  "schemaVersion": "3.4.4",
+  "updatedAt": "2022-02-01T11:12:09.371Z",
+  "devdoc": {
+    "methods": {}
+  },
+  "userdoc": {
+    "methods": {}
+  }
+}

@@ -1,0 +1,504 @@
+{
+  "contractName": "ICrv3Pool",
+  "abi": [
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "internalType": "uint256[3]",
+          "name": "",
+          "type": "uint256[3]"
+        },
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "name": "add_liquidity",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [],
+      "name": "get_virtual_price",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "metadata": "{\"compiler\":{\"version\":\"0.5.17+commit.d19bba13\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256[3]\",\"name\":\"\",\"type\":\"uint256[3]\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"add_liquidity\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[],\"name\":\"get_virtual_price\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"methods\":{}},\"userdoc\":{\"methods\":{}}},\"settings\":{\"compilationTarget\":{\"project:/contracts/strategies/interfaces/ICrv3Pool.sol\":\"ICrv3Pool\"},\"evmVersion\":\"petersburg\",\"libraries\":{},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"project:/contracts/strategies/interfaces/ICrv3Pool.sol\":{\"keccak256\":\"0xc6eef161a7604739d44f904833b84d53d53fc49df4cd415576741384a76d582c\",\"urls\":[\"bzz-raw://6af54ff3429580e6b6aca95f1bf245612e1cad9c75509737e4d04961e2ebe4a7\",\"dweb:/ipfs/QmNfBcsrypjHp3dGAiT5yXJiZMFaTCHMYNgQQgjgn3ALRR\"]}},\"version\":1}",
+  "bytecode": "0x",
+  "deployedBytecode": "0x",
+  "sourceMap": "",
+  "deployedSourceMap": "",
+  "source": "// SPDX-License-Identifier: MIT\npragma solidity >=0.5.0 <0.7.0;\n\ninterface ICrv3Pool {\n    function add_liquidity(uint256[3] calldata, uint256) external;\n\n    function get_virtual_price() external returns (uint256);\n}\n",
+  "sourcePath": "/home/dxuser/Documents/scode/yieldster-vault/contracts/strategies/interfaces/ICrv3Pool.sol",
+  "ast": {
+    "absolutePath": "project:/contracts/strategies/interfaces/ICrv3Pool.sol",
+    "exportedSymbols": {
+      "ICrv3Pool": [
+        19271
+      ]
+    },
+    "id": 19272,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 19256,
+        "literals": [
+          "solidity",
+          ">=",
+          "0.5",
+          ".0",
+          "<",
+          "0.7",
+          ".0"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "32:31:62"
+      },
+      {
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "interface",
+        "documentation": null,
+        "fullyImplemented": false,
+        "id": 19271,
+        "linearizedBaseContracts": [
+          19271
+        ],
+        "name": "ICrv3Pool",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "body": null,
+            "documentation": null,
+            "id": 19265,
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "add_liquidity",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 19263,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 19260,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 19265,
+                  "src": "114:19:62",
+                  "stateVariable": false,
+                  "storageLocation": "calldata",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_array$_t_uint256_$3_calldata_ptr",
+                    "typeString": "uint256[3]"
+                  },
+                  "typeName": {
+                    "baseType": {
+                      "id": 19257,
+                      "name": "uint256",
+                      "nodeType": "ElementaryTypeName",
+                      "src": "114:7:62",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      }
+                    },
+                    "id": 19259,
+                    "length": {
+                      "argumentTypes": null,
+                      "hexValue": "33",
+                      "id": 19258,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": true,
+                      "kind": "number",
+                      "lValueRequested": false,
+                      "nodeType": "Literal",
+                      "src": "122:1:62",
+                      "subdenomination": null,
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_rational_3_by_1",
+                        "typeString": "int_const 3"
+                      },
+                      "value": "3"
+                    },
+                    "nodeType": "ArrayTypeName",
+                    "src": "114:10:62",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_array$_t_uint256_$3_storage_ptr",
+                      "typeString": "uint256[3]"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 19262,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 19265,
+                  "src": "135:7:62",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 19261,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "135:7:62",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "113:30:62"
+            },
+            "returnParameters": {
+              "id": 19264,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "152:0:62"
+            },
+            "scope": 19271,
+            "src": "91:62:62",
+            "stateMutability": "nonpayable",
+            "superFunction": null,
+            "visibility": "external"
+          },
+          {
+            "body": null,
+            "documentation": null,
+            "id": 19270,
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "get_virtual_price",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 19266,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "185:2:62"
+            },
+            "returnParameters": {
+              "id": 19269,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 19268,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 19270,
+                  "src": "206:7:62",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 19267,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "206:7:62",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "205:9:62"
+            },
+            "scope": 19271,
+            "src": "159:56:62",
+            "stateMutability": "nonpayable",
+            "superFunction": null,
+            "visibility": "external"
+          }
+        ],
+        "scope": 19272,
+        "src": "65:152:62"
+      }
+    ],
+    "src": "32:186:62"
+  },
+  "legacyAST": {
+    "attributes": {
+      "absolutePath": "project:/contracts/strategies/interfaces/ICrv3Pool.sol",
+      "exportedSymbols": {
+        "ICrv3Pool": [
+          19271
+        ]
+      }
+    },
+    "children": [
+      {
+        "attributes": {
+          "literals": [
+            "solidity",
+            ">=",
+            "0.5",
+            ".0",
+            "<",
+            "0.7",
+            ".0"
+          ]
+        },
+        "id": 19256,
+        "name": "PragmaDirective",
+        "src": "32:31:62"
+      },
+      {
+        "attributes": {
+          "baseContracts": [
+            null
+          ],
+          "contractDependencies": [
+            null
+          ],
+          "contractKind": "interface",
+          "documentation": null,
+          "fullyImplemented": false,
+          "linearizedBaseContracts": [
+            19271
+          ],
+          "name": "ICrv3Pool",
+          "scope": 19272
+        },
+        "children": [
+          {
+            "attributes": {
+              "body": null,
+              "documentation": null,
+              "implemented": false,
+              "isConstructor": false,
+              "kind": "function",
+              "modifiers": [
+                null
+              ],
+              "name": "add_liquidity",
+              "scope": 19271,
+              "stateMutability": "nonpayable",
+              "superFunction": null,
+              "visibility": "external"
+            },
+            "children": [
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "",
+                      "scope": 19265,
+                      "stateVariable": false,
+                      "storageLocation": "calldata",
+                      "type": "uint256[3]",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "type": "uint256[3]"
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "name": "uint256",
+                              "type": "uint256"
+                            },
+                            "id": 19257,
+                            "name": "ElementaryTypeName",
+                            "src": "114:7:62"
+                          },
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "hexvalue": "33",
+                              "isConstant": false,
+                              "isLValue": false,
+                              "isPure": true,
+                              "lValueRequested": false,
+                              "subdenomination": null,
+                              "token": "number",
+                              "type": "int_const 3",
+                              "value": "3"
+                            },
+                            "id": 19258,
+                            "name": "Literal",
+                            "src": "122:1:62"
+                          }
+                        ],
+                        "id": 19259,
+                        "name": "ArrayTypeName",
+                        "src": "114:10:62"
+                      }
+                    ],
+                    "id": 19260,
+                    "name": "VariableDeclaration",
+                    "src": "114:19:62"
+                  },
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "",
+                      "scope": 19265,
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "type": "uint256",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "uint256",
+                          "type": "uint256"
+                        },
+                        "id": 19261,
+                        "name": "ElementaryTypeName",
+                        "src": "135:7:62"
+                      }
+                    ],
+                    "id": 19262,
+                    "name": "VariableDeclaration",
+                    "src": "135:7:62"
+                  }
+                ],
+                "id": 19263,
+                "name": "ParameterList",
+                "src": "113:30:62"
+              },
+              {
+                "attributes": {
+                  "parameters": [
+                    null
+                  ]
+                },
+                "children": [],
+                "id": 19264,
+                "name": "ParameterList",
+                "src": "152:0:62"
+              }
+            ],
+            "id": 19265,
+            "name": "FunctionDefinition",
+            "src": "91:62:62"
+          },
+          {
+            "attributes": {
+              "body": null,
+              "documentation": null,
+              "implemented": false,
+              "isConstructor": false,
+              "kind": "function",
+              "modifiers": [
+                null
+              ],
+              "name": "get_virtual_price",
+              "scope": 19271,
+              "stateMutability": "nonpayable",
+              "superFunction": null,
+              "visibility": "external"
+            },
+            "children": [
+              {
+                "attributes": {
+                  "parameters": [
+                    null
+                  ]
+                },
+                "children": [],
+                "id": 19266,
+                "name": "ParameterList",
+                "src": "185:2:62"
+              },
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "",
+                      "scope": 19270,
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "type": "uint256",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "uint256",
+                          "type": "uint256"
+                        },
+                        "id": 19267,
+                        "name": "ElementaryTypeName",
+                        "src": "206:7:62"
+                      }
+                    ],
+                    "id": 19268,
+                    "name": "VariableDeclaration",
+                    "src": "206:7:62"
+                  }
+                ],
+                "id": 19269,
+                "name": "ParameterList",
+                "src": "205:9:62"
+              }
+            ],
+            "id": 19270,
+            "name": "FunctionDefinition",
+            "src": "159:56:62"
+          }
+        ],
+        "id": 19271,
+        "name": "ContractDefinition",
+        "src": "65:152:62"
+      }
+    ],
+    "id": 19272,
+    "name": "SourceUnit",
+    "src": "32:186:62"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.5.17+commit.d19bba13.Emscripten.clang"
+  },
+  "networks": {},
+  "schemaVersion": "3.4.4",
+  "updatedAt": "2022-02-01T11:12:09.418Z",
+  "devdoc": {
+    "methods": {}
+  },
+  "userdoc": {
+    "methods": {}
+  }
+}

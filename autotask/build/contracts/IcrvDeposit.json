@@ -1,0 +1,311 @@
+{
+  "contractName": "IcrvDeposit",
+  "abi": [
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        },
+        {
+          "internalType": "address",
+          "name": "_stakeAddress",
+          "type": "address"
+        }
+      ],
+      "name": "depositAll",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "metadata": "{\"compiler\":{\"version\":\"0.5.17+commit.d19bba13\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"constant\":false,\"inputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"},{\"internalType\":\"address\",\"name\":\"_stakeAddress\",\"type\":\"address\"}],\"name\":\"depositAll\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"methods\":{}},\"userdoc\":{\"methods\":{}}},\"settings\":{\"compilationTarget\":{\"project:/contracts/strategies/ConvexSingleAsset/interfaces/convex/IcrvDeposit.sol\":\"IcrvDeposit\"},\"evmVersion\":\"petersburg\",\"libraries\":{},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"project:/contracts/strategies/ConvexSingleAsset/interfaces/convex/IcrvDeposit.sol\":{\"keccak256\":\"0x8ac0ac053ca3c8389492d1b216dcaf4e485e220d6f52c7c896c23ca926720a9c\",\"urls\":[\"bzz-raw://c47d17c1f99a130c87169c87bf949818862a0cd4fe24b21481e36c7b4d4907a9\",\"dweb:/ipfs/QmSX8SqwjAPBjuxfBgPic13darTppTyFkbiXjfwMdD51sJ\"]}},\"version\":1}",
+  "bytecode": "0x",
+  "deployedBytecode": "0x",
+  "sourceMap": "",
+  "deployedSourceMap": "",
+  "source": "pragma solidity ^0.5.0;\n\ninterface IcrvDeposit {\n\n    //params are for lock and stakeaddress, if no staking address should be address(0)\n    function depositAll(bool , address _stakeAddress) external;\n}",
+  "sourcePath": "/home/dxuser/Documents/scode/yieldster-vault/contracts/strategies/ConvexSingleAsset/interfaces/convex/IcrvDeposit.sol",
+  "ast": {
+    "absolutePath": "project:/contracts/strategies/ConvexSingleAsset/interfaces/convex/IcrvDeposit.sol",
+    "exportedSymbols": {
+      "IcrvDeposit": [
+        13429
+      ]
+    },
+    "id": 13430,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 13421,
+        "literals": [
+          "solidity",
+          "^",
+          "0.5",
+          ".0"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "0:23:54"
+      },
+      {
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "interface",
+        "documentation": null,
+        "fullyImplemented": false,
+        "id": 13429,
+        "linearizedBaseContracts": [
+          13429
+        ],
+        "name": "IcrvDeposit",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "body": null,
+            "documentation": null,
+            "id": 13428,
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "depositAll",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 13426,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 13423,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 13428,
+                  "src": "161:4:54",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bool",
+                    "typeString": "bool"
+                  },
+                  "typeName": {
+                    "id": 13422,
+                    "name": "bool",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "161:4:54",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 13425,
+                  "name": "_stakeAddress",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 13428,
+                  "src": "168:21:54",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 13424,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "168:7:54",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "160:30:54"
+            },
+            "returnParameters": {
+              "id": 13427,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "199:0:54"
+            },
+            "scope": 13429,
+            "src": "141:59:54",
+            "stateMutability": "nonpayable",
+            "superFunction": null,
+            "visibility": "external"
+          }
+        ],
+        "scope": 13430,
+        "src": "25:177:54"
+      }
+    ],
+    "src": "0:202:54"
+  },
+  "legacyAST": {
+    "attributes": {
+      "absolutePath": "project:/contracts/strategies/ConvexSingleAsset/interfaces/convex/IcrvDeposit.sol",
+      "exportedSymbols": {
+        "IcrvDeposit": [
+          13429
+        ]
+      }
+    },
+    "children": [
+      {
+        "attributes": {
+          "literals": [
+            "solidity",
+            "^",
+            "0.5",
+            ".0"
+          ]
+        },
+        "id": 13421,
+        "name": "PragmaDirective",
+        "src": "0:23:54"
+      },
+      {
+        "attributes": {
+          "baseContracts": [
+            null
+          ],
+          "contractDependencies": [
+            null
+          ],
+          "contractKind": "interface",
+          "documentation": null,
+          "fullyImplemented": false,
+          "linearizedBaseContracts": [
+            13429
+          ],
+          "name": "IcrvDeposit",
+          "scope": 13430
+        },
+        "children": [
+          {
+            "attributes": {
+              "body": null,
+              "documentation": null,
+              "implemented": false,
+              "isConstructor": false,
+              "kind": "function",
+              "modifiers": [
+                null
+              ],
+              "name": "depositAll",
+              "scope": 13429,
+              "stateMutability": "nonpayable",
+              "superFunction": null,
+              "visibility": "external"
+            },
+            "children": [
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "",
+                      "scope": 13428,
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "type": "bool",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "bool",
+                          "type": "bool"
+                        },
+                        "id": 13422,
+                        "name": "ElementaryTypeName",
+                        "src": "161:4:54"
+                      }
+                    ],
+                    "id": 13423,
+                    "name": "VariableDeclaration",
+                    "src": "161:4:54"
+                  },
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "_stakeAddress",
+                      "scope": 13428,
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "type": "address",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "address",
+                          "stateMutability": "nonpayable",
+                          "type": "address"
+                        },
+                        "id": 13424,
+                        "name": "ElementaryTypeName",
+                        "src": "168:7:54"
+                      }
+                    ],
+                    "id": 13425,
+                    "name": "VariableDeclaration",
+                    "src": "168:21:54"
+                  }
+                ],
+                "id": 13426,
+                "name": "ParameterList",
+                "src": "160:30:54"
+              },
+              {
+                "attributes": {
+                  "parameters": [
+                    null
+                  ]
+                },
+                "children": [],
+                "id": 13427,
+                "name": "ParameterList",
+                "src": "199:0:54"
+              }
+            ],
+            "id": 13428,
+            "name": "FunctionDefinition",
+            "src": "141:59:54"
+          }
+        ],
+        "id": 13429,
+        "name": "ContractDefinition",
+        "src": "25:177:54"
+      }
+    ],
+    "id": 13430,
+    "name": "SourceUnit",
+    "src": "0:202:54"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.5.17+commit.d19bba13.Emscripten.clang"
+  },
+  "networks": {},
+  "schemaVersion": "3.4.4",
+  "updatedAt": "2022-02-01T11:12:09.371Z",
+  "devdoc": {
+    "methods": {}
+  },
+  "userdoc": {
+    "methods": {}
+  }
+}

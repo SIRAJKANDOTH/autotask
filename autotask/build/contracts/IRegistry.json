@@ -1,0 +1,315 @@
+{
+  "contractName": "IRegistry",
+  "abi": [
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "name": "get_virtual_price_from_lp_token",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ],
+  "metadata": "{\"compiler\":{\"version\":\"0.5.17+commit.d19bba13\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"get_virtual_price_from_lp_token\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"methods\":{}},\"userdoc\":{\"methods\":{}}},\"settings\":{\"compilationTarget\":{\"project:/contracts/interfaces/IRegistry.sol\":\"IRegistry\"},\"evmVersion\":\"petersburg\",\"libraries\":{},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"project:/contracts/interfaces/IRegistry.sol\":{\"keccak256\":\"0x0dd7eba45a3d6b3c60685248a2f13304571db73b1cc867c918014fdd25fede3b\",\"urls\":[\"bzz-raw://9a924047adef4294659a76c630dc0c87b764fd06b85c50556a51ec9934f9600f\",\"dweb:/ipfs/QmcQasHWqpfza4rsN8MnU5WLrdyjKuWUbkUaPwCAZWd9pq\"]}},\"version\":1}",
+  "bytecode": "0x",
+  "deployedBytecode": "0x",
+  "sourceMap": "",
+  "deployedSourceMap": "",
+  "source": "\npragma solidity >=0.5.0 <0.7.0;\n\ninterface IRegistry {\n    \n    function get_virtual_price_from_lp_token(address) external view returns(uint256);\n\n}\n",
+  "sourcePath": "/home/dxuser/Documents/scode/yieldster-vault/contracts/interfaces/IRegistry.sol",
+  "ast": {
+    "absolutePath": "project:/contracts/interfaces/IRegistry.sol",
+    "exportedSymbols": {
+      "IRegistry": [
+        6154
+      ]
+    },
+    "id": 6155,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 6146,
+        "literals": [
+          "solidity",
+          ">=",
+          "0.5",
+          ".0",
+          "<",
+          "0.7",
+          ".0"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "1:31:26"
+      },
+      {
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "interface",
+        "documentation": null,
+        "fullyImplemented": false,
+        "id": 6154,
+        "linearizedBaseContracts": [
+          6154
+        ],
+        "name": "IRegistry",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "body": null,
+            "documentation": null,
+            "id": 6153,
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "get_virtual_price_from_lp_token",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 6149,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 6148,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 6153,
+                  "src": "106:7:26",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 6147,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "106:7:26",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "105:9:26"
+            },
+            "returnParameters": {
+              "id": 6152,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 6151,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 6153,
+                  "src": "137:7:26",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 6150,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "137:7:26",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "136:9:26"
+            },
+            "scope": 6154,
+            "src": "65:81:26",
+            "stateMutability": "view",
+            "superFunction": null,
+            "visibility": "external"
+          }
+        ],
+        "scope": 6155,
+        "src": "34:115:26"
+      }
+    ],
+    "src": "1:149:26"
+  },
+  "legacyAST": {
+    "attributes": {
+      "absolutePath": "project:/contracts/interfaces/IRegistry.sol",
+      "exportedSymbols": {
+        "IRegistry": [
+          6154
+        ]
+      }
+    },
+    "children": [
+      {
+        "attributes": {
+          "literals": [
+            "solidity",
+            ">=",
+            "0.5",
+            ".0",
+            "<",
+            "0.7",
+            ".0"
+          ]
+        },
+        "id": 6146,
+        "name": "PragmaDirective",
+        "src": "1:31:26"
+      },
+      {
+        "attributes": {
+          "baseContracts": [
+            null
+          ],
+          "contractDependencies": [
+            null
+          ],
+          "contractKind": "interface",
+          "documentation": null,
+          "fullyImplemented": false,
+          "linearizedBaseContracts": [
+            6154
+          ],
+          "name": "IRegistry",
+          "scope": 6155
+        },
+        "children": [
+          {
+            "attributes": {
+              "body": null,
+              "documentation": null,
+              "implemented": false,
+              "isConstructor": false,
+              "kind": "function",
+              "modifiers": [
+                null
+              ],
+              "name": "get_virtual_price_from_lp_token",
+              "scope": 6154,
+              "stateMutability": "view",
+              "superFunction": null,
+              "visibility": "external"
+            },
+            "children": [
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "",
+                      "scope": 6153,
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "type": "address",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "address",
+                          "stateMutability": "nonpayable",
+                          "type": "address"
+                        },
+                        "id": 6147,
+                        "name": "ElementaryTypeName",
+                        "src": "106:7:26"
+                      }
+                    ],
+                    "id": 6148,
+                    "name": "VariableDeclaration",
+                    "src": "106:7:26"
+                  }
+                ],
+                "id": 6149,
+                "name": "ParameterList",
+                "src": "105:9:26"
+              },
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "",
+                      "scope": 6153,
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "type": "uint256",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "uint256",
+                          "type": "uint256"
+                        },
+                        "id": 6150,
+                        "name": "ElementaryTypeName",
+                        "src": "137:7:26"
+                      }
+                    ],
+                    "id": 6151,
+                    "name": "VariableDeclaration",
+                    "src": "137:7:26"
+                  }
+                ],
+                "id": 6152,
+                "name": "ParameterList",
+                "src": "136:9:26"
+              }
+            ],
+            "id": 6153,
+            "name": "FunctionDefinition",
+            "src": "65:81:26"
+          }
+        ],
+        "id": 6154,
+        "name": "ContractDefinition",
+        "src": "34:115:26"
+      }
+    ],
+    "id": 6155,
+    "name": "SourceUnit",
+    "src": "1:149:26"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.5.17+commit.d19bba13.Emscripten.clang"
+  },
+  "networks": {},
+  "schemaVersion": "3.4.4",
+  "updatedAt": "2022-02-01T11:12:09.300Z",
+  "devdoc": {
+    "methods": {}
+  },
+  "userdoc": {
+    "methods": {}
+  }
+}

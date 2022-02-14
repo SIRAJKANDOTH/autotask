@@ -1,0 +1,551 @@
+{
+  "contractName": "IYieldsterVault",
+  "abi": [
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "tokenValueInUSD",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "internalType": "address[]",
+          "name": "",
+          "type": "address[]"
+        },
+        {
+          "internalType": "uint256[]",
+          "name": "",
+          "type": "uint256[]"
+        },
+        {
+          "internalType": "bytes",
+          "name": "",
+          "type": "bytes"
+        }
+      ],
+      "name": "earn",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "metadata": "{\"compiler\":{\"version\":\"0.5.17+commit.d19bba13\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"constant\":false,\"inputs\":[{\"internalType\":\"address[]\",\"name\":\"\",\"type\":\"address[]\"},{\"internalType\":\"uint256[]\",\"name\":\"\",\"type\":\"uint256[]\"},{\"internalType\":\"bytes\",\"name\":\"\",\"type\":\"bytes\"}],\"name\":\"earn\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"tokenValueInUSD\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"methods\":{}},\"userdoc\":{\"methods\":{}}},\"settings\":{\"compilationTarget\":{\"project:/contracts/strategies/interfaces/IYieldsterVault.sol\":\"IYieldsterVault\"},\"evmVersion\":\"petersburg\",\"libraries\":{},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"project:/contracts/strategies/interfaces/IYieldsterVault.sol\":{\"keccak256\":\"0x6e455fa9ed46610e763291f523f7978829f6b136243c3adfa78dc7c5f741bb9d\",\"urls\":[\"bzz-raw://578314f988abf1b766c51aba8a3e5cfee31aaede6dc15eaec0baea8cc3049508\",\"dweb:/ipfs/QmQnUEhnRUy39ACf2Qo8yWNsFEBajAbddy28WrWb5qjwaG\"]}},\"version\":1}",
+  "bytecode": "0x",
+  "deployedBytecode": "0x",
+  "sourceMap": "",
+  "deployedSourceMap": "",
+  "source": "// SPDX-License-Identifier: MIT\npragma solidity >=0.5.0 <0.7.0;\n\ninterface IYieldsterVault {\n    function tokenValueInUSD() external view returns (uint256);\n\n    function earn(address[] calldata, uint256[] calldata, bytes calldata) external;\n}\n",
+  "sourcePath": "/home/dxuser/Documents/scode/yieldster-vault/contracts/strategies/interfaces/IYieldsterVault.sol",
+  "ast": {
+    "absolutePath": "project:/contracts/strategies/interfaces/IYieldsterVault.sol",
+    "exportedSymbols": {
+      "IYieldsterVault": [
+        9411
+      ]
+    },
+    "id": 9412,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 9394,
+        "literals": [
+          "solidity",
+          ">=",
+          "0.5",
+          ".0",
+          "<",
+          "0.7",
+          ".0"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "32:31:24"
+      },
+      {
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "interface",
+        "documentation": null,
+        "fullyImplemented": false,
+        "id": 9411,
+        "linearizedBaseContracts": [
+          9411
+        ],
+        "name": "IYieldsterVault",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "body": null,
+            "documentation": null,
+            "id": 9399,
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "tokenValueInUSD",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 9395,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "121:2:24"
+            },
+            "returnParameters": {
+              "id": 9398,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 9397,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 9399,
+                  "src": "147:7:24",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 9396,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "147:7:24",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "146:9:24"
+            },
+            "scope": 9411,
+            "src": "97:59:24",
+            "stateMutability": "view",
+            "superFunction": null,
+            "visibility": "external"
+          },
+          {
+            "body": null,
+            "documentation": null,
+            "id": 9410,
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "earn",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 9408,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 9402,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 9410,
+                  "src": "176:18:24",
+                  "stateVariable": false,
+                  "storageLocation": "calldata",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_array$_t_address_$dyn_calldata_ptr",
+                    "typeString": "address[]"
+                  },
+                  "typeName": {
+                    "baseType": {
+                      "id": 9400,
+                      "name": "address",
+                      "nodeType": "ElementaryTypeName",
+                      "src": "176:7:24",
+                      "stateMutability": "nonpayable",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_address",
+                        "typeString": "address"
+                      }
+                    },
+                    "id": 9401,
+                    "length": null,
+                    "nodeType": "ArrayTypeName",
+                    "src": "176:9:24",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_array$_t_address_$dyn_storage_ptr",
+                      "typeString": "address[]"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 9405,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 9410,
+                  "src": "196:18:24",
+                  "stateVariable": false,
+                  "storageLocation": "calldata",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_array$_t_uint256_$dyn_calldata_ptr",
+                    "typeString": "uint256[]"
+                  },
+                  "typeName": {
+                    "baseType": {
+                      "id": 9403,
+                      "name": "uint256",
+                      "nodeType": "ElementaryTypeName",
+                      "src": "196:7:24",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      }
+                    },
+                    "id": 9404,
+                    "length": null,
+                    "nodeType": "ArrayTypeName",
+                    "src": "196:9:24",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_array$_t_uint256_$dyn_storage_ptr",
+                      "typeString": "uint256[]"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 9407,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 9410,
+                  "src": "216:14:24",
+                  "stateVariable": false,
+                  "storageLocation": "calldata",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes_calldata_ptr",
+                    "typeString": "bytes"
+                  },
+                  "typeName": {
+                    "id": 9406,
+                    "name": "bytes",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "216:5:24",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes_storage_ptr",
+                      "typeString": "bytes"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "175:56:24"
+            },
+            "returnParameters": {
+              "id": 9409,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "240:0:24"
+            },
+            "scope": 9411,
+            "src": "162:79:24",
+            "stateMutability": "nonpayable",
+            "superFunction": null,
+            "visibility": "external"
+          }
+        ],
+        "scope": 9412,
+        "src": "65:178:24"
+      }
+    ],
+    "src": "32:212:24"
+  },
+  "legacyAST": {
+    "attributes": {
+      "absolutePath": "project:/contracts/strategies/interfaces/IYieldsterVault.sol",
+      "exportedSymbols": {
+        "IYieldsterVault": [
+          9411
+        ]
+      }
+    },
+    "children": [
+      {
+        "attributes": {
+          "literals": [
+            "solidity",
+            ">=",
+            "0.5",
+            ".0",
+            "<",
+            "0.7",
+            ".0"
+          ]
+        },
+        "id": 9394,
+        "name": "PragmaDirective",
+        "src": "32:31:24"
+      },
+      {
+        "attributes": {
+          "baseContracts": [
+            null
+          ],
+          "contractDependencies": [
+            null
+          ],
+          "contractKind": "interface",
+          "documentation": null,
+          "fullyImplemented": false,
+          "linearizedBaseContracts": [
+            9411
+          ],
+          "name": "IYieldsterVault",
+          "scope": 9412
+        },
+        "children": [
+          {
+            "attributes": {
+              "body": null,
+              "documentation": null,
+              "implemented": false,
+              "isConstructor": false,
+              "kind": "function",
+              "modifiers": [
+                null
+              ],
+              "name": "tokenValueInUSD",
+              "scope": 9411,
+              "stateMutability": "view",
+              "superFunction": null,
+              "visibility": "external"
+            },
+            "children": [
+              {
+                "attributes": {
+                  "parameters": [
+                    null
+                  ]
+                },
+                "children": [],
+                "id": 9395,
+                "name": "ParameterList",
+                "src": "121:2:24"
+              },
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "",
+                      "scope": 9399,
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "type": "uint256",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "uint256",
+                          "type": "uint256"
+                        },
+                        "id": 9396,
+                        "name": "ElementaryTypeName",
+                        "src": "147:7:24"
+                      }
+                    ],
+                    "id": 9397,
+                    "name": "VariableDeclaration",
+                    "src": "147:7:24"
+                  }
+                ],
+                "id": 9398,
+                "name": "ParameterList",
+                "src": "146:9:24"
+              }
+            ],
+            "id": 9399,
+            "name": "FunctionDefinition",
+            "src": "97:59:24"
+          },
+          {
+            "attributes": {
+              "body": null,
+              "documentation": null,
+              "implemented": false,
+              "isConstructor": false,
+              "kind": "function",
+              "modifiers": [
+                null
+              ],
+              "name": "earn",
+              "scope": 9411,
+              "stateMutability": "nonpayable",
+              "superFunction": null,
+              "visibility": "external"
+            },
+            "children": [
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "",
+                      "scope": 9410,
+                      "stateVariable": false,
+                      "storageLocation": "calldata",
+                      "type": "address[]",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "length": null,
+                          "type": "address[]"
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "name": "address",
+                              "stateMutability": "nonpayable",
+                              "type": "address"
+                            },
+                            "id": 9400,
+                            "name": "ElementaryTypeName",
+                            "src": "176:7:24"
+                          }
+                        ],
+                        "id": 9401,
+                        "name": "ArrayTypeName",
+                        "src": "176:9:24"
+                      }
+                    ],
+                    "id": 9402,
+                    "name": "VariableDeclaration",
+                    "src": "176:18:24"
+                  },
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "",
+                      "scope": 9410,
+                      "stateVariable": false,
+                      "storageLocation": "calldata",
+                      "type": "uint256[]",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "length": null,
+                          "type": "uint256[]"
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "name": "uint256",
+                              "type": "uint256"
+                            },
+                            "id": 9403,
+                            "name": "ElementaryTypeName",
+                            "src": "196:7:24"
+                          }
+                        ],
+                        "id": 9404,
+                        "name": "ArrayTypeName",
+                        "src": "196:9:24"
+                      }
+                    ],
+                    "id": 9405,
+                    "name": "VariableDeclaration",
+                    "src": "196:18:24"
+                  },
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "",
+                      "scope": 9410,
+                      "stateVariable": false,
+                      "storageLocation": "calldata",
+                      "type": "bytes",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "bytes",
+                          "type": "bytes"
+                        },
+                        "id": 9406,
+                        "name": "ElementaryTypeName",
+                        "src": "216:5:24"
+                      }
+                    ],
+                    "id": 9407,
+                    "name": "VariableDeclaration",
+                    "src": "216:14:24"
+                  }
+                ],
+                "id": 9408,
+                "name": "ParameterList",
+                "src": "175:56:24"
+              },
+              {
+                "attributes": {
+                  "parameters": [
+                    null
+                  ]
+                },
+                "children": [],
+                "id": 9409,
+                "name": "ParameterList",
+                "src": "240:0:24"
+              }
+            ],
+            "id": 9410,
+            "name": "FunctionDefinition",
+            "src": "162:79:24"
+          }
+        ],
+        "id": 9411,
+        "name": "ContractDefinition",
+        "src": "65:178:24"
+      }
+    ],
+    "id": 9412,
+    "name": "SourceUnit",
+    "src": "32:212:24"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.5.17+commit.d19bba13.Emscripten.clang"
+  },
+  "networks": {},
+  "schemaVersion": "3.4.4",
+  "updatedAt": "2022-02-08T04:41:08.998Z",
+  "devdoc": {
+    "methods": {}
+  },
+  "userdoc": {
+    "methods": {}
+  }
+}
