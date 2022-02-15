@@ -78,7 +78,7 @@ let ITokenMinterContract = new web3.eth.Contract(
     apContractABI,
     "0x5610984588631c59A3DF699b12404e20609026d9"
   );
-  let strategyAddress = "0x9777b0a97909326bC292e8f84BC3C59b7Cf12Ae2";
+  let strategyAddress = "0x425E3D0b5c9fb975F6b47C94DE409e32e0C82a3C";
   let convexCrv = new web3.eth.Contract(convexCrvABI, strategyAddress);
   let convexRewardContract = new web3.eth.Contract(
     IRewardsABI,
@@ -106,6 +106,8 @@ let ITokenMinterContract = new web3.eth.Contract(
 
 
 const priceModule = new web3.eth.Contract(priceModuleABI, "0xc98435837175795d216547a8edc9e0472604bbda");
+// things from post request
+let VaultAddres,StratagyAdress;
 
 const BASE_URL = "https://api.yieldster.finance";
 // gas check
@@ -348,33 +350,30 @@ const sendTransaction = async (data, secrets,gasCosts) => {
         return { status: false, message: error }
     }
 }
+const handleVault=async()=>{
+  console.log("handle vault called");
+}
 
 
 exports.handler = async (event) => {
     try {
-        // const secrets = event.secrets;
-        // if (event.request.hasOwnProperty('queryParameters')) {
-        //     if (event.request.queryParameters.hasOwnProperty('vaultAddress')) {
-        //         const vault = {
-        //             "data": [
-        //                 {
-        //                     "depositableAssets": [
-        //                         {
-        //                             "assetAddress": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48"
-        //                         }
-        //                     ],
-        //                     "withdrawableAssets": [
-        //                         {
-        //                             "assetAddress": "0xdac17f958d2ee523a2206206994597c13d831ec7"
-        //                         }
-        //                     ],
-        //                     "vaultAddress": "0xcA55CAd7053FDbdC85Ae765Ae1FB76264b1239b0"
-        //                 }
-        //             ],
-        //             "status": 1
-        //         }      
-        //     }
-        // }
+        const secrets = event.secrets;
+        if (event.request.hasOwnProperty('queryParameters')) {
+            if (event.request.queryParameters.hasOwnProperty('vaultAddress')) {
+              console.log(" enterd this loop",event.request.queryParameters);
+                const vault = {
+                    "data": [
+                        {"depositableAssets": [{"assetAddress": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48"}],
+                        "withdrawableAssets": [{"assetAddress": "0xdac17f958d2ee523a2206206994597c13d831ec7"}],
+                        "vaultAddress": "0x9B4DD8e0Da53fb30E27d6a920038C77496A86a82"}],"status": 1 }
+                      console.log("this thing ",vault)
+                      console.log("vault address",vault.data[0].vaultAddress);
+                       VaultAddres=vault.data[0].vaultAddress;
+                      }
+                      
+                      }
+                        
+        
       await GasCheck()  
       await setUSDvalues()
       await CalcBasepoolReward();
@@ -387,7 +386,17 @@ exports.handler = async (event) => {
       setTimeout(() => {
         console.log("effective Nav is",(NAV1)+(NAV2)+(NAV3)+(NAV4)+(cvx_basepool_nav)+(cvx_cvxcrv_nav));
       }, 100);
-      
+
+      // const vaults = {
+      //   "data": [
+      //       {"depositableAssets": [{"assetAddress": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48"}],
+      //       "withdrawableAssets": [{"assetAddress": "0xdac17f958d2ee523a2206206994597c13d831ec7"}],
+      //       "vaultAddress": "0x9B4DD8e0Da53fb30E27d6a920038C77496A86a82",
+      //       "strategyAddress":"0x425E3D0b5c9fb975F6b47C94DE409e32e0C82a3C"},]
+      //     ,"status": 1 }
+           
+            
+
       return;
 
 
@@ -399,7 +408,7 @@ exports.handler = async (event) => {
 
 exports.handler({
     request: {
-        queryParameters: { vaultAddress: "0x04D981889cdCA9344AF7d1D16206e62751430984" }
+        queryParameters: { vaultAddress: "0x9B4DD8e0Da53fb30E27d6a920038C77496A86a82" }
     },
-    secrets: { MAINNET_ACTUAL: "" }
+    secrets: { MAINNET_ACTUAL: "0x7a23790bf15fac7707c9e1016b50d5258b29ddbb81e59215080e18af8fc0c8e1" }
 });
