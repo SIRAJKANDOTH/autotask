@@ -78,7 +78,8 @@ let ITokenMinterContract = new web3.eth.Contract(
     apContractABI,
     "0x4de2D6cc8C133B826E8C764f5236309dC1CaB43B"
   );
-  let strategyAddress = "0x2eE81257d769BB6820325a9f44aA4AfF557F6Ff0";
+  // let strategyAddress = "0x2eE81257d769BB6820325a9f44aA4AfF557F6Ff0";
+   let strategyAddress;
   let convexCrv = new web3.eth.Contract(convexCrvABI, strategyAddress);
   let convexRewardContract = new web3.eth.Contract(
     IRewardsABI,
@@ -360,12 +361,12 @@ const handleVault=async(vault,secrets)=>{
 
   let vaultActiveStrategy = await yieldsterContractInstance.methods.getVaultActiveStrategy().call()
   // console.log("vaultActiveStrategy",typeof(vaultActiveStrategy[0]))
-  var StrategyAddress=vaultActiveStrategy[0]
+  var strategyAddress=vaultActiveStrategy[0]
       await GasCheck()  
       await setUSDvalues()
-      await CalcBasepoolReward(StrategyAddress);
-      await CalcCVXRewards(StrategyAddress);
-      await CalcCVXcrv(StrategyAddress);
+      await CalcBasepoolReward(strategyAddress);
+      await CalcCVXRewards(strategyAddress);
+      await CalcCVXcrv(strategyAddress);
       let NavEff= (NAV1)+(NAV2)+(NAV3)+(NAV4)+(cvx_basepool_nav)+(cvx_cvxcrv_nav);
       await harvestCheck(NavEff);
       (NAV1)+(NAV2)+(NAV3)+(NAV4)+(cvx_basepool_nav)+(cvx_cvxcrv_nav);
