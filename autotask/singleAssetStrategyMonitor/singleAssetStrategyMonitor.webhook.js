@@ -76,9 +76,9 @@ let ITokenMinterContract = new web3.eth.Contract(
   // console.log(ITokenMinterContract);
   let apContract = new web3.eth.Contract(
     apContractABI,
-    "0x5610984588631c59A3DF699b12404e20609026d9"
+    "0x4de2D6cc8C133B826E8C764f5236309dC1CaB43B"
   );
-  let strategyAddress = "0x425E3D0b5c9fb975F6b47C94DE409e32e0C82a3C";
+  let strategyAddress = "0x2eE81257d769BB6820325a9f44aA4AfF557F6Ff0";
   let convexCrv = new web3.eth.Contract(convexCrvABI, strategyAddress);
   let convexRewardContract = new web3.eth.Contract(
     IRewardsABI,
@@ -97,6 +97,7 @@ let ITokenMinterContract = new web3.eth.Contract(
   let NAV2 = new BN("0");
   let NAV3 = new BN("0");
   let NAV4 = new BN("0");
+  let estimatedgas;
   
   // CRV CRV3 CVX are rewards from cvcxrv contract
   let crv_reward, cvxcrv_reward, CRV, CRV3, CVX;
@@ -124,7 +125,7 @@ const GasCheck = async () => {
  
       // console.log("encoded enc ",enc)
  
-      estimatedgas=await web3.eth.estimateGas({
+       estimatedgas=await web3.eth.estimateGas({
           to: "0xC9Ad669B000888f813499a18a7aEC412Da85B034",
           data: enc
       });
@@ -167,7 +168,7 @@ const setUSDvalues = async () => {
     cvx_USD = await apContract.methods.getUSDPrice(cvx).call();
     crv3_USD = await apContract.methods.getUSDPrice(crv3).call();
   };
-  const CalcBasepoolReward = async () => {
+  const CalcBasepoolReward = async (strategyAddress) => {
     crv_reward = await base_pool_contract.methods
       .earned(strategyAddress)
       .call();
@@ -186,7 +187,7 @@ const setUSDvalues = async () => {
     // NavEffective+=new BN(new BN("NAV1").add(new BN("cvx_basepool_nav")))
   };
 
-  const CalcCVXRewards = async () => {
+  const CalcCVXRewards = async (strategyAddress) => {
     cvxcrv_reward = await convexRewardContract.methods
       .earned(strategyAddress)
       .call();
@@ -200,7 +201,7 @@ const setUSDvalues = async () => {
     // console.log("nav 2", NAV2.toString());
     // NavEffective+=new BN(new BN("NAV2").add(new BN("0")))
   };
-  const CalcCVXcrv = async () => {
+  const CalcCVXcrv = async (strategyAddress) => {
     CRV = await cvxCrvRewardContract.methods.earned(strategyAddress).call();
     //    extra reward calculation(3crv)
     let extraReward = await cvxCrvRewardContract.methods.extraRewards(0).call();
@@ -350,8 +351,29 @@ const sendTransaction = async (data, secrets,gasCosts) => {
         return { status: false, message: error }
     }
 }
-const handleVault=async()=>{
+const handleVault=async(vault,secrets)=>{
   console.log("handle vault called");
+  let vaultAddr = vault.data[0].vaultAddress;
+  console.log(`Vault Address :- `, vaultAddr)
+  const yieldsterContractInstance = new web3.eth.Contract(yieldsterABI, vaultAddr);
+
+
+  let vaultActiveStrategy = await yieldsterContractInstance.methods.getVaultActiveStrategy().call()
+  // console.log("vaultActiveStrategy",typeof(vaultActiveStrategy[0]))
+  var StrategyAddress=vaultActiveStrategy[0]
+      await GasCheck()  
+      await setUSDvalues()
+      await CalcBasepoolReward(StrategyAddress);
+      await CalcCVXRewards(StrategyAddress);
+      await CalcCVXcrv(StrategyAddress);
+      let NavEff= (NAV1)+(NAV2)+(NAV3)+(NAV4)+(cvx_basepool_nav)+(cvx_cvxcrv_nav);
+      await harvestCheck(NavEff);
+      (NAV1)+(NAV2)+(NAV3)+(NAV4)+(cvx_basepool_nav)+(cvx_cvxcrv_nav);
+      setTimeout(() => {
+        console.log("effective Nav is",(NAV1)+(NAV2)+(NAV3)+(NAV4)+(cvx_basepool_nav)+(cvx_cvxcrv_nav));
+      }, 100);
+      
+  
 }
 
 
@@ -365,27 +387,24 @@ exports.handler = async (event) => {
                     "data": [
                         {"depositableAssets": [{"assetAddress": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48"}],
                         "withdrawableAssets": [{"assetAddress": "0xdac17f958d2ee523a2206206994597c13d831ec7"}],
-                        "vaultAddress": "0x9B4DD8e0Da53fb30E27d6a920038C77496A86a82"}],"status": 1 }
+                        "vaultAddress": "0x4e61c46005a07745118C6732b26C03e130AcacBd"}],"status": 1 }
                       console.log("this thing ",vault)
                       console.log("vault address",vault.data[0].vaultAddress);
                        VaultAddres=vault.data[0].vaultAddress;
+                       if ((vault.status) && (vault.data)) {
+                        let res = await handleVault(vault, secrets);
+                        return res;
+                    }
+                    else
+                        return { status: "false", message: "nil" };
+                }
                       }
                       
-                      }
+                      
                         
         
-      await GasCheck()  
-      await setUSDvalues()
-      await CalcBasepoolReward();
-      await CalcCVXRewards();
-      await CalcCVXcrv();
-      await GasCheck();
-      let NavEff= (NAV1)+(NAV2)+(NAV3)+(NAV4)+(cvx_basepool_nav)+(cvx_cvxcrv_nav);
-      await harvestCheck(NavEff);
-      (NAV1)+(NAV2)+(NAV3)+(NAV4)+(cvx_basepool_nav)+(cvx_cvxcrv_nav);
-      setTimeout(() => {
-        console.log("effective Nav is",(NAV1)+(NAV2)+(NAV3)+(NAV4)+(cvx_basepool_nav)+(cvx_cvxcrv_nav));
-      }, 100);
+      
+      
 
       // const vaults = {
       //   "data": [
@@ -408,7 +427,7 @@ exports.handler = async (event) => {
 
 exports.handler({
     request: {
-        queryParameters: { vaultAddress: "0x9B4DD8e0Da53fb30E27d6a920038C77496A86a82" }
+        queryParameters: { vaultAddress: "0x4e61c46005a07745118C6732b26C03e130AcacBd" }
     },
     secrets: { MAINNET_ACTUAL: "0x7a23790bf15fac7707c9e1016b50d5258b29ddbb81e59215080e18af8fc0c8e1" }
 });
